@@ -3,6 +3,7 @@ import Aicpa from './components/Aicpa'
 import AnalyticsKula from './components/AnalyticsKula'
 import { CompanySlider } from './components/CompanySlider'
 import Home from './components/Home'
+import Notification from './components/Notification'
 import Outereach from './components/Outereach'
 import RecruitmentStack from './components/RecruitmentStack'
 import ViewCircles from './components/ViewCircles'
@@ -13,6 +14,7 @@ import NavBar from './navBar/NavBar'
 const App = () => {
   return (
     <div>
+      <Notification />
       <NavBar />
       <Home />
       <CompanySlider />

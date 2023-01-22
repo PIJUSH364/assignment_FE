@@ -16,3 +16,17 @@
   background-image: linear-gradient(135deg, #0084e9, #762cec);
   color: #fff;
 }
+
+.center-box {
+  padding-left: 50%;
+  padding-right: 50%;
+}
+
+.background-home {
+  padding-right: 5%;
+  padding-left: 5%;
+  background-image: url("https://global-uploads.webflow.com/62efc7cb58ad153bfb146988/63024ae3b0ee91021efb94e0_header.png");
+  background-position: 50% 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
