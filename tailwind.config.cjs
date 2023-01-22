@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  purge:[],
+  // purge:[],
   darkMode:"media",
   content: ["./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",],

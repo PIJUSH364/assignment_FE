@@ -1,16 +1,32 @@
-import { Route, Routes } from "react-router-dom"
-import Lac_03 from "./components/utility_first/Lac_03"
-import Home from "./Home"
+import React from 'react'
+import Aicpa from './components/Aicpa'
+import AnalyticsKula from './components/AnalyticsKula'
+import { CompanySlider } from './components/CompanySlider'
+import Home from './components/Home'
+import Outereach from './components/Outereach'
+import RecruitmentStack from './components/RecruitmentStack'
+import ViewCircles from './components/ViewCircles'
+import WhyKula from './components/WhyKula'
+import Footer from './footer/Footer'
+import NavBar from './navBar/NavBar'
 
-function App() {
-
+const App = () => {
   return (
-    <>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="utility" element={<Lac_03 />}/>
-      </Routes>
-    </>
+    <div>
+      <NavBar />
+      <Home />
+      <CompanySlider />
+      <WhyKula />
+      <Outereach />
+      {/* complex component */}
+      <ViewCircles />
+      {/* complex component */}
+      <AnalyticsKula />
+      <Aicpa />
+      <RecruitmentStack />
+      {/* textemonial */}
+      <Footer />
+    </div>
   )
 }
 
