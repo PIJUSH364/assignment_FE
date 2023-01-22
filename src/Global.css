@@ -8,3 +8,11 @@
 .text-one-zero-nine {
   color: rgb(109, 109, 109);
 }
+
+.bg-one-zero-nine {
+  background: rgba(109, 109, 109, 0.281);
+}
+.button-background {
+  background-image: linear-gradient(135deg, #0084e9, #762cec);
+  color: #fff;
+}
