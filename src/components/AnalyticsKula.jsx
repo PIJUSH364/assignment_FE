@@ -2,8 +2,8 @@ import React from 'react'
 
 const AnalyticsKula = () => {
     return (
-        <div className='text-center md:p-24 p-5 '>
-            <div className='flex md:flex-row flex-col justify-center gap-14 pt-20 '>
+        <div className='text-center md:p-24 p-10 '>
+            <div className='flex  lg:flex-row flex-col justify-center gap-14 pt-20 '>
                 {/* multiple img src add on this file */}
                 <div >
                     <img className='pb-12 ' src="https://global-uploads.webflow.com/62efc7cb58ad153bfb146988/630784570e9cb4b078b04708_analytics-p-800.png" alt="img-left" loading='lazy' />

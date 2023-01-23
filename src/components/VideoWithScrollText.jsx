@@ -30,7 +30,7 @@ const VideoWithScrollText = () => {
 
                 {/* sub-section-one */}
                 <div className='card 0 lg:pb-40 pb-10 '>
-                    <p className='font-bold text-3xl pb-3 text-purple-600'>Kula Outreach</p>
+                    <p className='font-bold text-3xl pb-3 text-liner-gradient'>Kula Outreach</p>
                     <div className='hidden lg:block'>
                         <p className='font-extrabold text-5xl pb-3'>Automated </p>
                         <p className='font-extrabold text-5xl pb-3'>Candidate </p>
@@ -58,14 +58,14 @@ const VideoWithScrollText = () => {
                 </div>
                 {/* sub-section-two */}
                 <div className='card 1 lg:pb-40 pb-10 '>
-                    <p className='font-bold text-3xl pb-3 text-purple-600'>Kula Outreach</p>
+                    <p className='font-bold text-3xl pb-3 text-liner-gradient'>Kula Outreach</p>
                     <div className='hidden lg:block'>
                         <p className='font-extrabold text-5xl pb-3'>Personalized </p>
                         <p className='font-extrabold text-5xl pb-3'>Candidate Reach</p>
                         <p className='font-extrabold text-5xl pb-6'>Outs</p>
                     </div>
                     <div className='lg:hidden block'>
-                        <p className='text-one-zero-nine tracking-wide text-lg pb-8'>Personalized Candidate Reach Outs</p>
+                        <p className='font-extrabold text-4xl pb-6 tracking-wide leading-snug'>Personalized Candidate Reach Outs</p>
                     </div>
                     <p className='text-one-zero-nine tracking-wide text-lg pb-8'>No more spray and pray. Ensure 1:1 communication to all of your connections through dynamic personalization capabilities</p>
                     {/* mobile device only */}
@@ -84,14 +84,14 @@ const VideoWithScrollText = () => {
                 </div>
                 {/* sub-section-three */}
                 <div className='card 2 lg:pb-40 pb-10 '>
-                    <p className='font-bold text-3xl pb-3 text-purple-600'>Kula Outreach</p>
+                    <p className='font-bold text-3xl pb-3 text-liner-gradient'>Kula Outreach</p>
                     <div className='hidden lg:block'>
                         <p className='font-extrabold text-5xl pb-3'>Reach out on</p>
                         <p className='font-extrabold text-5xl pb-3'>channels</p>
                         <p className='font-extrabold text-5xl pb-6'>candidates prefer</p>
                     </div>
                     <div className='lg:hidden block'>
-                        <p className='text-one-zero-nine tracking-wide text-lg pb-8'>Reach out on channels candidates prefer</p>
+                        <p className='font-extrabold text-4xl pb-6 tracking-wide leading-snug'>Reach out on channels candidates prefer</p>
                     </div>
                     <p className='text-one-zero-nine tracking-wide text-lg pb-8'>Devise multichannel engagement flows with email, LinkedIn requests, and InMails.</p>
                     {/* mobile device only */}

@@ -12,14 +12,14 @@ const MultiplwVdoWithText = () => {
             <div className='lg:w-3/6  text-left overflow-y-scroll no-scrollbar overflow-auto '>
                 {/* sub-section-one */}
                 <div className='lg:pb-40 pb-10 '>
-                    <p className='font-bold text-3xl pb-3 text-purple-600'>Kula Circles</p>
+                    <p className='font-bold text-3xl pb-3 text-liner-gradient'>Kula Circles</p>
                     <div className='hidden lg:block'>
                         <p className='font-extrabold text-5xl pb-3'>Get referral </p>
                         <p className='font-extrabold text-5xl pb-3'>introductions in</p>
                         <p className='font-extrabold text-5xl pb-6'>one-click</p>
                     </div>
                     <div className='lg:hidden block'>
-                        <p className='text-one-zero-nine tracking-wide text-lg pb-8'>Get referral introductions in one-click</p>
+                        <p className='font-extrabold text-4xl pb-6 tracking-wide leading-snug'>Get referral introductions in one-click</p>
                     </div>
                     <p className='text-one-zero-nine tracking-wide text-lg pb-8'>Bring all your employee networks spread across LinkedIn, Gmail, and spreadsheets, together on one single platform. Apply advanced filters and mine for best-fit candidates.</p>
 
@@ -39,14 +39,14 @@ const MultiplwVdoWithText = () => {
                 </div>
                 {/* sub-section-two */}
                 <div className=' lg:pb-40 pb-10 '>
-                    <p className='font-bold text-3xl pb-3 text-purple-600'>Kula Circles</p>
+                    <p className='font-bold text-3xl pb-3 text-liner-gradient'>Kula Circles</p>
                     <div className='hidden lg:block'>
                         <p className='font-extrabold text-5xl pb-3'>Get referral </p>
                         <p className='font-extrabold text-5xl pb-3'>introductions in</p>
                         <p className='font-extrabold text-5xl pb-6'>one-click</p>
                     </div>
                     <div className='lg:hidden block'>
-                        <p className='text-one-zero-nine tracking-wide text-lg pb-8'>Transparency for the referrers</p>
+                        <p className='font-extrabold text-4xl pb-6 tracking-wide leading-snug'>Transparency for the referrers</p>
                     </div>
                     <p className='text-one-zero-nine tracking-wide text-lg pb-8'>TRequest referrals and get introductions in one smooth flow. Fewer follow-ups, more referrals, faster hires.</p>
                     {/* mobile device only */}
@@ -65,13 +65,13 @@ const MultiplwVdoWithText = () => {
                 </div>
                 {/* sub-section-three */}
                 <div className=' lg:pb-40 pb-10 '>
-                    <p className='font-bold text-3xl pb-3 text-purple-600'>Kula Circles</p>
+                    <p className='font-bold text-3xl pb-3 text-liner-gradient'>Kula Circles</p>
                     <div className='hidden lg:block'>
                         <p className='font-extrabold text-5xl pb-3'>Transparency for</p>
                         <p className='font-extrabold text-5xl pb-3'>the referrers</p>
                     </div>
                     <div className='lg:hidden block'>
-                        <p className='text-one-zero-nine tracking-wide text-lg pb-8'>Transparency for the referrers</p>
+                        <p className='font-extrabold text-4xl pb-6 tracking-wide leading-snug'>Transparency for the referrers</p>
                     </div>
                     <p className='text-one-zero-nine tracking-wide text-lg pb-8'>The referrers know how their referrals are faring at each stage of the hiring process. Adding more accountability, and reducing reverse follow-ups for a better overall experience.</p>
 
