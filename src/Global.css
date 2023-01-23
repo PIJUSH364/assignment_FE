@@ -30,3 +30,25 @@
   background-size: cover;
   background-repeat: no-repeat;
 }
+
+.home-video-section {
+  background-image: url("https://i.vimeocdn.com/video/1523939837-409fd28fc27eada34b75912d18481f4bb5c9a04a477de2c4d419bae2a07ba076-d?mw=1100&mh=619");
+}
+
+/* .menu-item:hover span i {
+  transition-duration: 1s;
+} */
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.height-ch {
+  height: 60vw;
+}

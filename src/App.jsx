@@ -3,9 +3,12 @@ import Aicpa from './components/Aicpa'
 import AnalyticsKula from './components/AnalyticsKula'
 import { CompanySlider } from './components/CompanySlider'
 import Home from './components/Home'
+import MultiplwVdoWithText from './components/MultiplwVdoWithText'
 import Notification from './components/Notification'
 import Outereach from './components/Outereach'
 import RecruitmentStack from './components/RecruitmentStack'
+import Testimonial from './components/Testimonial'
+import VideoWithScrollText from './components/VideoWithScrollText'
 import ViewCircles from './components/ViewCircles'
 import WhyKula from './components/WhyKula'
 import Footer from './footer/Footer'
@@ -20,13 +23,13 @@ const App = () => {
       <CompanySlider />
       <WhyKula />
       <Outereach />
-      {/* complex component */}
+      <VideoWithScrollText />
       <ViewCircles />
-      {/* complex component */}
+      <MultiplwVdoWithText />
       <AnalyticsKula />
       <Aicpa />
       <RecruitmentStack />
-      {/* textemonial */}
+      <Testimonial />
       <Footer />
     </div>
   )

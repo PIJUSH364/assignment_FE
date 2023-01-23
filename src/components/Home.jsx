@@ -14,6 +14,15 @@ const Home = () => {
                 </div>
             </div>
 
+
+            <div>
+                {/* video add */}
+                <iframe frameborder="0">
+                    <video src="https://i.vimeocdn.com/video/1523939837-409fd28fc27eada34b75912d18481f4bb5c9a04a477de2c4d419bae2a07ba076-d?mw=1100&mh=619" >
+                    </video>
+                </iframe>
+            </div>
+
         </div>
     )
 }
