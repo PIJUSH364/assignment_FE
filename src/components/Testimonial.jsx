@@ -30,7 +30,7 @@ const Testimonial = () => {
         }, 5000);
     }
     useEffect(() => {
-        autoPlay();
+        // autoPlay();
     }, [current])
 
     return (

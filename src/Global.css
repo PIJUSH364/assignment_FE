@@ -51,10 +51,21 @@
   scrollbar-width: none; /* Firefox */
 }
 
-.height-ch {
-  height: 60vw;
-}
-
 .box-shadow-icon {
   box-shadow: 1px 2px 4px 1px #c1a6a6;
+}
+.rounder-video {
+  border-radius: 3.8rem;
+}
+video {
+  height: 300px;
+}
+.height-ch {
+  height: 95vh;
+}
+
+@media only screen and (max-width: 768px) {
+  .height-ch {
+    height: auto;
+  }
 }

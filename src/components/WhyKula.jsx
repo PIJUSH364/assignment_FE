@@ -2,7 +2,7 @@ import React from 'react'
 
 const WhyKula = () => {
     return (
-        <div className='text-center md:p-24 p-5 '>
+        <div className='text-center md:p-24 p-5  py-32 '>
             <h1 className='font-extrabold text-5xl pb-3'>Your talent pipeline isn’t a</h1>
             <h1 className='font-extrabold text-5xl pb-3'>pipe dream anymore</h1>
             <div className='flex md:flex-row flex-col justify-center gap-14 pt-20'>

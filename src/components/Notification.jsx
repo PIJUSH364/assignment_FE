@@ -4,7 +4,7 @@ const Notification = () => {
     const [status, setStatus] = useState(true);
     const display = status ? "flex" : "none";
     return (
-        <div className='flex flex-col gap-y-5 md:flex-row bg-slate-700 text-white  md:justify-between md:items-center p-3 py-8 px-8' style={{
+        <div className='box-border flex flex-col gap-y-5 md:flex-row bg-slate-700 text-white  md:justify-between md:items-center md:p-3 p-6' style={{
             display
         }}>
             <p>🚀 Your support took us to the Top and made us Product of the Day. Thanks! 🎉</p>

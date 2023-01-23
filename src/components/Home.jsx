@@ -1,11 +1,39 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import ButtonCommon from './common/ButtonCommon'
 
 const Home = () => {
+    const textInOut = document.querySelector(".textInOut")
+
+
+    useEffect(() => {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("scale-150");
+                    entry.target.classList.add("opacity-80");
+
+                    setTimeout(() => {
+                        entry.target.classList.remove("opacity-80");
+                        entry.target.classList.remove("scale-150");
+                    }, 700);
+                }
+            });
+
+        }, {
+            threshold: 0.5
+        });
+        setTimeout(() => {
+            observer.observe(textInOut);
+        }, 10000);
+    }, [textInOut])
+
     return (
-        <div className='background-home text-white  text-center md:p-24 p-5 pt-32'>
-            <h1 className='text-6xl font-semibold pb-2'>Your recruitment stack </h1>
-            <h1 className='text-6xl font-semibold pb-8'>needs a raise</h1>
+        <div className='background-home text-white  text-center md:p-24 p-5 pt-32 box-border overflow-x-hidden'>
+            <div className='duration-700 textInOut '>
+                <h1 className='text-6xl font-semibold pb-2 '>Your recruitment stack </h1>
+                <h1 className='text-6xl font-semibold pb-8 '>needs a raise</h1>
+            </div>
+
             <p className='text-lg font-normal pb-8'>Kula is a recruitment automation platform that lets you proactively reach out and engage with the top talent everywhere. With Kula, you have complete control, visibility, and predictability on your entire talent pipeline.</p>
             <div className='md:flex justify-center'>
                 <div className='flex flex-col md:flex-row gap-3 pb-1 md:w-2/4 '>

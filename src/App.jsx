@@ -8,15 +8,22 @@ import Notification from './components/Notification'
 import Outereach from './components/Outereach'
 import RecruitmentStack from './components/RecruitmentStack'
 import Testimonial from './components/Testimonial'
+import Video from './components/Video'
 import VideoWithScrollText from './components/VideoWithScrollText'
 import ViewCircles from './components/ViewCircles'
 import WhyKula from './components/WhyKula'
 import Footer from './footer/Footer'
 import NavBar from './navBar/NavBar'
+import PlayInLineVideo from './components/PlayInLineVideo'
+import { videoLinks } from './components/common/videoLinks'
+import Observer from './components/Observer'
 
 const App = () => {
   return (
-    <div>
+    <div className='box-border'>
+      {/* <Observer /> */}
+      {/* <PlayInLineVideo videos={videoLinks} /> */}
+      {/* <Video /> */}
       <Notification />
       <NavBar />
       <Home />

@@ -4,9 +4,9 @@ const Slide = ({ img, logo, description, name, subtitle }) => {
 
     return (
         <>
-            <div className='flex flex-col md:flex-row gap-14 items-center'>
+            <div className='flex flex-col lg:flex-row gap-14 items-center'>
                 {/* left */}
-                <img className='md:w-1/2' src={img} alt="greenhouse-logo" />
+                <img className='lg:w-1/2' src={img} alt="greenhouse-logo" />
                 {/* right */}
                 <div>
                     <p className='pb-14  tracking-wide text-xl '>"{description}"</p>
@@ -16,7 +16,7 @@ const Slide = ({ img, logo, description, name, subtitle }) => {
                             <p className='text-one-zero-nine-t '>{subtitle}</p>
                         </div>
                         <div className='w-px bg-black'></div>
-                        <img className='md:w-60 w-28' src={logo} alt="greenhouse-logo" />
+                        <img className='lg:w-60 w-28' src={logo} alt="greenhouse-logo" />
                     </div>
                 </div>
             </div>
