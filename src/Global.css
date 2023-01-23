@@ -8,7 +8,9 @@
 .text-one-zero-nine {
   color: rgb(109, 109, 109);
 }
-
+.text-one-zero-nine-t {
+  color: rgba(0, 0, 0, 0.781);
+}
 .bg-one-zero-nine {
   background: rgba(109, 109, 109, 0.281);
 }
