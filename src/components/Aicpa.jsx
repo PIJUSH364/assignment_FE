@@ -2,7 +2,7 @@ import React from 'react'
 
 const Aicpa = () => {
     return (
-        <div className='p-24 flex flex-col items-center'>
+        <div className='md:p-24 p-5 flex flex-col items-center'>
 
             <img className='w-60 pb-10' src="https://global-uploads.webflow.com/62efc7cb58ad153bfb146988/630752a7b57278d2875efd5c_soc2.svg" alt="logo" />
 

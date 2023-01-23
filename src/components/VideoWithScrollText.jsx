@@ -2,7 +2,7 @@ import React from 'react'
 
 const VideoWithScrollText = () => {
     return (
-        <div className='bg-gray-5000 flex flex-row p-24 gap-10 height-ch '>
+        <div className='bg-gray-5000 flex flex-row md:p-24 p-5 gap-10 height-ch '>
 
             {/* side-left */}
             <div className='w-1/3 text-left overflow-y-scroll no-scrollbar overflow-auto'>

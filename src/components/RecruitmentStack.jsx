@@ -2,7 +2,7 @@ import React from 'react'
 
 const RecruitmentStack = () => {
     return (
-        <div className='flex   p-24 items-center gap-9 flex-col  md:flex-row'>
+        <div className='flex   md:p-24 p-5 items-center gap-9 flex-col  md:flex-row'>
             <div className='text-left  md:w-1/2 '>
                 <h1 className='font-extrabold text-5xl pb-3'>Plays well with your </h1>
                 <h1 className='font-extrabold text-5xl pb-8'>recruitment stack</h1>
