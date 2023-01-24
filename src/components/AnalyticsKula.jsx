@@ -2,7 +2,7 @@ import React from 'react'
 
 const AnalyticsKula = () => {
     return (
-        <div className='text-center md:p-24 p-10 '>
+        <div className='text-center md:p-24 p-10 pb-36 '>
             <div className='flex  lg:flex-row flex-col justify-center gap-14 pt-20 '>
                 {/* multiple img src add on this file */}
                 <div >

@@ -1,11 +1,14 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useRef } from 'react';
 import ButtonCommon from './common/ButtonCommon'
 
 const Home = () => {
-    const textInOut = document.querySelector(".textInOut")
-
-
+    const [element, setElement] = useState(null);
+    const elementRef = useRef();
+    
     useEffect(() => {
+        setElement(elementRef.current);
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
@@ -15,21 +18,28 @@ const Home = () => {
                     setTimeout(() => {
                         entry.target.classList.remove("opacity-80");
                         entry.target.classList.remove("scale-150");
+                        // only one time observe element
+                        observer.unobserve(entry.target);
                     }, 700);
+
                 }
             });
 
         }, {
-            threshold: 0.5
+            threshold: 0.8
         });
-        setTimeout(() => {
-            observer.observe(textInOut);
-        }, 10000);
-    }, [textInOut])
+
+        // element if valid then observer working otherwise none
+        element ? observer.observe(element) : null;
+
+    }, [element]);
+
 
     return (
         <div className='background-home text-white  text-center md:p-24 p-5 pt-32 box-border overflow-x-hidden'>
-            <div className='duration-700 textInOut '>
+            <div
+                ref={elementRef}
+                className='duration-700 textInOut ' >
                 <h1 className='text-6xl font-semibold pb-2 '>Your recruitment stack </h1>
                 <h1 className='text-6xl font-semibold pb-8 '>needs a raise</h1>
             </div>

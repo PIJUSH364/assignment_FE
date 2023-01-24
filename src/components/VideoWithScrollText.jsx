@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
+import { useRef } from 'react';
 import { videoLinks } from './common/videoLinks'
 
 
 const VideoWithScrollText = () => {
+    const [cardItems, setCardItems] = useState(document.querySelectorAll(".card"));
     const [indexValue, setIndexValue] = useState(0);
-    const cards = document.querySelectorAll(".card");
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
@@ -19,17 +20,22 @@ const VideoWithScrollText = () => {
         threshold: 0.6
     });
 
+    cardItems.forEach((card) => observer.observe(card));
+
     useEffect(() => {
-        cards.forEach((card) => observer.observe(card));
-    }, [indexValue])
+        setCardItems(document.querySelectorAll(".card"));
+    }, []);
+
 
     return (
-        <div className='bg-gray-5000 flex flex-col lg:flex-row lg:p-24 p-16 pb-36 gap-10 height-ch  '>
+        <div className=' flex flex-col lg:flex-row lg:p-24 p-10 pb-32 gap-10 height-ch  '>
             {/* side-left */}
             <div className='lg:w-3/6  text-left overflow-y-scroll no-scrollbar overflow-auto '>
 
                 {/* sub-section-one */}
-                <div className='card 0 lg:pb-40 pb-10 '>
+                <div
+
+                    className='card 0 lg:pb-40 pb-10 '>
                     <p className='font-bold text-3xl pb-3 text-liner-gradient'>Kula Outreach</p>
                     <div className='hidden lg:block'>
                         <p className='font-extrabold text-5xl pb-3'>Automated </p>
@@ -45,9 +51,9 @@ const VideoWithScrollText = () => {
                     {/* mobile device only */}
                     <div className='w-full h-full lg:hidden block py-8'>
                         <video
-                            src={videoLinks[1]}
+                            src={videoLinks[0]}
                             className=' min-w-full min-h-full object-cover rounder-video'
-                            preload="metadata"
+                            preload="none"
                             loop
                             autoPlay
                             playsInline
@@ -57,7 +63,9 @@ const VideoWithScrollText = () => {
                     </div>
                 </div>
                 {/* sub-section-two */}
-                <div className='card 1 lg:pb-40 pb-10 '>
+                <div
+
+                    className='card 1 lg:pb-40 pb-10 '>
                     <p className='font-bold text-3xl pb-3 text-liner-gradient'>Kula Outreach</p>
                     <div className='hidden lg:block'>
                         <p className='font-extrabold text-5xl pb-3'>Personalized </p>
@@ -71,7 +79,7 @@ const VideoWithScrollText = () => {
                     {/* mobile device only */}
                     <div className='w-full h-full lg:hidden block py-8'>
                         <video
-                            src={videoLinks[2]}
+                            src={videoLinks[1]}
                             className=' min-w-full min-h-full object-cover rounder-video'
                             preload="metadata"
                             loop
@@ -83,7 +91,8 @@ const VideoWithScrollText = () => {
                     </div>
                 </div>
                 {/* sub-section-three */}
-                <div className='card 2 lg:pb-40 pb-10 '>
+                <div
+                    className='card 2 lg:pb-40 pb-10 '>
                     <p className='font-bold text-3xl pb-3 text-liner-gradient'>Kula Outreach</p>
                     <div className='hidden lg:block'>
                         <p className='font-extrabold text-5xl pb-3'>Reach out on</p>
@@ -95,9 +104,9 @@ const VideoWithScrollText = () => {
                     </div>
                     <p className='text-one-zero-nine tracking-wide text-lg pb-8'>Devise multichannel engagement flows with email, LinkedIn requests, and InMails.</p>
                     {/* mobile device only */}
-                    <div className='w-full h-full lg:hidden block py-8'>
+                    <div className='w-full h-full lg:hidden block py-8 '>
                         <video
-                            src={videoLinks[3]}
+                            src={videoLinks[2]}
                             className=' min-w-full min-h-full object-cover rounder-video'
                             preload="metadata"
                             loop

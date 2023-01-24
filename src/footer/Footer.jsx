@@ -10,7 +10,7 @@ const Footer = () => {
                 <div className='md:w-2/5'>
                     <img className='w-16 pb-8' src="https://global-uploads.webflow.com/62efc7cb58ad153bfb146988/62f8596d5d479b7fa12e8b74_kula.svg" alt="kula-logo" />
                     <p className='text-base font-normal pb-6 text-one-zero-nine'>Join our newsletter to stay up to date on features and releases</p>
-                    <div className='flex flex-row gap-3 pb-1 w-full '>
+                    <div className='flex md:flex-row flex-col gap-3 pb-1 w-full '>
                         <input type="text" placeholder='Enter your work email' className='placeholder:text-zinc-600 flex-1 bg-neutral-900 text-white p-2 rounded-md outline-none' />
                         <ButtonCommon>Subscribe</ButtonCommon>
                     </div>
