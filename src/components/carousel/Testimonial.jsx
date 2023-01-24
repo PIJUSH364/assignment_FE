@@ -1,7 +1,6 @@
 import React, { Suspense, useEffect, useState } from 'react'
-import { sliderData } from './carousel/sliderData'
-import Test from './carousel/Test'
-const Slide = React.lazy(() => import('./common/Slide'));
+import { sliderData } from './sliderData'
+const Slide = React.lazy(() => import('../common/Slide'));
 
 
 const Testimonial = () => {
@@ -19,18 +18,13 @@ const Testimonial = () => {
         transform: isHoverRight ? 'scale(1.07)' : '',
     };
 
-    // error handealing
+    // eadge case
     if (!Array.isArray(sliderData) || length <= 0) {
         return null;
     }
-    const autoPlay = () => {
-        setTimeout(() => {
-            setCurrent(current === 0 ? length - 1 : current - 1);
-            setCurrent(current === length - 1 ? 0 : current + 1)
-        }, 5000);
-    }
+
     useEffect(() => {
-        // autoPlay();
+
     }, [current])
 
     return (
@@ -71,7 +65,7 @@ const Testimonial = () => {
             <div className="slider">
                 {
                     sliderData && sliderData.map((slide, index) =>
-                        <div key={index} className={index === current ? 'slide active' : 'slide'} >
+                        <div key={index}  >
                             {
                                 index === current && <Suspense fallback={<div>Loading...</div>}>
                                     <Slide img={slide.image} logo={slide.logo} name={slide.name} description={slide.description} subtitle={slide.subtitle} />

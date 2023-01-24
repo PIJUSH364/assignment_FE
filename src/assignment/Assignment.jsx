@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { useRef } from 'react';
-import { videoLinks } from './common/videoLinks'
+import { videoLinks } from '../components/common/videoLinks';
 
-
-const VideoWithScrollText = () => {
+export const Assignment = () => {
     const [cardItems, setCardItems] = useState(document.querySelectorAll(".card"));
     const [indexValue, setIndexValue] = useState(0);
 
@@ -25,7 +23,6 @@ const VideoWithScrollText = () => {
     useEffect(() => {
         setCardItems(document.querySelectorAll(".card"));
     }, []);
-
 
     return (
         <div className=' flex flex-col lg:flex-row lg:p-24 p-10 pb-32 gap-10 height-ch  '>
@@ -136,5 +133,3 @@ const VideoWithScrollText = () => {
         </div >
     )
 }
-
-export default VideoWithScrollText

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useRef } from 'react';
-import ButtonCommon from './common/ButtonCommon'
+import ButtonCommon from '../components/common/ButtonCommon'
 
 const Home = () => {
     const [element, setElement] = useState(null);
