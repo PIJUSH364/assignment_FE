@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { videoLinks } from '../components/common/videoLinks';
+import { VideoContainer } from '../components/common/VideoContainer';
 
 export const Assignment = () => {
     const [cardItems, setCardItems] = useState(document.querySelectorAll(".card"));
@@ -33,101 +33,65 @@ export const Assignment = () => {
                 <div
 
                     className='card 0 lg:pb-40 pb-10 '>
-                    <p className='font-bold text-3xl pb-3 text-liner-gradient'>Kula Outreach</p>
+                    <p className='title-special text-liner-gradient'>Kula Outreach</p>
                     <div className='hidden lg:block'>
-                        <p className='font-extrabold text-5xl pb-3'>Automated </p>
-                        <p className='font-extrabold text-5xl pb-3'>Candidate </p>
-                        <p className='font-extrabold text-5xl pb-6'>Follow-ups</p>
+                        <p className='tittle-one'>Automated </p>
+                        <p className='tittle-one'>Candidate </p>
+                        <p className='tittle-one pb-6'>Follow-ups</p>
                     </div>
                     <div className='lg:hidden block'>
-                        <p className='font-extrabold text-4xl pb-6 tracking-wide leading-snug'>Automated Candidate  Follow-ups</p>
+                        <p className='title-three'>Automated Candidate  Follow-ups</p>
                     </div>
 
-                    <p className='text-one-zero-nine tracking-wide text-lg pb-8'>For prospective candidates, send automated, periodic follow-ups and value-adds to nurture long-term relationships</p>
+                    <p className='lite-sub-tittle  pb-8'>For prospective candidates, send automated, periodic follow-ups and value-adds to nurture long-term relationships</p>
 
                     {/* mobile device only */}
                     <div className='w-full h-full lg:hidden block py-8'>
-                        <video
-                            src={videoLinks[0]}
-                            className=' min-w-full min-h-full object-cover rounder-video'
-                            preload="none"
-                            loop
-                            autoPlay
-                            playsInline
-                            muted={true}
-                        >
-                        </video>
+                        <VideoContainer value={0} />
                     </div>
                 </div>
                 {/* sub-section-two */}
                 <div
 
                     className='card 1 lg:pb-40 pb-10 '>
-                    <p className='font-bold text-3xl pb-3 text-liner-gradient'>Kula Outreach</p>
+                    <p className='title-special text-liner-gradient'>Kula Outreach</p>
                     <div className='hidden lg:block'>
-                        <p className='font-extrabold text-5xl pb-3'>Personalized </p>
-                        <p className='font-extrabold text-5xl pb-3'>Candidate Reach</p>
-                        <p className='font-extrabold text-5xl pb-6'>Outs</p>
+                        <p className='tittle-one'>Personalized </p>
+                        <p className='tittle-one pb-3'>Candidate Reach</p>
+                        <p className='tittle-one pb-6'>Outs</p>
                     </div>
                     <div className='lg:hidden block'>
-                        <p className='font-extrabold text-4xl pb-6 tracking-wide leading-snug'>Personalized Candidate Reach Outs</p>
+                        <p className='title-three'>Personalized Candidate Reach Outs</p>
                     </div>
-                    <p className='text-one-zero-nine tracking-wide text-lg pb-8'>No more spray and pray. Ensure 1:1 communication to all of your connections through dynamic personalization capabilities</p>
+                    <p className='lite-sub-tittle  pb-8'>No more spray and pray. Ensure 1:1 communication to all of your connections through dynamic personalization capabilities</p>
                     {/* mobile device only */}
                     <div className='w-full h-full lg:hidden block py-8'>
-                        <video
-                            src={videoLinks[1]}
-                            className=' min-w-full min-h-full object-cover rounder-video'
-                            preload="metadata"
-                            loop
-                            autoPlay
-                            playsInline
-                            muted={true}
-                        >
-                        </video>
+                        <VideoContainer value={1} />
                     </div>
                 </div>
                 {/* sub-section-three */}
                 <div
                     className='card 2 lg:pb-40 pb-10 '>
-                    <p className='font-bold text-3xl pb-3 text-liner-gradient'>Kula Outreach</p>
+                    <p className='title-special text-liner-gradient'>Kula Outreach</p>
                     <div className='hidden lg:block'>
-                        <p className='font-extrabold text-5xl pb-3'>Reach out on</p>
-                        <p className='font-extrabold text-5xl pb-3'>channels</p>
-                        <p className='font-extrabold text-5xl pb-6'>candidates prefer</p>
+                        <p className='tittle-one'>Reach out on</p>
+                        <p className='tittle-one'>channels</p>
+                        <p className='tittle-one pb-6'>candidates prefer</p>
                     </div>
                     <div className='lg:hidden block'>
-                        <p className='font-extrabold text-4xl pb-6 tracking-wide leading-snug'>Reach out on channels candidates prefer</p>
+                        <p className='title-three'>Reach out on channels candidates prefer</p>
                     </div>
-                    <p className='text-one-zero-nine tracking-wide text-lg pb-8'>Devise multichannel engagement flows with email, LinkedIn requests, and InMails.</p>
+                    <p className='lite-sub-tittle  pb-8'>Devise multichannel engagement flows with email, LinkedIn requests, and InMails.</p>
                     {/* mobile device only */}
                     <div className='w-full h-full lg:hidden block py-8 '>
-                        <video
-                            src={videoLinks[2]}
-                            className=' min-w-full min-h-full object-cover rounder-video'
-                            preload="metadata"
-                            loop
-                            autoPlay
-                            playsInline
-                            muted={true}
-                        >
-                        </video>
+                        <VideoContainer value={2} />
                     </div>
 
                 </div>
             </div>
             {/* side-right */}
             <div className='w-full h-full  p-2 pl-14 hidden lg:block'>
-                <video
-                    src={videoLinks[indexValue]}
-                    className=' min-w-full min-h-full object-cover rounder-video'
-                    preload="metadata"
-                    loop
-                    autoPlay
-                    playsInline
-                    muted={true}
-                >
-                </video>
+                <VideoContainer value={indexValue} />
             </div>
 
         </div >

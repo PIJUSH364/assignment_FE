@@ -18,9 +18,7 @@ const Testimonial = () => {
     }, [current])
 
     return (
-        <div className='md:p-24 p-5 pb-32 bg-gradient-to-tl from-green-100 via-white to-white  '>
-
-
+        <div className='common-container pb-32 bg-gradient-to-tl from-green-100 via-white to-white  '>
             <div className="slider flex md:flex-col flex-col-reverse gap-y-20 md:gap-y-2">
                 <div>
                     {

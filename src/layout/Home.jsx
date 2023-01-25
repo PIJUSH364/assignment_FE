@@ -36,7 +36,7 @@ const Home = () => {
 
 
     return (
-        <div className='background-home text-white  text-center md:p-24 p-5 pt-32 box-border overflow-x-hidden'>
+        <div className='background-home common-container text-white  text-center  pt-32  overflow-x-hidden'>
             <div
                 ref={elementRef}
                 className='duration-700 textInOut ' >
@@ -46,18 +46,20 @@ const Home = () => {
 
             <p className='text-lg font-normal pb-8'>Kula is a recruitment automation platform that lets you proactively reach out and engage with the top talent everywhere. With Kula, you have complete control, visibility, and predictability on your entire talent pipeline.</p>
             <div className='md:flex justify-center'>
-                <div className='flex flex-col md:flex-row gap-3 pb-1 md:w-2/4 '>
-                    <input type="text" placeholder='Enter your work email' className=' flex-1 text-black p-2 rounded-md outline-none' />
+                <div className='responsive-flex-box gap-3 pb-1 md:w-2/4 '>
+                    <input type="text"
+                        placeholder='Enter your work email'
+                        className=' flex-1 text-black p-2 rounded-md outline-none' />
                     <ButtonCommon>Book a demo</ButtonCommon>
                 </div>
             </div>
 
 
-            <div className=' md:min-h-screen flex justify-center items-center'>
+            <div className=' md:min-h-screen flex-jc-ic'>
                 <video
                     // src={"https://global-uploads.webflow.com/62efc7cb58ad153bfb146988/63455a2d7f2bcd7b198691ad_New-file-[copy]-[copy]%20(2)-transcode.mp4"}
                     poster={"https://i.vimeocdn.com/video/1523939837-409fd28fc27eada34b75912d18481f4bb5c9a04a477de2c4d419bae2a07ba076-d?mw=1100&mh=619"}
-                    className='md:min-h-screen h-90 md:my-20 my-10   object-cover rounder-home-video '
+                    className='md:min-h-screen video-card'
                     preload="metadata"
                     controls
                     loop

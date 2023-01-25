@@ -3,6 +3,34 @@
 @tailwind utilities;
 
 @layer components {
+  /* common */
+  .common-container {
+    @apply md:p-24 p-5 box-border;
+  }
+  .responsive-flex-box {
+    @apply flex flex-col md:flex-row;
+  }
+  .tittle-one {
+    @apply font-extrabold text-5xl pb-3;
+  }
+  .tittle-two {
+    @apply font-extrabold text-3xl pb-5;
+  }
+  .title-three {
+    @apply font-extrabold text-4xl pb-6 tracking-wide leading-snug;
+  }
+  .title-special {
+    @apply font-bold text-3xl pb-3;
+  }
+  .lite-sub-tittle {
+    @apply text-[#6d6d6d] text-lg leading-6;
+  }
+  .lite-text {
+    @apply text-[#6d6d6d]  text-base   hover:underline;
+  }
+  .mobile-video {
+    @apply min-w-full min-h-full object-cover rounded-[2.8rem];
+  }
   .trans-400-eio {
     @apply transition duration-700 ease-in-out;
   }
@@ -12,12 +40,16 @@
   .trans-1000-eio {
     @apply transition duration-1000 ease-in-out;
   }
+  /* navbar */
   .desktop-sub-menu-card {
     @apply translate-y-24 opacity-0
     top-[90px] absolute br-w4 flex flex-col gap-5 bg-white text-black p-4 py-6 w-[16rem] rounded-2xl mt-2 text-lg tracking-wide font-normal;
   }
   .desktop-menu-card {
-    @apply hover:bg-neutral-900 p-4 rounded-lg cursor-pointer;
+    @apply hover:bg-neutral-900 p-4 rounded-lg;
+  }
+  .desktop-menu-item {
+    @apply cursor-pointer p-4 hover:bg-neutral-900 rounded-lg;
   }
   .mobile-menu-card {
     @apply flex flex-col tracking-wider text-xl font-medium p-8  gap-y-8  text-gray-200 bg-[rgba(27,27,27)];
@@ -37,6 +69,13 @@
   }
   .br-w4 {
     @apply border-4 border-white;
+  }
+  /* home-section */
+  .video-card {
+    @apply md:my-20 my-10 h-80  object-cover rounded-[1.8rem];
+  }
+  .flex-jc-ic {
+    @apply flex justify-center items-center;
   }
 }
 
