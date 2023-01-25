@@ -4,7 +4,9 @@
   box-sizing: border-box;
   font-family: "Roboto", sans-serif;
 }
-
+.menu-border {
+  background: rgba(27, 27, 27);
+}
 .text-one-zero-nine {
   color: rgb(109, 109, 109);
 }
@@ -50,12 +52,14 @@
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
-
 .box-shadow-icon {
-  box-shadow: 1px 2px 4px 1px #c1a6a6;
+  box-shadow: 1px 2px 4px 1px rgba(193, 166, 166, 0.569);
 }
 .rounder-video {
   border-radius: 3.8rem;
+}
+.rounder-home-video {
+  border-radius: 2.8rem;
 }
 video {
   height: 300px;
@@ -73,9 +77,13 @@ video {
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
 @media only screen and (max-width: 768px) {
   .height-ch {
     height: auto;
+  }
+  .rounder-home-video {
+    border-radius: 0.6rem;
   }
 }
 

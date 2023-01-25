@@ -22,7 +22,7 @@ const App = () => {
       <Notification />
       <NavBar />
       <Home />
-      <CompanySlider />
+      {/* <CompanySlider /> */}
       <WhyKula />
       <Outereach />
 

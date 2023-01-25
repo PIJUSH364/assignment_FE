@@ -14,7 +14,7 @@ const Aicpa = () => {
                     <p className='text-one-zero-nine  text-lg  '>SOC 2 Type II certification, user permissions, and role controls mitigate cybersecurity risks and</p>
                     <p className='text-one-zero-nine  text-lg  '>ensure greater peace of mind.</p>
                 </div>
-                <p className='text-one-zero-nine  text-lg md:hidden '>Our secure development practices have enterprise-grade security baked in, by design. The SOC 2 Type II certification, user permissions, and role controls mitigate cybersecurity risks and ensure greater peace of mind.</p>
+                <p className='text-one-zero-nine  text-lg md:hidden text-justify'>Our secure development practices have enterprise-grade security baked in, by design. The SOC 2 Type II certification, user permissions, and role controls mitigate cybersecurity risks and ensure greater peace of mind.</p>
             </div>
         </div>
 

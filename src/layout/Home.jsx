@@ -5,7 +5,7 @@ import ButtonCommon from '../components/common/ButtonCommon'
 const Home = () => {
     const [element, setElement] = useState(null);
     const elementRef = useRef();
-    
+
     useEffect(() => {
         setElement(elementRef.current);
 
@@ -53,12 +53,19 @@ const Home = () => {
             </div>
 
 
-            <div>
-                {/* video add */}
-                <iframe frameborder="0">
-                    <video src="https://i.vimeocdn.com/video/1523939837-409fd28fc27eada34b75912d18481f4bb5c9a04a477de2c4d419bae2a07ba076-d?mw=1100&mh=619" >
-                    </video>
-                </iframe>
+            <div className=' md:min-h-screen flex justify-center items-center'>
+                <video
+                    // src={"https://global-uploads.webflow.com/62efc7cb58ad153bfb146988/63455a2d7f2bcd7b198691ad_New-file-[copy]-[copy]%20(2)-transcode.mp4"}
+                    poster={"https://i.vimeocdn.com/video/1523939837-409fd28fc27eada34b75912d18481f4bb5c9a04a477de2c4d419bae2a07ba076-d?mw=1100&mh=619"}
+                    className='md:min-h-screen h-90 md:my-20 my-10   object-cover rounder-home-video '
+                    preload="metadata"
+                    controls
+                    loop
+                    autoPlay
+                    playsInline
+                    muted={true}
+                >
+                </video>
             </div>
 
         </div>

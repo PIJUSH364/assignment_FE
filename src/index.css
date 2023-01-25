@@ -2,3 +2,47 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .trans-400-eio {
+    @apply transition duration-700 ease-in-out;
+  }
+  .trans-700-eio {
+    @apply transition duration-700 ease-in-out;
+  }
+  .trans-1000-eio {
+    @apply transition duration-1000 ease-in-out;
+  }
+  .desktop-sub-menu-card {
+    @apply translate-y-24 opacity-0
+    top-[90px] absolute br-w4 flex flex-col gap-5 bg-white text-black p-4 py-6 w-[16rem] rounded-2xl mt-2 text-lg tracking-wide font-normal;
+  }
+  .desktop-menu-card {
+    @apply hover:bg-neutral-900 p-4 rounded-lg cursor-pointer;
+  }
+  .mobile-menu-card {
+    @apply flex flex-col tracking-wider text-xl font-medium p-8  gap-y-8  text-gray-200 bg-[rgba(27,27,27)];
+  }
+  .menu-base {
+    @apply flex flex-row justify-between;
+  }
+
+  .sub-menu-item {
+    @apply underline text-[rgb(0,132,233)];
+  }
+  .sub-menu-card {
+    @apply p-5 gap-5 flex-col hidden;
+  }
+  .bar-ani {
+    @apply bg-white h-[3px];
+  }
+  .br-w4 {
+    @apply border-4 border-white;
+  }
+}
+
+.-translate-y-full {
+  --tw-translate-y: -220%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y))
+    rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+    scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}

@@ -3,7 +3,7 @@ import ButtonCommon from '../components/common/ButtonCommon'
 
 const Footer = () => {
     return (
-        <div className='bg-black text-white p-14'>
+        <div className='bg-black text-white  md:p-24 p-5 py-16'>
             {/* top-section */}
             <div className='flex  pb-14 md:flex-row flex-col gap-y-12 gap-x-12 '>
                 {/* left */}
