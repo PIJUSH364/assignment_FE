@@ -4,7 +4,7 @@ const Slide = ({ img, logo, description, name, subtitle }) => {
 
     return (
         <>
-            <div className='flex flex-col lg:flex-row gap-14 items-center'>
+            <div className='flex flex-col lg:flex-row gap-14 items-center' >
                 {/* left */}
                 <img className='lg:w-1/2' src={img} alt="greenhouse-logo" />
                 {/* right */}

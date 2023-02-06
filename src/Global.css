@@ -86,8 +86,26 @@ video {
 }
 
 .br {
-  border: 4px solid red;
+  border: 4px solid rgb(65, 189, 41);
 }
 .rounder-video {
   border-radius: 3.8rem;
+}
+#ov-hidden {
+  overflow-x: hidden;
+}
+#article.activeSlide {
+  opacity: 1;
+  filter: blur(0px);
+  transform: translateX(0);
+}
+#article.lastSlide {
+  filter: blur(5px);
+  opacity: 0.9;
+  transform: translateX(-100%);
+}
+#article.nextSlide {
+  filter: blur(5px);
+  opacity: 0.9;
+  transform: translateX(100%);
 }

@@ -11,10 +11,10 @@
     @apply flex flex-col md:flex-row;
   }
   .tittle-one {
-    @apply font-extrabold text-5xl pb-3;
+    @apply font-extrabold text-5xl pb-3 text-black;
   }
   .tittle-two {
-    @apply font-extrabold text-3xl pb-5;
+    @apply font-extrabold text-3xl pb-5 text-black;
   }
   .title-three {
     @apply font-extrabold text-4xl pb-6 tracking-wide leading-snug;
@@ -43,7 +43,7 @@
   /* navbar */
   .desktop-sub-menu-card {
     @apply translate-y-24 opacity-0
-    top-[90px] absolute br-w4 flex flex-col gap-5 bg-white text-black p-4 py-6 w-[16rem] rounded-2xl mt-2 text-lg tracking-wide font-normal;
+    top-[90px] absolute  flex flex-col gap-5 bg-white text-black p-4 py-6 w-[16rem] rounded-2xl mt-2 text-lg tracking-wide font-normal;
   }
   .desktop-menu-card {
     @apply hover:bg-neutral-900 p-4 rounded-lg;
@@ -68,7 +68,7 @@
     @apply bg-white h-[3px];
   }
   .br-w4 {
-    @apply border-4 border-white;
+    @apply border-4 border-[red];
   }
   /* home-section */
   .video-card {

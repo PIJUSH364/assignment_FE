@@ -1,6 +1,7 @@
 
 export const sliderData = [
     {
+        id: 0,
         image:
             'https://global-uploads.webflow.com/62efc7cb58ad153bfb146988/62f4d24d04e067049ad7f8ab_Girish-p-800.png',
         logo: "https://global-uploads.webflow.com/62efc7cb58ad153bfb146988/62f4d5ac915f95473a8c064b_freshworks.svg",
@@ -9,6 +10,7 @@ export const sliderData = [
         subtitle: 'CEO & Founder, Freshworks (NASDAQ: FRSH)',
     },
     {
+        id: 1,
         image:
             'https://global-uploads.webflow.com/62efc7cb58ad153bfb146988/62f4d0c84efd724fa37f1557_Gfc-p-800.png',
         logo: "https://global-uploads.webflow.com/62efc7cb58ad153bfb146988/6306467b88cfb643ad530381_gfc.svg",
@@ -17,6 +19,7 @@ export const sliderData = [
         subtitle: 'Partner at Global Founders Capital',
     },
     {
+        id: 2,
         image:
             'https://global-uploads.webflow.com/62efc7cb58ad153bfb146988/62f4d373f03a0f3bf715df54_priya-mohan-p-800.png',
         logo: "https://global-uploads.webflow.com/62efc7cb58ad153bfb146988/6306460c4aec4e06709272e2_vh.svg",

@@ -15,6 +15,7 @@ import NavBar from './navBar/NavBar'
 import Observer from './components/Observer'
 import { Assignment } from './assignment/Assignment'
 
+
 const App = () => {
   return (
     <div className='box-border'>
@@ -22,7 +23,7 @@ const App = () => {
       <Notification />
       <NavBar />
       <Home />
-      {/* <CompanySlider /> */}
+      <CompanySlider />
       <WhyKula />
       <Outereach />
 

@@ -11,7 +11,7 @@ export const MobileMenu = () => {
                     </div>
                 </div>
                 {/* sub menu card */}
-                <div className='sub-menu-card group-hover/product:flex'>
+                <div className='sub-menu-card group-hover/product:flex trans-700-eio'>
                     <p className='hover:sub-menu-item trans-700-eio'>kala Outereach</p>
                     <p className='hover:sub-menu-item trans-700-eio'>kala circle</p>
                 </div>
