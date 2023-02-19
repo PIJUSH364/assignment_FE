@@ -9,7 +9,7 @@ const Slide = ({ img, logo, description, name, subtitle }) => {
                 <img className='lg:w-1/2' src={img} alt="greenhouse-logo" />
                 {/* right */}
                 <div>
-                    <p className='pb-14  tracking-wide text-xl '>"{description}"</p>
+                    <p className='pb-14  tracking-wide text-xl text-[#000000c7]'>"{description}"</p>
                     <div className='flex flex-row  gap-10 justify-between items-stretch'>
                         <div >
                             <p className='text-xl font-semibold pb-2'>{name}</p>
