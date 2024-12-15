@@ -34,7 +34,7 @@ export default function Pagination() {
           }}
           className="flex items-center justify-center px-3 h-12 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 bg-[#303339] dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white rounded-tl-[8px]  rounded-bl-[8px]"
         >
-          <i class="fa-solid fa-angle-left"></i>
+          <i className="fa-solid fa-angle-left"></i>
         </li>
         {pageRange.map((pageIndex) => (
           <li
@@ -62,7 +62,7 @@ export default function Pagination() {
           }}
           className="flex items-center justify-center px-3 h-12 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 bg-[#303339] dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white rounded-br-[8px]  rounded-tr-[8px]"
         >
-          <i class="fa-solid fa-angle-right"></i>
+          <i className="fa-solid fa-angle-right"></i>
         </li>
       </ul>
     </div>

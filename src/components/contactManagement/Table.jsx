@@ -1,22 +1,23 @@
 import React, { useEffect, useState } from "react";
 import Pagination from "./Pagination";
 import Modal from "../common/Modal";
-import { ContactModal } from "./Action";
+
 import { useSelector } from "react-redux";
 import { useFetchContacts } from "../custom/Hook/useFetchContacts";
 import DeleteModel from "../common/modal/DeleteModel";
+import ContactModel from "../common/modal/ContactModel";
 
 export default function Table() {
   const [EditContactData, setEditContactData] = useState(null);
   const [deleteContactId, setDeleteContactId] = useState(null);
-  const loaderStatus = useSelector((state) => state.contact.loaderStatus);
   const [shouldShow, setShouldShow] = useState(false);
-  const fetchContacts = useFetchContacts();
-  const contactList = useSelector((state) => state.contact.contactList);
   const [selectModal, setSelectModal] = useState({
     deleteModal: false,
     editContactModal: false,
   });
+  const loaderStatus = useSelector((state) => state.contact.loaderStatus);
+  const contactList = useSelector((state) => state.contact.contactList);
+  const fetchContacts = useFetchContacts();
 
   useEffect(() => {
     fetchContacts();
@@ -98,7 +99,7 @@ export default function Table() {
                           }}
                         ></i>
 
-                        {/*  <i class="fa-solid fa-magnifying-glass"></i> */}
+                        {/*  <i className="fa-solid fa-magnifying-glass"></i> */}
                       </td>
                     </tr>
                   ))
@@ -116,7 +117,7 @@ export default function Table() {
           <DeleteModel setShouldShow={setShouldShow} id={deleteContactId} />
         )}
         {selectModal.editContactModal && (
-          <ContactModal
+          <ContactModel
             setShouldShow={setShouldShow}
             defaultFormData={EditContactData}
             isEditModal={true}

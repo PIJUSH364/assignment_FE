@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { baseurl } from "../../../env";
+import { useFetchCategoryContact } from "../../custom/Hook/useFetchCategoryContact";
+const buttonStyles =
+  "bg-[#a83281] hover:bg-white hover:text-[#a83281] text-white font-medium p-2 px-8 rounded-[4px] mt-4";
+
 export default function DeleteModel({ setShouldShow, id }) {
-  const buttonStyles =
-    "bg-[#a83281] hover:bg-white hover:text-[#a83281] text-white font-medium p-2 px-8 rounded-[4px] mt-4";
+  const fetchCategoryContact = useFetchCategoryContact();
   const [isLoading, setIsLoading] = useState(false);
   const handleDelete = async () => {
     try {
@@ -11,6 +15,7 @@ export default function DeleteModel({ setShouldShow, id }) {
       if (res.status === 200) {
         alert(res.data.message);
         setShouldShow(false);
+        fetchCategoryContact();
       } else {
         alert("Failed to delete the contact. Please try again.");
       }

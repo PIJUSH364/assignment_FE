@@ -3,6 +3,7 @@ import Modal from "../common/Modal";
 import axios from "axios";
 import { baseurl } from "../../env";
 import InputField from "../common/InputField";
+import ContactModel from "../common/modal/ContactModel";
 const defaultFormData = {
   name: "",
   email: "",
@@ -42,10 +43,10 @@ export default function Action() {
                 newContactModal: false,
               }));
             }}
-            class="flex gap-2 bg-[#a83281] hover:bg-white hover:text-[#a83281]  text-white font-[3px] py-[6px] px-4 rounded-[4px]"
+            classname="flex gap-2 bg-[#a83281] hover:bg-white hover:text-[#a83281]  text-white font-[3px] py-[6px] px-4 rounded-[4px]"
           >
             <p>
-              <i class="fa-solid fa-filter"></i>
+              <i classname="fa-solid fa-filter"></i>
             </p>
             <p>Filter</p>
           </button>
@@ -57,7 +58,7 @@ export default function Action() {
                 newContactModal: true,
               }));
             }}
-            class="flex gap-2 bg-[#a83281] hover:bg-white hover:text-[#a83281]  text-white font-[3px] py-[6px] px-4 rounded-[4px]"
+            classname="flex gap-2 bg-[#a83281] hover:bg-white hover:text-[#a83281]  text-white font-[3px] py-[6px] px-4 rounded-[4px]"
           >
             <p>+</p>
             <p> Add new</p>
@@ -71,7 +72,7 @@ export default function Action() {
         )}
 
         {selectModal.newContactModal && (
-          <ContactModal
+          <ContactModel
             setShouldShow={setShouldShow}
             defaultFormData={defaultFormData}
           />
@@ -111,122 +112,6 @@ const FilterModal = ({ setShouldShow }) => {
           } `}
         >
           Finalized
-        </button>
-      </div>
-    </div>
-  );
-};
-
-const inputClass =
-  "w-full bg-[#292c30] outline-none text-[#79808c] placeholder-[#79808c] font-[3px] p-2 rounded-[4px]";
-export const ContactModal = ({
-  setShouldShow,
-  defaultFormData,
-  isEditModal = false,
-}) => {
-  const [formData, setFormData] = useState(defaultFormData);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const handleChange = useCallback((e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value?.trim() }));
-  }, []);
-
-  const handleSubmit = async () => {
-    const { name, email, phone_number } = formData;
-
-    if (!name || !email || !phone_number) {
-      alert("Please fill out all required fields.");
-      return;
-    }
-
-    const config = {
-      method: isEditModal ? "PUT" : "POST", // The dynamic method (GET, POST, PUT, DELETE, etc.)
-      url: `${baseurl}/${
-        isEditModal ? `update_contact/${defaultFormData.id}` : "create_contact"
-      }`,
-      data: formData,
-    };
-
-    try {
-      setIsSubmitting(true);
-      const res = await axios(config);
-      alert(res.data.message);
-
-      if (res.status === 200) {
-        setFormData(defaultFormData);
-        setShouldShow(false);
-      }
-    } catch (err) {
-      alert(err.response?.data?.message || "An unexpected error occurred.");
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === "Escape") setShouldShow(false);
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
-
-  return (
-    <div className="w-full bg-[#4f545bcf] rounded-[8px]">
-      <p
-        className="text-end p-2 pr-4 cursor-pointer"
-        onClick={() => setShouldShow(false)}
-      >
-        <i className="fa-solid fa-x"></i>
-      </p>
-      <p className="text-center py-4 text-[22px] tracking-wider">
-        {isEditModal ? "Edit" : "New"} Contact
-      </p>
-      <div className="flex flex-col gap-4 p-10 pt-4 pb-8 ">
-        <InputField
-          name="name"
-          placeholder="Name *"
-          value={formData.name}
-          onChange={handleChange}
-        />
-        <InputField
-          type="email"
-          name="email"
-          placeholder="Email *"
-          value={formData.email}
-          onChange={handleChange}
-        />
-        <InputField
-          type="number"
-          name="phone_number"
-          placeholder="Phone number *"
-          value={formData.phone_number}
-          onChange={handleChange}
-        />
-        <select
-          name="status"
-          value={formData.status}
-          onChange={handleChange}
-          className={inputClass}
-        >
-          <option value="draft">Draft</option>
-          <option value="finalized">Finalized</option>
-        </select>
-        <InputField
-          type="text"
-          name="tag"
-          placeholder="Tag"
-          value={formData.tag}
-          onChange={handleChange}
-        />
-        <button
-          className="w-full bg-[#292c30] font-[3px] p-2 rounded-[4px] bg-[#a83281] hover:bg-white hover:text-[#a83281] text-white mt-4"
-          onClick={handleSubmit}
-          disabled={isSubmitting}
-        >
-          {isSubmitting
-            ? `${isEditModal ? "Updating..." : "Submitting..."} `
-            : `${isEditModal ? "Update" : "Submit"} `}
         </button>
       </div>
     </div>
