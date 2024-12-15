@@ -38,6 +38,6 @@ export const useFetchContacts = () => {
       dispatch(setLoaderStatus(false));
     }
   }, [dispatch, currentPage]);
-
+  // [dispatch, currentPage];
   return fetchContacts;
 };
