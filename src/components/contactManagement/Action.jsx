@@ -1,6 +1,16 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Modal from "../common/Modal";
+import axios from "axios";
+import { baseurl } from "../../env";
 
+import InputField from "../common/InputField";
+const defaultFormData = {
+  name: "",
+  email: "",
+  phone_number: "",
+  status: "draft",
+  tag: "",
+};
 export default function Action() {
   const [shouldShow, setShouldShow] = useState(false);
   const [selectModal, setSelectModal] = useState({
@@ -61,7 +71,10 @@ export default function Action() {
         )}
 
         {selectModal.newContactModal && (
-          <NewContactModal setShouldShow={setShouldShow} />
+          <NewContactModal
+            setShouldShow={setShouldShow}
+            defaultFormData={defaultFormData}
+          />
         )}
       </Modal>
     </>
@@ -103,51 +116,103 @@ const FilterModal = ({ setShouldShow }) => {
     </div>
   );
 };
+const inputClass =
+  "w-full bg-[#292c30] outline-none text-[#79808c] placeholder-[#79808c] font-[3px] p-2 rounded-[4px]";
 
-const NewContactModal = ({ setShouldShow }) => {
+const NewContactModal = ({ setShouldShow, defaultFormData }) => {
+  const [formData, setFormData] = useState(defaultFormData);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleChange = useCallback((e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value?.trim() }));
+  }, []);
+
+  const handleSubmit = async () => {
+    const { name, email, phone_number } = formData;
+
+    if (!name || !email || !phone_number) {
+      alert("Please fill out all required fields.");
+      return;
+    }
+
+    try {
+      setIsSubmitting(true);
+      const res = await axios.post(`${baseurl}/create_contact`, formData);
+      alert(res.data.message);
+
+      if (res.status === 200) {
+        setFormData(defaultFormData);
+        setShouldShow(false);
+      }
+    } catch (err) {
+      alert(err.response?.data?.message || "An unexpected error occurred.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") setShouldShow(false);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
   return (
     <div className="w-full bg-[#4f545bcf] rounded-[8px]">
       <p
         className="text-end p-2 pr-4 cursor-pointer"
         onClick={() => setShouldShow(false)}
       >
-        <i className="fa-solid fa-x "></i>
+        <i className="fa-solid fa-x"></i>
       </p>
       <p className="text-center py-4 text-[22px] tracking-wider">New Contact</p>
-      <form className="flex flex-col gap-4 p-10 pt-4 pb-8 ">
-        <input
-          type="text"
-          placeholder="Name"
-          className="w-full bg-[#292c30] outline-none text-[#79808c] placeholder-[#79808c] font-[3px] p-2 rounded-[4px]"
+      <div className="flex flex-col gap-4 p-10 pt-4 pb-8 ">
+        <InputField
+          name="name"
+          placeholder="Name *"
+          value={formData.name}
+          onChange={handleChange}
         />
-        <input
+        <InputField
           type="email"
-          placeholder="Email"
-          className="w-full bg-[#292c30] outline-none text-[#79808c] placeholder-[#79808c] font-[3px] p-2 rounded-[4px]"
+          name="email"
+          placeholder="Email *"
+          value={formData.email}
+          onChange={handleChange}
         />
-        <input
+        <InputField
           type="number"
-          placeholder="Phone number"
-          className="w-full bg-[#292c30] outline-none text-[#79808c] placeholder-[#79808c] font-[3px] p-2 rounded-[4px]"
+          name="phone_number"
+          placeholder="Phone number *"
+          value={formData.phone_number}
+          onChange={handleChange}
         />
-        <select className="w-full bg-[#292c30] outline-none text-[#79808c] placeholder-[#79808c] font-[3px] p-2 rounded-[4px]">
-          <option value="Draft" disabled selected>
-            Draft
-          </option>
-          <option value="Finalized" className="bg-[#292c30] hover:bg-[#292c30]">
-            Finalized
-          </option>
+        <select
+          name="status"
+          value={formData.status}
+          onChange={handleChange}
+          className={inputClass}
+        >
+          <option value="draft">Draft</option>
+          <option value="finalized">Finalized</option>
         </select>
-        <input
+        <InputField
           type="text"
+          name="tag"
           placeholder="Tag"
-          className="w-full bg-[#292c30] outline-none text-[#79808c] placeholder-[#79808c] font-[3px] p-2 rounded-[4px]"
+          value={formData.tag}
+          onChange={handleChange}
         />
-
-        <button className="w-full bg-[#292c30] font-[3px] p-2 rounded-[4px] bg-[#a83281] hover:bg-white hover:text-[#a83281]  text-white mt-4">
-          Submit
+        <button
+          className="w-full bg-[#292c30] font-[3px] p-2 rounded-[4px] bg-[#a83281] hover:bg-white hover:text-[#a83281] text-white mt-4"
+          onClick={handleSubmit}
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? "Submitting..." : "Submit"}
         </button>
-      </form>
+      </div>
     </div>
   );
 };
