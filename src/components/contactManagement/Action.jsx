@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useState } from "react";
 import Modal from "../common/Modal";
 import axios from "axios";
 import { baseurl } from "../../env";
-
 import InputField from "../common/InputField";
 const defaultFormData = {
   name: "",
@@ -11,6 +10,7 @@ const defaultFormData = {
   status: "draft",
   tag: "",
 };
+
 export default function Action() {
   const [shouldShow, setShouldShow] = useState(false);
   const [selectModal, setSelectModal] = useState({
@@ -71,7 +71,7 @@ export default function Action() {
         )}
 
         {selectModal.newContactModal && (
-          <NewContactModal
+          <ContactModal
             setShouldShow={setShouldShow}
             defaultFormData={defaultFormData}
           />
@@ -116,10 +116,14 @@ const FilterModal = ({ setShouldShow }) => {
     </div>
   );
 };
+
 const inputClass =
   "w-full bg-[#292c30] outline-none text-[#79808c] placeholder-[#79808c] font-[3px] p-2 rounded-[4px]";
-
-const NewContactModal = ({ setShouldShow, defaultFormData }) => {
+export const ContactModal = ({
+  setShouldShow,
+  defaultFormData,
+  isEditModal = false,
+}) => {
   const [formData, setFormData] = useState(defaultFormData);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -136,9 +140,17 @@ const NewContactModal = ({ setShouldShow, defaultFormData }) => {
       return;
     }
 
+    const config = {
+      method: isEditModal ? "PUT" : "POST", // The dynamic method (GET, POST, PUT, DELETE, etc.)
+      url: `${baseurl}/${
+        isEditModal ? `update_contact/${defaultFormData.id}` : "create_contact"
+      }`,
+      data: formData,
+    };
+
     try {
       setIsSubmitting(true);
-      const res = await axios.post(`${baseurl}/create_contact`, formData);
+      const res = await axios(config);
       alert(res.data.message);
 
       if (res.status === 200) {
@@ -167,7 +179,9 @@ const NewContactModal = ({ setShouldShow, defaultFormData }) => {
       >
         <i className="fa-solid fa-x"></i>
       </p>
-      <p className="text-center py-4 text-[22px] tracking-wider">New Contact</p>
+      <p className="text-center py-4 text-[22px] tracking-wider">
+        {isEditModal ? "Edit" : "New"} Contact
+      </p>
       <div className="flex flex-col gap-4 p-10 pt-4 pb-8 ">
         <InputField
           name="name"
@@ -210,7 +224,9 @@ const NewContactModal = ({ setShouldShow, defaultFormData }) => {
           onClick={handleSubmit}
           disabled={isSubmitting}
         >
-          {isSubmitting ? "Submitting..." : "Submit"}
+          {isSubmitting
+            ? `${isEditModal ? "Updating..." : "Submitting..."} `
+            : `${isEditModal ? "Update" : "Submit"} `}
         </button>
       </div>
     </div>

@@ -3,12 +3,17 @@ import Pagination from "./Pagination";
 import axios from "axios";
 import { baseurl } from "../../env";
 import Modal from "../common/Modal";
+import { ContactModal } from "./Action";
 
 export default function Table() {
   const [data, setData] = useState([]);
   const [EditContactData, setEditContactData] = useState(null);
-
+  const [deleteContactId, setDeleteContactId] = useState(null);
   const [loader, setLoader] = useState(true);
+  const [metaData, setSetaData] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [shouldShow, setShouldShow] = useState(false);
+
   const [selectModal, setSelectModal] = useState({
     deleteModal: false,
     editContactModal: false,
@@ -16,10 +21,11 @@ export default function Table() {
 
   useEffect(() => {
     axios
-      .get(`${baseurl}/all_contact`)
+      .get(`${baseurl}/all_contact?page=${currentPage}&limit=${5}`)
       .then((res) => {
-        if (res.data.code == 200 && res.data.data) {
-          setData(res.data.data);
+        if (res.data.code == 200 && res.data.data.data) {
+          setData(res.data.data.data);
+          setSetaData(res.data.data.meta);
         }
       })
       .catch((error) => {
@@ -28,9 +34,8 @@ export default function Table() {
       .finally(() => {
         setLoader(false);
       });
-  }, []);
+  }, [currentPage]);
 
-  const [shouldShow, setShouldShow] = useState(false);
   return (
     <>
       {" "}
@@ -102,6 +107,7 @@ export default function Table() {
                           className="fa-solid fa-trash text-red-500 hover:text-red-700 cursor-pointer"
                           onClick={() => {
                             setShouldShow(true);
+                            setDeleteContactId(contact.id);
                             setSelectModal(() => ({
                               deleteModal: true,
                               editContactModal: false,
@@ -115,18 +121,23 @@ export default function Table() {
                   ))}
               </tbody>
             </table>
-            <Pagination />
+            <Pagination
+              metaData={metaData}
+              setCurrentPage={setCurrentPage}
+              currentPage={currentPage}
+            />
           </>
         )}
       </div>
       <Modal shouldShow={shouldShow} setShouldShow={setShouldShow}>
         {selectModal.deleteModal && (
-          <DeleteModal setShouldShow={setShouldShow} />
+          <DeleteModal setShouldShow={setShouldShow} id={deleteContactId} />
         )}
         {selectModal.editContactModal && (
-          <EditContactModal
+          <ContactModal
             setShouldShow={setShouldShow}
-            data={EditContactData}
+            defaultFormData={EditContactData}
+            isEditModal={true}
           />
         )}
       </Modal>
@@ -134,7 +145,28 @@ export default function Table() {
   );
 }
 
-const DeleteModal = ({ setShouldShow }) => {
+const buttonStyles =
+  "bg-[#a83281] hover:bg-white hover:text-[#a83281] text-white font-medium p-2 px-8 rounded-[4px] mt-4";
+const DeleteModal = ({ setShouldShow, id }) => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleDelete = async () => {
+    try {
+      setIsLoading(true);
+      const res = await axios.delete(`${baseurl}/delete_contact/${id}`);
+      if (res.status === 200) {
+        alert(res.data.message);
+        setShouldShow(false);
+      } else {
+        alert("Failed to delete the contact. Please try again.");
+      }
+    } catch (error) {
+      alert("An error occurred while deleting the contact.");
+      console.error("Error deleting contact:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
   return (
     <div className="w-full bg-[#4f545bcf] rounded-[8px]">
       <p
@@ -147,79 +179,21 @@ const DeleteModal = ({ setShouldShow }) => {
         Are you sure ?
       </p>
       <div className="flex justify-around pb-8">
-        <button className=" bg-[#292c30] font-[3px] p-2 px-8 rounded-[4px] bg-[#a83281] hover:bg-white hover:text-[#a83281]  text-white mt-4">
-          Yes
+        <button
+          className={buttonStyles}
+          onClick={handleDelete}
+          disabled={isLoading}
+        >
+          {isLoading ? "Deleting..." : "Yes"}
         </button>
-        <button className=" bg-[#292c30] font-[3px] p-2 px-8 rounded-[4px] bg-[#a83281] hover:bg-white hover:text-[#a83281]  text-white mt-4">
+        <button
+          className={buttonStyles}
+          disabled={isLoading}
+          onClick={() => setShouldShow(false)}
+        >
           No
         </button>
       </div>
-    </div>
-  );
-};
-
-const EditContactModal = ({ setShouldShow, data }) => {
-  return (
-    <div className="w-full bg-[#4f545bcf] rounded-[8px]">
-      <p
-        className="text-end p-2 pr-4 cursor-pointer"
-        onClick={() => setShouldShow(false)}
-      >
-        <i className="fa-solid fa-x "></i>
-      </p>
-      <p className="text-center py-4 text-[22px] tracking-wider">
-        Edit Contact
-      </p>
-      <form className="flex flex-col gap-4 p-10 pt-4 pb-8 ">
-        <input
-          type="text"
-          placeholder="Name"
-          value={data.name}
-          className="w-full bg-[#292c30] outline-none text-[#79808c] placeholder-[#79808c] font-[3px] p-2 rounded-[4px]"
-        />
-        <input
-          value={data.email}
-          type="email"
-          placeholder="Email"
-          className="w-full bg-[#292c30] outline-none text-[#79808c] placeholder-[#79808c] font-[3px] p-2 rounded-[4px]"
-        />
-        <input
-          value={data.phone_number}
-          type="number"
-          placeholder="Phone number"
-          className="w-full bg-[#292c30] outline-none text-[#79808c] placeholder-[#79808c] font-[3px] p-2 rounded-[4px]"
-        />
-        <select className="w-full bg-[#292c30] outline-none text-[#79808c] placeholder-[#79808c] font-[3px] p-2 rounded-[4px]">
-          {
-            <option value={data.status} disabled selected>
-              {data.status}
-            </option>
-          }
-          {data.status == "draft" && (
-            <option
-              value="Finalized"
-              className="bg-[#292c30] hover:bg-[#292c30]"
-            >
-              Finalized
-            </option>
-          )}
-          {data.status == "Finalized" && (
-            <option value="Draft" className="bg-[#292c30] hover:bg-[#292c30]">
-              Draft
-            </option>
-          )}
-        </select>
-        <input
-          value={data.tag}
-          type="text"
-          placeholder="Tag"
-          className="w-full bg-[#292c30] outline-none text-[#79808c] placeholder-[#79808c] font-[3px] p-2 rounded-[4px]"
-        />
-
-        <button className="w-full bg-[#292c30] font-[3px] p-2 rounded-[4px] bg-[#a83281] hover:bg-white hover:text-[#a83281]  text-white mt-4">
-          Submit
-        </button>
-      </form>
     </div>
   );
 };
