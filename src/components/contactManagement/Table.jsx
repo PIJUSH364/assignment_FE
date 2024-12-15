@@ -4,47 +4,30 @@ import axios from "axios";
 import { baseurl } from "../../env";
 import Modal from "../common/Modal";
 import { ContactModal } from "./Action";
+import { useDispatch, useSelector } from "react-redux";
+import { useFetchContacts } from "../custom/Hook/useFetchContacts";
 
 export default function Table() {
-  const [data, setData] = useState([]);
   const [EditContactData, setEditContactData] = useState(null);
   const [deleteContactId, setDeleteContactId] = useState(null);
-  const [loader, setLoader] = useState(true);
-  const [metaData, setSetaData] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1);
+  const loaderStatus = useSelector((state) => state.contact.loaderStatus);
   const [shouldShow, setShouldShow] = useState(false);
-
+  const dispatch = useDispatch();
+  const fetchContacts = useFetchContacts();
+  const contactList = useSelector((state) => state.contact.contactList);
   const [selectModal, setSelectModal] = useState({
     deleteModal: false,
     editContactModal: false,
   });
 
   useEffect(() => {
-    axios
-      .get(`${baseurl}/all_contact?page=${currentPage}&limit=${5}`)
-      .then((res) => {
-        if (res.data.code == 200 && res.data.data.data) {
-          setData(res.data.data.data);
-          setSetaData(res.data.data.meta);
-        }
-      })
-      .catch((error) => {
-        console.log("error", error.message);
-      })
-      .finally(() => {
-        setLoader(false);
-      });
-  }, [currentPage]);
+    fetchContacts();
+  }, []);
 
   return (
     <>
-      {" "}
       <div>
-        {loader && <h1 className="text-center pt-16">Loading...</h1>}
-        {!loader && data.length === 0 && (
-          <h1 className="text-center pt-16">No record found</h1>
-        )}
-        {data && data.length > 0 && (
+        {contactList && contactList.length > 0 && (
           <>
             <table className="border-b-[1px] border-[#79808c]">
               <thead className=" border-none">
@@ -65,8 +48,10 @@ export default function Table() {
               </thead>
 
               <tbody className="divide-y divide-[#79808c]">
-                {data &&
-                  data.map((contact, index) => (
+                {loaderStatus ? (
+                  <h1 className="text-center pt-16">Loading...</h1>
+                ) : contactList.length > 0 ? (
+                  contactList.map((contact, index) => (
                     <tr key={contact.id}>
                       <td>
                         <input
@@ -118,14 +103,13 @@ export default function Table() {
                         {/*  <i class="fa-solid fa-magnifying-glass"></i> */}
                       </td>
                     </tr>
-                  ))}
+                  ))
+                ) : (
+                  <h1 className="text-center pt-16">No record found</h1>
+                )}
               </tbody>
             </table>
-            <Pagination
-              metaData={metaData}
-              setCurrentPage={setCurrentPage}
-              currentPage={currentPage}
-            />
+            <Pagination />
           </>
         )}
       </div>

@@ -1,9 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setCurrentPage } from "../../features/contactSlice";
+import { useFetchContacts } from "../custom/Hook/useFetchContacts";
 
-export default function Pagination({ metaData, setCurrentPage, currentPage }) {
+export default function Pagination() {
+  const dispatch = useDispatch();
+  const currentPage = useSelector((state) => state.contact.currentPage);
+  const contactMetaData = useSelector((state) => state.contact.contactMetaData);
+  const fetchContacts = useFetchContacts();
+
   const [pageRange, setPageRange] = useState(
-    new Array(metaData.totalPages).fill(null).map((_, index) => index + 1)
+    new Array(contactMetaData.totalPages)
+      .fill(null)
+      .map((_, index) => index + 1)
   );
+
+  useEffect(() => {
+    fetchContacts();
+  }, [currentPage]);
 
   return (
     <div className="flex items-center justify-center p-8 bg-[#292c30] rounded-bl-[10px] rounded-br-[10px]">
@@ -14,7 +28,7 @@ export default function Pagination({ metaData, setCurrentPage, currentPage }) {
               const range = [...prevRange];
               range[0] > 1 && range.unshift(range[0] - 1);
               if (range.length > 5) range.pop();
-              setCurrentPage(range[0]);
+              dispatch(setCurrentPage(range[0]));
               return range;
             });
           }}
@@ -25,7 +39,7 @@ export default function Pagination({ metaData, setCurrentPage, currentPage }) {
         {pageRange.map((pageIndex) => (
           <li
             key={pageIndex}
-            onClick={() => setCurrentPage(pageIndex)}
+            onClick={() => dispatch(setCurrentPage(pageIndex))}
             className={`flex items-center justify-center px-3 h-12 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 bg-[#303339] dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white ${
               pageIndex == currentPage ? "bg-gray-700" : ""
             }`}
@@ -37,12 +51,12 @@ export default function Pagination({ metaData, setCurrentPage, currentPage }) {
         <li
           onClick={() => {
             setPageRange((prevRange) => {
-              if (metaData.totalPages == prevRange[prevRange.length - 1])
+              if (contactMetaData.totalPages == prevRange[prevRange.length - 1])
                 return prevRange;
               const range = [...prevRange];
               range.push(range[range.length - 1] + 1);
               if (range.length > 5) range.shift();
-              setCurrentPage(range[range.length - 1]);
+              dispatch(setCurrentPage(range[range.length - 1]));
               return range;
             });
           }}
