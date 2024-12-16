@@ -1,9 +1,11 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Modal from "../common/Modal";
-import axios from "axios";
-import { baseurl } from "../../env";
-import InputField from "../common/InputField";
 import ContactModel from "../common/modal/ContactModel";
+import { useDispatch, useSelector } from "react-redux";
+import { setSearchValue } from "../../features/contactSlice";
+import { useFetchContacts } from "../custom/Hook/useFetchContacts";
+import FilterModel from "../common/modal/FilterModel";
+
 const defaultFormData = {
   name: "",
   email: "",
@@ -13,11 +15,38 @@ const defaultFormData = {
 };
 
 export default function Action() {
+  const dispatch = useDispatch();
+  const fetchContacts = useFetchContacts();
+  const searchValue = useSelector((state) => state.contact.searchValue);
+  const [searchInput, setSearchInput] = useState("");
   const [shouldShow, setShouldShow] = useState(false);
   const [selectModal, setSelectModal] = useState({
     filterModal: false,
     newContactModal: false,
   });
+
+  const debounce = (func, delay) => {
+    let timer;
+    return (...args) => {
+      if (timer) clearTimeout(timer); // Clear previous timer
+      timer = setTimeout(() => {
+        func(...args); // Execute the function after delay
+      }, delay);
+    };
+  };
+
+  const debouncedSearch = useCallback(
+    debounce((value) => {
+      dispatch(setSearchValue(value));
+      fetchContacts(value);
+    }, 500), //  after 1 sec its tiger
+    []
+  );
+
+  const handleSearch = (e) => {
+    setSearchInput(e.target.value.trim());
+    debouncedSearch(e.target.value.trim());
+  };
 
   return (
     <>
@@ -28,8 +57,8 @@ export default function Action() {
               className="w-full bg-transparent outline-none text-[#79808c] placeholder-[#79808c] font-[3px]"
               type="text"
               placeholder="Search By ..."
-              name=""
-              id=""
+              value={searchInput}
+              onChange={handleSearch}
             />
           </button>
         </div>
@@ -43,10 +72,10 @@ export default function Action() {
                 newContactModal: false,
               }));
             }}
-            classname="flex gap-2 bg-[#a83281] hover:bg-white hover:text-[#a83281]  text-white font-[3px] py-[6px] px-4 rounded-[4px]"
+            className="flex gap-2 bg-[#a83281] hover:bg-white hover:text-[#a83281]  text-white font-[3px] py-[6px] px-4 rounded-[4px]"
           >
             <p>
-              <i classname="fa-solid fa-filter"></i>
+              <i className="fa-solid fa-filter"></i>
             </p>
             <p>Filter</p>
           </button>
@@ -58,7 +87,7 @@ export default function Action() {
                 newContactModal: true,
               }));
             }}
-            classname="flex gap-2 bg-[#a83281] hover:bg-white hover:text-[#a83281]  text-white font-[3px] py-[6px] px-4 rounded-[4px]"
+            className="flex gap-2 bg-[#a83281] hover:bg-white hover:text-[#a83281]  text-white font-[3px] py-[6px] px-4 rounded-[4px]"
           >
             <p>+</p>
             <p> Add new</p>
@@ -68,7 +97,10 @@ export default function Action() {
 
       <Modal shouldShow={shouldShow} setShouldShow={setShouldShow}>
         {selectModal.filterModal && (
-          <FilterModal setShouldShow={setShouldShow} />
+          <FilterModel
+            setShouldShow={setShouldShow}
+            setSearchInput={setSearchInput}
+          />
         )}
 
         {selectModal.newContactModal && (
@@ -81,39 +113,3 @@ export default function Action() {
     </>
   );
 }
-
-const FilterModal = ({ setShouldShow }) => {
-  const [selectedStatus, setSelectedStatus] = useState("");
-  return (
-    <div className="w-full bg-[#4f545bcf] rounded-[8px]">
-      <p
-        className="text-end p-2 pr-4 cursor-pointer"
-        onClick={() => setShouldShow(false)}
-      >
-        <i className="fa-solid fa-x "></i>
-      </p>
-      <div className="flex gap-4 justify-center py-8">
-        <button
-          onClick={() => setSelectedStatus("Draft")}
-          className={` font-[3px] p-2 px-8 rounded-[20px] ${
-            selectedStatus === "Draft"
-              ? "bg-white text-[#303339]"
-              : "bg-[#303339] text-white"
-          }  `}
-        >
-          Draft
-        </button>
-        <button
-          onClick={() => setSelectedStatus("Finalized")}
-          className={` font-[3px] p-2 px-8 rounded-[20px] ${
-            selectedStatus === "Finalized"
-              ? "bg-white text-[#303339]"
-              : "bg-[#303339] text-white"
-          } `}
-        >
-          Finalized
-        </button>
-      </div>
-    </div>
-  );
-};

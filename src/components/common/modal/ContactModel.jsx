@@ -1,7 +1,8 @@
 import axios from "axios";
 import React, { useCallback, useEffect, useState } from "react";
 import InputField from "../InputField";
-import { useFetchContacts } from "../../custom/Hook/useFetchContacts";
+import { baseurl } from "../../../env";
+import { useFetchCategoryContact } from "../../custom/Hook/useFetchCategoryContact";
 
 const inputClass =
   "w-full bg-[#292c30] outline-none text-[#79808c] placeholder-[#79808c] font-[3px] p-2 rounded-[4px]";
@@ -13,7 +14,7 @@ export default function ContactModel({
 }) {
   const [formData, setFormData] = useState(defaultFormData);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const fetchContacts = useFetchContacts();
+  const fetchCategoryContact = useFetchCategoryContact();
 
   const handleChange = useCallback((e) => {
     const { name, value } = e.target;
@@ -45,7 +46,7 @@ export default function ContactModel({
       if (res.status === 200) {
         setFormData(defaultFormData);
         setShouldShow(false);
-        fetchContacts();
+        fetchCategoryContact();
       }
     } catch (err) {
       alert(err.response?.data?.message || "An unexpected error occurred.");

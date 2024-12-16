@@ -31,12 +31,7 @@ export default function Table() {
             <table className="border-b-[1px] border-[#79808c]">
               <thead className=" border-none">
                 <tr>
-                  <th className="border-none">
-                    <input
-                      type="checkbox"
-                      className="w-5 h-5 appearance-none border border-white bg-gray-500 rounded-md focus:ring-2 focus:ring-white cursor-pointer"
-                    />
-                  </th>
+                  <th className="border-none">Contact Id</th>
                   <th className="border-none">Name</th>
                   <th className="border-none">Email</th>
                   <th className="border-none">Phone</th>
@@ -52,12 +47,7 @@ export default function Table() {
                 ) : contactList.length > 0 ? (
                   contactList.map((contact, index) => (
                     <tr key={contact.id}>
-                      <td>
-                        <input
-                          type="checkbox"
-                          className="w-5 h-5 appearance-none border border-white bg-gray-500 rounded-md focus:ring-2 focus:ring-white cursor-pointer"
-                        />
-                      </td>
+                      <td>{contact.contact_id}</td>
                       <td>{contact.name}</td>
                       <td>{contact.email}</td>
                       <td>{contact.phone_number}</td>

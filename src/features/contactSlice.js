@@ -6,7 +6,8 @@ const initialState = {
     contactMetaData: null,
     loaderStatus: false,
     currentPage: 1,
-    categoryContactData: []
+    categoryContactData: [],
+    searchValue: ""
 };
 
 
@@ -29,8 +30,11 @@ const contactSlice = createSlice({
         setCategoryContactData: (state, action) => {
             state.categoryContactData = action.payload
         },
+        setSearchValue: (state, action) => {
+            state.searchValue = action.payload
+        },
     },
 });
 
-export const { addContactMetaData, addContact, setLoaderStatus, setCurrentPage, setCategoryContactData } = contactSlice.actions;
+export const { addContactMetaData, addContact, setLoaderStatus, setCurrentPage, setCategoryContactData, setSearchValue } = contactSlice.actions;
 export default contactSlice.reducer;
