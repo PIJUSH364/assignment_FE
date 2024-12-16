@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Modal from "../common/Modal";
 import ContactModel from "../common/modal/ContactModel";
-import { useDispatch, useSelector } from "react-redux";
-import { setSearchValue } from "../../features/contactSlice";
+import { useDispatch } from "react-redux";
+import { setCurrentPage, setSearchValue } from "../../features/contactSlice";
 import { useFetchContacts } from "../custom/Hook/useFetchContacts";
 import FilterModel from "../common/modal/FilterModel";
 
@@ -17,7 +17,6 @@ const defaultFormData = {
 export default function Action() {
   const dispatch = useDispatch();
   const fetchContacts = useFetchContacts();
-  const searchValue = useSelector((state) => state.contact.searchValue);
   const [searchInput, setSearchInput] = useState("");
   const [shouldShow, setShouldShow] = useState(false);
   const [selectModal, setSelectModal] = useState({
@@ -38,7 +37,8 @@ export default function Action() {
   const debouncedSearch = useCallback(
     debounce((value) => {
       dispatch(setSearchValue(value));
-      fetchContacts(value);
+      dispatch(setCurrentPage(1));
+      fetchContacts(value, 1);
     }, 500), //  after 1 sec its tiger
     []
   );

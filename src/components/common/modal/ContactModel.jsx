@@ -2,7 +2,8 @@ import axios from "axios";
 import React, { useCallback, useEffect, useState } from "react";
 import InputField from "../InputField";
 import { baseurl } from "../../../env";
-import { useFetchCategoryContact } from "../../custom/Hook/useFetchCategoryContact";
+import { useFetchContacts } from "../../custom/Hook/useFetchContacts";
+import { useSelector } from "react-redux";
 
 const inputClass =
   "w-full bg-[#292c30] outline-none text-[#79808c] placeholder-[#79808c] font-[3px] p-2 rounded-[4px]";
@@ -12,10 +13,11 @@ export default function ContactModel({
   defaultFormData,
   isEditModal = false,
 }) {
+  const fetchContacts = useFetchContacts();
+  const searchValue = useSelector((state) => state.contact.searchValue);
+  const currentPage = useSelector((state) => state.contact.currentPage);
   const [formData, setFormData] = useState(defaultFormData);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const fetchCategoryContact = useFetchCategoryContact();
-
   const handleChange = useCallback((e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value?.trim() }));
@@ -46,7 +48,7 @@ export default function ContactModel({
       if (res.status === 200) {
         setFormData(defaultFormData);
         setShouldShow(false);
-        fetchCategoryContact();
+        fetchContacts(searchValue, currentPage);
       }
     } catch (err) {
       alert(err.response?.data?.message || "An unexpected error occurred.");

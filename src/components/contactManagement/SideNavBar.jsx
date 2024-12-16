@@ -1,16 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
-import { useFetchCategoryContact } from "../custom/Hook/useFetchCategoryContact";
 
 export default function SideNavBar() {
-  const fetchCategoryContact = useFetchCategoryContact();
   const categoryContactData = useSelector(
     (state) => state.contact.categoryContactData
   );
-
-  useEffect(() => {
-    fetchCategoryContact();
-  }, []);
 
   return (
     <div className="w-1/5 bg-[#292c30] p-2 pl-4 rounded-tr-[10px] ">

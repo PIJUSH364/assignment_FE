@@ -1,13 +1,21 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { baseurl } from "../../../env";
-import { useFetchCategoryContact } from "../../custom/Hook/useFetchCategoryContact";
+
+import { useFetchContacts } from "../../custom/Hook/useFetchContacts";
+import { useDispatch, useSelector } from "react-redux";
+import { setCurrentPage } from "../../../features/contactSlice";
 const buttonStyles =
   "bg-[#a83281] hover:bg-white hover:text-[#a83281] text-white font-medium p-2 px-8 rounded-[4px] mt-4";
 
 export default function DeleteModel({ setShouldShow, id }) {
-  const fetchCategoryContact = useFetchCategoryContact();
+  const fetchContacts = useFetchContacts();
+  const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
+  const searchValue = useSelector((state) => state.contact.searchValue);
+  const currentPage = useSelector((state) => state.contact.currentPage);
+  const contactList = useSelector((state) => state.contact.contactList);
+
   const handleDelete = async () => {
     try {
       setIsLoading(true);
@@ -15,7 +23,14 @@ export default function DeleteModel({ setShouldShow, id }) {
       if (res.status === 200) {
         alert(res.data.message);
         setShouldShow(false);
-        fetchCategoryContact();
+
+        if (currentPage != 1 && contactList.length == 1) {
+          dispatch(setCurrentPage(currentPage - 1));
+          fetchContacts(searchValue, currentPage - 1);
+        } else {
+          fetchContacts(searchValue, currentPage);
+        }
+        alert("call form delete");
       } else {
         alert("Failed to delete the contact. Please try again.");
       }

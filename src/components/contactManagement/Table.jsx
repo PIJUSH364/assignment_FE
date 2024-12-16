@@ -17,10 +17,13 @@ export default function Table() {
   });
   const loaderStatus = useSelector((state) => state.contact.loaderStatus);
   const contactList = useSelector((state) => state.contact.contactList);
+  const searchValue = useSelector((state) => state.contact.searchValue);
+  const currentPage = useSelector((state) => state.contact.currentPage);
   const fetchContacts = useFetchContacts();
 
   useEffect(() => {
-    fetchContacts();
+    fetchContacts(searchValue, currentPage);
+    alert("call form table");
   }, []);
 
   return (
