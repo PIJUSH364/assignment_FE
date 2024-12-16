@@ -19,6 +19,7 @@ export const useFetchCategoryContact = () => {
         );
 
         if (response.status == 200 && response.data?.data) {
+          toast.success("hello");
           dispatch(setCategoryContactData(response.data.data));
         }
       } catch (error) {
