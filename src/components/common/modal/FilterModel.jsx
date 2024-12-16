@@ -1,13 +1,22 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setFilterValue } from "../../../features/contactSlice";
+import { useFetchContacts } from "../../custom/Hook/useFetchContacts";
 
 export default function FilterModel({ setShouldShow, setSearchInput }) {
+  const dispatch = useDispatch();
+  const fetchContacts = useFetchContacts();
   const [selectedStatus, setSelectedStatus] = useState("");
 
   const handleFilter = (status) => {
     setSearchInput("");
+    dispatch(setFilterValue(status));
+    setSelectedStatus(status);
+    alert("fetch");
+    fetchContacts("", 1, status);
     setTimeout(() => {
       setShouldShow(false);
-    }, 1000);
+    }, 500);
   };
   return (
     <div className="w-full bg-[#4f545bcf] rounded-[8px]">
@@ -19,10 +28,7 @@ export default function FilterModel({ setShouldShow, setSearchInput }) {
       </p>
       <div className="flex gap-4 justify-center py-8">
         <button
-          onClick={() => {
-            setSelectedStatus("draft");
-            handleFilter("draft");
-          }}
+          onClick={() => handleFilter("draft")}
           className={` font-[3px] p-2 px-8 rounded-[20px] ${
             selectedStatus === "draft"
               ? "bg-white text-[#303339]"
@@ -32,10 +38,7 @@ export default function FilterModel({ setShouldShow, setSearchInput }) {
           Draft
         </button>
         <button
-          onClick={() => {
-            handleFilter("finalized");
-            setSelectedStatus("finalized");
-          }}
+          onClick={() => handleFilter("finalized")}
           className={` font-[3px] p-2 px-8 rounded-[20px] ${
             selectedStatus === "finalized"
               ? "bg-white text-[#303339]"

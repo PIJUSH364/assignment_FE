@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentPage } from "../../features/contactSlice";
 import { useFetchContacts } from "../custom/Hook/useFetchContacts";

@@ -8,17 +8,22 @@ import {
 import { baseurl } from "../../../env";
 import { useDispatch } from "react-redux";
 import { useFetchCategoryContact } from "./useFetchCategoryContact";
+import { status } from "../../../Enum";
 
 export const useFetchContacts = () => {
   const dispatch = useDispatch();
   const fetchCategoryContact = useFetchCategoryContact();
   const fetchContacts = useCallback(
-    async (query = "", pageIndex = 1) => {
+    async (query = "", pageIndex = 1, filterBy = "") => {
       dispatch(setLoaderStatus(true));
 
       try {
         const response = await axios.get(
-          `${baseurl}/all_contact?page=${pageIndex}&limit=5&search=${query}`
+          `${baseurl}/all_contact?page=${pageIndex}&limit=5&search=${query}${
+            status.includes(filterBy.trim())
+              ? `&filterBy=${filterBy.trim()}`
+              : ""
+          }`
         );
 
         if (response?.data?.code === 200 && response.data?.data?.data) {

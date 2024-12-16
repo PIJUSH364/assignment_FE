@@ -1,22 +1,20 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Modal from "../common/Modal";
 import ContactModel from "../common/modal/ContactModel";
-import { useDispatch } from "react-redux";
-import { setCurrentPage, setSearchValue } from "../../features/contactSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  resetFilterValue,
+  setCurrentPage,
+  setSearchValue,
+} from "../../features/contactSlice";
 import { useFetchContacts } from "../custom/Hook/useFetchContacts";
 import FilterModel from "../common/modal/FilterModel";
-
-const defaultFormData = {
-  name: "",
-  email: "",
-  phone_number: "",
-  status: "draft",
-  tag: "",
-};
+import { defaultFormData } from "../../Enum";
 
 export default function Action() {
   const dispatch = useDispatch();
   const fetchContacts = useFetchContacts();
+  const filterValue = useSelector((state) => state.contact.filterValue);
   const [searchInput, setSearchInput] = useState("");
   const [shouldShow, setShouldShow] = useState(false);
   const [selectModal, setSelectModal] = useState({
@@ -64,6 +62,24 @@ export default function Action() {
         </div>
 
         <div className="flex gap-4">
+          {filterValue.trim() && (
+            <button
+              className={`capitalize cursor-default font-[3px] p-2 px-4 pr-4 rounded-[20px] text-[#303339] bg-white  `}
+            >
+              {filterValue}
+              <span
+                className="ml-4 cursor-pointer "
+                onClick={() => {
+                  dispatch(resetFilterValue());
+                  dispatch(setCurrentPage(1));
+                  fetchContacts();
+                }}
+              >
+                <i className="fa-solid fa-x text-[#a83281]"></i>
+              </span>
+            </button>
+          )}
+
           <button
             onClick={() => {
               setShouldShow(true);
