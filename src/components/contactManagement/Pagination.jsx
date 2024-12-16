@@ -15,12 +15,6 @@ export default function Pagination() {
   const pageRange = useSelector((state) => state.contact.pageRange);
   const fetchContacts = useFetchContacts();
 
-  // const [pageRange, setPageRange] = useState(
-  //   new Array(contactMetaData.totalPages > 5 ? 5 : contactMetaData.totalPages)
-  //     .fill(null)
-  //     .map((_, index) => index + 1)
-  // );
-
   useEffect(() => {}, [pageRange]);
 
   const handlePageChange = (newPage) => {

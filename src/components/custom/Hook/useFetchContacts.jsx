@@ -17,13 +17,12 @@ export const useFetchContacts = () => {
   const fetchContacts = useCallback(
     async (query = "", pageIndex = 1, filterBy = "") => {
       dispatch(setLoaderStatus(true));
-
+      query = query.trim();
+      filterBy = filterBy.trim();
       try {
         const response = await axios.get(
           `${baseurl}/all_contact?page=${pageIndex}&limit=5&search=${query}${
-            status.includes(filterBy.trim())
-              ? `&filterBy=${filterBy.trim()}`
-              : ""
+            status.includes(filterBy) ? `&filterBy=${filterBy}` : ""
           }`
         );
 

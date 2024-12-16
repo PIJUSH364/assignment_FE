@@ -36,7 +36,7 @@ export default function Action() {
     debounce((value) => {
       dispatch(setSearchValue(value));
       dispatch(setCurrentPage(1));
-      fetchContacts(value, 1);
+      fetchContacts(value, 1, filterValue);
     }, 500), //  after 1 sec its tiger
     []
   );

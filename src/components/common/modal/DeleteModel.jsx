@@ -15,7 +15,7 @@ export default function DeleteModel({ setShouldShow, id }) {
   const searchValue = useSelector((state) => state.contact.searchValue);
   const currentPage = useSelector((state) => state.contact.currentPage);
   const contactList = useSelector((state) => state.contact.contactList);
-
+  const filterValue = useSelector((state) => state.contact.filterValue);
   const handleDelete = async () => {
     try {
       setIsLoading(true);
@@ -26,11 +26,10 @@ export default function DeleteModel({ setShouldShow, id }) {
 
         if (currentPage != 1 && contactList.length == 1) {
           dispatch(setCurrentPage(currentPage - 1));
-          fetchContacts(searchValue, currentPage - 1);
+          fetchContacts(searchValue, currentPage - 1, filterValue);
         } else {
-          fetchContacts(searchValue, currentPage);
+          fetchContacts(searchValue, currentPage, filterValue);
         }
-        alert("call form delete");
       } else {
         alert("Failed to delete the contact. Please try again.");
       }

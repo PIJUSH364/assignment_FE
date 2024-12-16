@@ -16,6 +16,8 @@ export default function ContactModel({
   const fetchContacts = useFetchContacts();
   const searchValue = useSelector((state) => state.contact.searchValue);
   const currentPage = useSelector((state) => state.contact.currentPage);
+
+  const filterValue = useSelector((state) => state.contact.filterValue);
   const [formData, setFormData] = useState(defaultFormData);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const handleChange = useCallback((e) => {
@@ -48,7 +50,7 @@ export default function ContactModel({
       if (res.status === 200) {
         setFormData(defaultFormData);
         setShouldShow(false);
-        fetchContacts(searchValue, currentPage);
+        fetchContacts(searchValue, currentPage, filterValue);
       }
     } catch (err) {
       alert(err.response?.data?.message || "An unexpected error occurred.");
