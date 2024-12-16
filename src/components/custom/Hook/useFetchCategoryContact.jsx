@@ -7,17 +7,20 @@ import { baseurl } from "../../../env";
 export const useFetchCategoryContact = () => {
   const dispatch = useDispatch();
 
-  const fetchCategoryContact = useCallback(async () => {
-    try {
-      const response = await axios.get(`${baseurl}/count_category`);
+  const fetchCategoryContact = useCallback(
+    async (query = "", filterBy = "") => {
+      try {
+        const response = await axios.get(`${baseurl}/count_category`);
 
-      if (response.status == 200 && response.data?.data) {
-        dispatch(setCategoryContactData(response.data.data));
+        if (response.status == 200 && response.data?.data) {
+          dispatch(setCategoryContactData(response.data.data));
+        }
+      } catch (error) {
+        console.error("Error fetching category contacts:", error.message);
       }
-    } catch (error) {
-      console.error("Error fetching category contacts:", error.message);
-    }
-  }, [dispatch]);
+    },
+    [dispatch]
+  );
 
   return fetchCategoryContact;
 };

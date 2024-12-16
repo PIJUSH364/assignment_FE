@@ -8,7 +8,8 @@ const initialState = {
     currentPage: 1,
     categoryContactData: [],
     searchValue: "",
-    filterValue: ""
+    filterValue: "",
+    pageRange: [1]
 
 };
 
@@ -44,8 +45,22 @@ const contactSlice = createSlice({
             state.filterValue = "";
             state.searchValue = ""
         },
+        setInitialPageRange: (state) => {
+            state.currentPage = 1;
+            if (state.contactMetaData) {
+                state.pageRange =
+                    new Array(state.contactMetaData.totalPages > 5 ? 5 : state.contactMetaData.totalPages)
+                        .fill(null)
+                        .map((_, index) => index + 1);
+            }
+        },
+
+        setCustomPageRange: (state, action) => {
+            state.pageRange = action.payload
+        },
+
     },
 });
 
-export const { addContactMetaData, addContact, setLoaderStatus, setCurrentPage, setCategoryContactData, setSearchValue, setFilterValue, resetFilterValue } = contactSlice.actions;
+export const { addContactMetaData, addContact, setLoaderStatus, setCurrentPage, setCategoryContactData, setSearchValue, setFilterValue, resetFilterValue, setInitialPageRange, setCustomPageRange } = contactSlice.actions;
 export default contactSlice.reducer;

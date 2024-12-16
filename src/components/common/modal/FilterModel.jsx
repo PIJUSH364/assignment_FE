@@ -12,7 +12,6 @@ export default function FilterModel({ setShouldShow, setSearchInput }) {
     setSearchInput("");
     dispatch(setFilterValue(status));
     setSelectedStatus(status);
-    alert("fetch");
     fetchContacts("", 1, status);
     setTimeout(() => {
       setShouldShow(false);

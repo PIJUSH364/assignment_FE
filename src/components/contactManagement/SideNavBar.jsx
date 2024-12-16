@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 export default function SideNavBar() {
   const categoryContactData = useSelector(
     (state) => state.contact.categoryContactData
   );
+
+  useEffect(() => {}, [categoryContactData]);
 
   return (
     <div className="w-1/5 bg-[#292c30] p-2 pl-4 rounded-tr-[10px] ">

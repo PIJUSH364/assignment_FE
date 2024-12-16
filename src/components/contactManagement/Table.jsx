@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import Pagination from "./Pagination";
 import Modal from "../common/Modal";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useFetchContacts } from "../custom/Hook/useFetchContacts";
 import DeleteModel from "../common/modal/DeleteModel";
 import ContactModel from "../common/modal/ContactModel";
+import { setInitialPageRange } from "../../features/contactSlice";
 
 export default function Table() {
   const [EditContactData, setEditContactData] = useState(null);
@@ -23,7 +24,6 @@ export default function Table() {
 
   useEffect(() => {
     fetchContacts(searchValue, currentPage);
-    alert("call form table");
   }, []);
 
   return (

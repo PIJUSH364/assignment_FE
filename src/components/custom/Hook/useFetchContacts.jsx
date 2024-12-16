@@ -3,6 +3,7 @@ import axios from "axios";
 import {
   addContact,
   addContactMetaData,
+  setInitialPageRange,
   setLoaderStatus,
 } from "../../../features/contactSlice";
 import { baseurl } from "../../../env";
@@ -30,11 +31,12 @@ export const useFetchContacts = () => {
           const { data, meta } = response.data.data;
           dispatch(addContact(data));
           dispatch(addContactMetaData(meta));
-          fetchCategoryContact();
+          fetchCategoryContact(query, filterBy);
         }
       } catch (error) {
         console.error("Error fetching contacts:", error.message);
       } finally {
+        pageIndex == 1 && dispatch(setInitialPageRange());
         dispatch(setLoaderStatus(false));
       }
     },
