@@ -17,17 +17,19 @@ export default function Table() {
 
   return (
     <>
-      <div>
+      <div style={{ height: "calc(100vh - 85px)" }}>
         <table className="border-b-[1px] border-[#79808c]">
-          <thead className=" border-none">
+          <thead className="border-none">
             <tr>
-              <th className="border-none">Contact Id</th>
-              <th className="border-none">Name</th>
-              <th className="border-none">Email</th>
-              <th className="border-none">Phone</th>
-              <th className="border-none">Tag</th>
-              <th className="border-none">Status</th>
-              <th className="border-none text-center">Action</th>
+              <th className="border-none w-16 sm:w-24 md:w-32">Contact Id</th>
+              <th className="border-none w-24 sm:w-40 md:w-48">Name</th>
+              <th className="border-none w-40 sm:w-60 md:w-80">Email</th>
+              <th className="border-none w-20 sm:w-32 md:w-40">Phone</th>
+              <th className="border-none w-16 sm:w-28 md:w-36">Tag</th>
+              <th className="border-none w-16 sm:w-28 md:w-36">Status</th>
+              <th className="border-none text-center w-20 sm:w-24 md:w-32">
+                Action
+              </th>
             </tr>
           </thead>
 

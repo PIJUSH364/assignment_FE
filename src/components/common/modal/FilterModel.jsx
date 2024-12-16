@@ -18,7 +18,7 @@ export default function FilterModel({ setShouldShow, setSearchInput }) {
     }, 500);
   };
   return (
-    <div className="w-full bg-[#4f545bcf] rounded-[8px]">
+    <div className="modal_bg">
       <p
         className="text-end p-2 pr-4 cursor-pointer"
         onClick={() => setShouldShow(false)}

@@ -42,7 +42,7 @@ export default function DeleteModel({ setShouldShow, id }) {
     }
   };
   return (
-    <div className="w-full bg-[#4f545bcf] rounded-[8px]">
+    <div className="modal_bg">
       <p
         className="text-end p-2 pr-4 cursor-pointer"
         onClick={() => setShouldShow(false)}

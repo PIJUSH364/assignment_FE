@@ -16,12 +16,12 @@ export default function Home() {
   useEffect(() => {
     fetchContacts(searchValue, currentPage, filterValue);
   }, []);
+
   return (
-    <div className="flex h-screen">
-      <SideNavBar />
+    <div className="flex  h-screen">
+      <SideNavBar className="sm:block hidden" /> {/* Hide on small screens */}
       <div className="flex flex-col w-full p-4 pt-0">
         <Action />
-
         {loaderStatus ? (
           <CustomSkelton msg="Loading..." />
         ) : contactList.length > 0 ? (

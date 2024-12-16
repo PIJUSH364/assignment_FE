@@ -5,6 +5,19 @@
   font-family: "Roboto", sans-serif;
 }
 
+/* Global styles */
+html,
+body {
+  min-width: 1000px;
+}
+
+@media (max-width: 1000px) {
+  html,
+  body {
+    overflow-x: hidden;
+  }
+}
+
 @media only screen and (max-width: 768px) {
   .height-ch {
     height: auto;
@@ -20,7 +33,6 @@ table {
 }
 th,
 td {
-  /* border: 1px solid #ddd; */
   padding: 18px;
   text-align: left;
   font-size: 16px;
@@ -55,9 +67,8 @@ tbody {
   background-color: black;
   margin: 9% auto;
   /* padding: 20px; */
-
   min-width: 30%;
   max-width: 33%;
   border-radius: 8px;
-  z-index: 10000; /* High enough for content within modal */
+  z-index: 10000;
 }

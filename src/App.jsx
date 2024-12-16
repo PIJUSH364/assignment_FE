@@ -4,9 +4,9 @@ import Home from "./components/contactManagement/Home";
 
 const App = () => {
   return (
-    <div className="box-border">
-      <div className="bg-black text-white h-100">
-        <Navbar />
+    <div className="bg-black text-white h-full min-h-screen flex flex-col">
+      <Navbar />
+      <div className="flex-1">
         <Home />
       </div>
     </div>

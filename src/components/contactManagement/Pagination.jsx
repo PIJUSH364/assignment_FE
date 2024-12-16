@@ -23,7 +23,7 @@ export default function Pagination() {
   };
 
   return (
-    <div className="flex items-center justify-center p-8 bg-[#292c30] rounded-bl-[10px] rounded-br-[10px]">
+    <div className="flex items-center justify-center p-8 bg_primary rounded-bl-[10px] rounded-br-[10px] ">
       <ul className="flex items-center -space-x-px h-12 text-md cursor-pointer">
         <li
           onClick={() => {

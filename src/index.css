@@ -3,79 +3,17 @@
 @tailwind utilities;
 
 @layer components {
-  /* common */
-  .common-container {
-    @apply md:p-24 p-5 box-border;
+  .side_bar_number {
+    @apply text-[13px] font-light tracking-wide transform transition-all duration-300 ease-in-out hover:scale-110 hover:pl-2;
   }
-  .responsive-flex-box {
-    @apply flex flex-col md:flex-row;
+  .bg_primary {
+    @apply bg-[#292c30];
   }
-  .tittle-one {
-    @apply font-extrabold text-5xl pb-3 text-black;
+  .input_class {
+    @apply w-full bg_primary outline-none text-[#79808c] placeholder-[#79808c] font-[3px] p-2 rounded-[4px];
   }
-  .tittle-two {
-    @apply font-extrabold text-3xl pb-5 text-black;
-  }
-  .title-three {
-    @apply font-extrabold text-4xl pb-6 tracking-wide leading-snug;
-  }
-  .title-special {
-    @apply font-bold text-3xl pb-3;
-  }
-  .lite-sub-tittle {
-    @apply text-[#6d6d6d] text-lg leading-6;
-  }
-  .lite-text {
-    @apply text-[#6d6d6d]  text-base   hover:underline;
-  }
-  .mobile-video {
-    @apply min-w-full min-h-full object-cover rounded-[2.8rem];
-  }
-  .trans-400-eio {
-    @apply transition duration-700 ease-in-out;
-  }
-  .trans-700-eio {
-    @apply transition duration-700 ease-in-out;
-  }
-  .trans-1000-eio {
-    @apply transition duration-1000 ease-in-out;
-  }
-  /* navbar */
-  .desktop-sub-menu-card {
-    @apply translate-y-24 opacity-0
-    top-[90px] absolute  flex flex-col gap-5 bg-white text-black p-4 py-6 w-[16rem] rounded-2xl mt-2 text-lg tracking-wide font-normal;
-  }
-  .desktop-menu-card {
-    @apply hover:bg-neutral-900 p-4 rounded-lg;
-  }
-  .desktop-menu-item {
-    @apply cursor-pointer p-4 hover:bg-neutral-900 rounded-lg;
-  }
-  .mobile-menu-card {
-    @apply flex flex-col tracking-wider text-xl font-medium p-8  gap-y-8  text-gray-200 bg-[rgba(27,27,27)];
-  }
-  .menu-base {
-    @apply flex flex-row justify-between;
-  }
-
-  .sub-menu-item {
-    @apply underline text-[rgb(0,132,233)];
-  }
-  .sub-menu-card {
-    @apply p-5 gap-5 flex-col hidden;
-  }
-  .bar-ani {
-    @apply bg-white h-[3px];
-  }
-  .br-w4 {
-    @apply border-4 border-[red];
-  }
-  /* home-section */
-  .video-card {
-    @apply md:my-20 my-10 h-80  object-cover rounded-[1.8rem];
-  }
-  .flex-jc-ic {
-    @apply flex justify-center items-center;
+  .modal_bg {
+    @apply w-full bg-[#4f545bcf] rounded-[8px];
   }
 }
 

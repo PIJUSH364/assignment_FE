@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
 
 const inputClass =
-  "w-full bg-[#292c30] outline-none text-[#79808c] placeholder-[#79808c] font-[3px] p-2 rounded-[4px]";
+  "w-full bg_primary outline-none text-[#79808c] placeholder-[#79808c] font-[3px] p-2 rounded-[4px]";
 
 export default function ContactModel({
   setShouldShow,
@@ -70,7 +70,7 @@ export default function ContactModel({
   }, []);
 
   return (
-    <div className="w-full bg-[#4f545bcf] rounded-[8px]">
+    <div className="modal_bg">
       <p
         className="text-end p-2 pr-4 cursor-pointer"
         onClick={() => setShouldShow(false)}
@@ -105,7 +105,7 @@ export default function ContactModel({
           name="status"
           value={formData.status}
           onChange={handleChange}
-          className={inputClass}
+          className="input_class"
         >
           <option value="draft">Draft</option>
           <option value="finalized">Finalized</option>
@@ -118,7 +118,7 @@ export default function ContactModel({
           onChange={handleChange}
         />
         <button
-          className="w-full bg-[#292c30] font-[3px] p-2 rounded-[4px] bg-[#a83281] hover:bg-white hover:text-[#a83281] text-white mt-4"
+          className="w-full bg_primary font-[3px] p-2 rounded-[4px] bg-[#a83281] hover:bg-white hover:text-[#a83281] text-white mt-4"
           onClick={handleSubmit}
           disabled={isSubmitting}
         >

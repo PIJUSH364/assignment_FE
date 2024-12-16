@@ -37,7 +37,7 @@ export default function Action() {
       dispatch(setSearchValue(value));
       dispatch(setCurrentPage(1));
       fetchContacts(value, 1, filterValue);
-    }, 500), //  after 1 sec its tiger
+    }, 500), // after 1 sec its trigger
     []
   );
 
@@ -48,9 +48,9 @@ export default function Action() {
 
   return (
     <>
-      <div className="flex justify-between bg-[#292c30] p-4 pb-8 rounded-[10px] rounded-b-[0px]">
-        <div className="flex gap-4">
-          <button className="flex gap-2 w-[18rem] bg-transparent border-2 border-[#79808c]  text-white  py-[6px] px-2 rounded-[4px]">
+      <div className="flex flex-wrap justify-between bg_primary p-4 pb-8 rounded-[10px] rounded-b-[0px] ">
+        <div className="flex gap-4 w-full sm:w-[18rem] md:w-[20rem] lg:w-[22rem]">
+          <button className="flex gap-2 w-full bg-transparent border-2 border-[#79808c] text-white py-[6px] px-2 rounded-[4px]">
             <input
               className="w-full bg-transparent outline-none text-[#79808c] placeholder-[#79808c] font-[3px]"
               type="text"
@@ -61,14 +61,14 @@ export default function Action() {
           </button>
         </div>
 
-        <div className="flex gap-4">
+        <div className="flex gap-4 w-full sm:w-auto">
           {filterValue.trim() && (
             <button
-              className={`capitalize cursor-default font-[3px] p-2 px-4 pr-4 rounded-[20px] text-[#303339] bg-white  `}
+              className={`capitalize cursor-default font-[3px] p-2 px-4 pr-4 rounded-[20px] text-[#303339] bg-white`}
             >
               {filterValue}
               <span
-                className="ml-4 cursor-pointer "
+                className="ml-4 cursor-pointer"
                 onClick={() => {
                   dispatch(resetFilterValue());
                   dispatch(setCurrentPage(1));
@@ -88,7 +88,7 @@ export default function Action() {
                 newContactModal: false,
               }));
             }}
-            className="flex gap-2 bg-[#a83281] hover:bg-white hover:text-[#a83281]  text-white font-[3px] py-[6px] px-4 rounded-[4px]"
+            className="flex gap-2 bg-[#a83281] hover:bg-white hover:text-[#a83281] text-white font-[3px] py-[6px] px-4 rounded-[4px]"
           >
             <p>
               <i className="fa-solid fa-filter"></i>
@@ -103,7 +103,7 @@ export default function Action() {
                 newContactModal: true,
               }));
             }}
-            className="flex gap-2 bg-[#a83281] hover:bg-white hover:text-[#a83281]  text-white font-[3px] py-[6px] px-4 rounded-[4px]"
+            className="flex gap-2 bg-[#a83281] hover:bg-white hover:text-[#a83281] text-white font-[3px] py-[6px] px-4 rounded-[4px]"
           >
             <p>+</p>
             <p> Add new</p>
