@@ -10,7 +10,7 @@ import {
 import { useFetchContacts } from "../custom/Hook/useFetchContacts";
 import FilterModel from "../common/modal/FilterModel";
 import { defaultFormData } from "../../Enum";
-import { Toaster, toast } from "sonner";
+
 export default function Action() {
   const dispatch = useDispatch();
   const fetchContacts = useFetchContacts();

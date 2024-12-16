@@ -5,6 +5,7 @@ import { baseurl } from "../../../env";
 import { useFetchContacts } from "../../custom/Hook/useFetchContacts";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentPage } from "../../../features/contactSlice";
+import toast from "react-hot-toast";
 const buttonStyles =
   "bg-[#a83281] hover:bg-white hover:text-[#a83281] text-white font-medium p-2 px-8 rounded-[4px] mt-4";
 
@@ -21,7 +22,7 @@ export default function DeleteModel({ setShouldShow, id }) {
       setIsLoading(true);
       const res = await axios.delete(`${baseurl}/delete_contact/${id}`);
       if (res.status === 200) {
-        alert(res.data.message);
+        toast.success(res.data.message);
         setShouldShow(false);
 
         if (currentPage != 1 && contactList.length == 1) {
@@ -31,10 +32,10 @@ export default function DeleteModel({ setShouldShow, id }) {
           fetchContacts(searchValue, currentPage, filterValue);
         }
       } else {
-        alert("Failed to delete the contact. Please try again.");
+        toast.error("Failed to delete the contact. Please try again.");
       }
     } catch (error) {
-      alert("An error occurred while deleting the contact.");
+      toast.error("An error occurred while deleting the contact.");
       console.error("Error deleting contact:", error);
     } finally {
       setIsLoading(false);

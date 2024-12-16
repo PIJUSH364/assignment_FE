@@ -4,6 +4,7 @@ import InputField from "../InputField";
 import { baseurl } from "../../../env";
 import { useFetchContacts } from "../../custom/Hook/useFetchContacts";
 import { useSelector } from "react-redux";
+import toast from "react-hot-toast";
 
 const inputClass =
   "w-full bg-[#292c30] outline-none text-[#79808c] placeholder-[#79808c] font-[3px] p-2 rounded-[4px]";
@@ -45,15 +46,17 @@ export default function ContactModel({
       };
       setIsSubmitting(true);
       const res = await axios(config);
-      alert(res.data.message);
 
       if (res.status === 200) {
+        toast.success(res.data.message);
         setFormData(defaultFormData);
         setShouldShow(false);
         fetchContacts(searchValue, currentPage, filterValue);
       }
     } catch (err) {
-      alert(err.response?.data?.message || "An unexpected error occurred.");
+      toast.error(
+        err.response?.data?.message || "An unexpected error occurred."
+      );
     } finally {
       setIsSubmitting(false);
     }

@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { setCategoryContactData } from "../../../features/contactSlice";
 import { baseurl } from "../../../env";
 import { status } from "../../../Enum";
-import { toast } from "sonner";
+import toast from "react-hot-toast";
 
 export const useFetchCategoryContact = () => {
   const dispatch = useDispatch();
@@ -20,11 +20,11 @@ export const useFetchCategoryContact = () => {
         );
 
         if (response.status == 200 && response.data?.data) {
-          toast.success("hello");
           dispatch(setCategoryContactData(response.data.data));
         }
       } catch (error) {
         console.error("Error fetching category contacts:", error.message);
+        toast.error(error.message);
       }
     },
     [dispatch]
