@@ -6,12 +6,11 @@ const UserTable = ({ users, toggleMenu, handleDelete, menuIndex }) => {
         <table className="w-full border-collapse">
             <thead>
                 <tr className="bg-gray-200 text-left ">
-                    <th className="p-3 font-nunito">Name</th>
-                    <th className="p-3 font-nunito">Email</th>
-                    <th className="p-3 font-nunito">Role</th>
-                    <th className="p-3">Status</th>
-                    <th className="p-3">Joined</th>
-                    <th className="p-3">Actions</th>
+                    <th className="p-3 font-nunito">use Name</th>
+                    <th className="p-3 font-nunito">Access</th>
+                    <th className="p-3 font-nunito">Last Active</th>
+                    <th className="p-3 font-nunito">Date Added</th>
+                    <th className="p-3"></th>
                 </tr>
             </thead>
             <tbody>
