@@ -4,7 +4,7 @@ import UserManagement from "./pages/UserManagement";
 
 const App = () => {
   return (
-    <div>
+    <div className="font-nunito">
       <UserManagement />
     </div>
   );

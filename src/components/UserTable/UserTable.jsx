@@ -5,10 +5,10 @@ const UserTable = ({ users, toggleMenu, handleDelete, menuIndex }) => {
     return (
         <table className="w-full border-collapse">
             <thead>
-                <tr className="bg-gray-200 text-left">
-                    <th className="p-3">Name</th>
-                    <th className="p-3">Email</th>
-                    <th className="p-3">Role</th>
+                <tr className="bg-gray-200 text-left ">
+                    <th className="p-3 font-nunito">Name</th>
+                    <th className="p-3 font-nunito">Email</th>
+                    <th className="p-3 font-nunito">Role</th>
                     <th className="p-3">Status</th>
                     <th className="p-3">Joined</th>
                     <th className="p-3">Actions</th>
