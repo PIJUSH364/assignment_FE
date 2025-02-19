@@ -8,7 +8,15 @@ const Breadcrumbs = () => {
                 <FaHome /> <FaChevronRight className="mx-2" /> <span>User Management</span>
             </div>
             <div className="flex items-center gap-2">
-                <FaUserCircle className="text-2xl" /> <span>Admin</span>
+                <img
+
+                    src={"https://t4.ftcdn.net/jpg/03/83/25/83/360_F_383258331_D8imaEMl8Q3lf7EKU2Pi78Cn0R7KkW9o.jpg"}
+                    alt={"admin-img"} className="w-8 h-8 rounded-md "
+                />
+                <span
+                    className="text-sm font-medium">
+                    Florence Shaw
+                </span>
             </div>
         </div>
     );
