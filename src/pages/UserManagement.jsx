@@ -11,7 +11,7 @@ const UserManagement = () => {
     const usersPerPage = 5;
     return (
         <DashboardLayout>
-            <h2 className="text-xl font-semibold mb-4">User Management</h2>
+            <h2 className="text-xl font-semibold mb-4 ">User Management</h2>
             <Filters search={search} setSearch={setSearch} />
             <UserTable users={usersData} />
             <Pagination currentPage={currentPage} totalPages={Math.ceil(usersData.length / usersPerPage)} setCurrentPage={setCurrentPage} />

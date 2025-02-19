@@ -12,6 +12,7 @@ const Sidebar = () => {
                     </li>
                     <li className="flex items-center gap-2 text-gray-700 hover:text-blue-500 cursor-pointer">
                         <FaUsers /> User Management
+
                     </li>
                     <li className="flex items-center gap-2 text-gray-700 hover:text-blue-500 cursor-pointer">
                         <FaCog /> Settings

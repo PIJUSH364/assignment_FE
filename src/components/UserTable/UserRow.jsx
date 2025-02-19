@@ -3,8 +3,8 @@ import { FiMoreVertical } from "react-icons/fi";
 
 const UserRow = ({ user, index, toggleMenu, handleDelete, menuIndex }) => {
     return (
-        <tr className="border-b hover:bg-gray-100 relative">
-            <td className="p-3">{user.name}</td>
+        <tr className="border-b hover:bg-gray-100 relative ">
+            <td className="p-3 ">{user.name}</td>
             <td className="p-3">{user.email}</td>
             <td className="p-3">{user.role}</td>
             <td className="p-3">
