@@ -15,7 +15,6 @@ const UserManagement = () => {
                 <h2 className="text-xl font-semibold  font-nunito">User Management</h2>
                 <p className="text-sm font-extralight text-gray-500">Manage your team members and their account permissions here.</p>
             </div>
-
             <Filters search={search} setSearch={setSearch} />
             <UserTable users={usersData} />
             <Pagination currentPage={currentPage} totalPages={Math.ceil(usersData.length / usersPerPage)} setCurrentPage={setCurrentPage} />
