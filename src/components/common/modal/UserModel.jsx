@@ -5,9 +5,12 @@ import { AiOutlineClose } from 'react-icons/ai';
 import InputField from '../InputField';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { addUser } from '../../../features/users/userSlice';
+import { useDispatch } from 'react-redux';
 
 
 const UserModel = ({ setShouldShow }) => {
+    const dispatch = useDispatch();
     const validationSchema = Yup.object().shape({
         name: Yup.string().required('name is required'),
         email: Yup.string().email('Invalid email address').required('Email is required'),
@@ -22,6 +25,12 @@ const UserModel = ({ setShouldShow }) => {
                 axios.post('http://localhost:8001/api/v1/user/create_user', values)
                     .then((res) => {
                         toast.success(res.data.message);
+                        axios.get(`${"http://localhost:8001/api/v1/user"}/get_user_data?page=1`)
+                            .then((res) => {
+                                if (res.data?.code == 200 && res.data?.data) {
+                                    dispatch(addUser(res.data.data || []));
+                                }
+                            })
                         setSubmitting(false);
                     })
                     .catch((err) => {

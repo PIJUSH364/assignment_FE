@@ -17,16 +17,28 @@ const Filters = ({ search, setSearch, title = "All User", count = 43 }) => {
     const [isOpen, setIsOpen] = useState(false);
     const dispatch = useDispatch();
 
-    const handleSort = (order) => {
-        console.log(`Sorting in ${order} order`);
+    const handleSort = async (value = "") => {
+
+        try {
+            const { data } = await axios.get(
+                `http://localhost:8001/api/v1/user/filter_user_data?role=${value.toLowerCase()}`
+            );
+
+            if (data?.code === 200) {
+                dispatch(addUser(data.data || []));
+                toast.success(data.message);
+            } else {
+                toast.error("Error fetching users data");
+            }
+        } catch (error) {
+            toast.error("Error fetching users data");
+        }
+
         setIsOpen(false);
+
     };
 
-
-
-
     const handleSearchData = debounce(async (value, cancelTokenSource) => {
-
         try {
             const { data } = await axios.get(
                 `http://localhost:8001/api/v1/user/search_user_details?search=${value}`,
@@ -46,7 +58,7 @@ const Filters = ({ search, setSearch, title = "All User", count = 43 }) => {
                 toast.error(`Error fetching users data: ${error.message}`);
             }
         }
-    }, 3000); // Adjust debounce delay as needed
+    }, 3000);
 
 
     const handleInputChange = (e) => {
@@ -61,7 +73,7 @@ const Filters = ({ search, setSearch, title = "All User", count = 43 }) => {
             </Modal>
 
             <div className="flex justify-between items-center pb-4">
-                {/* Title */}
+
                 <h2 className="text-lg font-bold font-nunito">{`${title} (${count})`}</h2>
 
                 {/* Controls */}

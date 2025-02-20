@@ -21,7 +21,7 @@ const UserTable = ({ toggleMenu, handleDelete, menuIndex }) => {
 
 
     useEffect(() => {
-        axios.get(`${"http://localhost:8001/api/v1/user"}/get_all_users`)
+        axios.get(`${"http://localhost:8001/api/v1/user"}/get_user_data?page=1`)
             .then((res) => {
                 if (res.data?.code == 200 && res.data?.data) {
                     dispatch(addUser(res.data.data || []));
