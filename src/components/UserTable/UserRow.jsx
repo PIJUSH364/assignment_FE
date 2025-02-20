@@ -8,7 +8,7 @@ const UserRow = ({ user, index, toggleMenu, handleDelete, menuIndex }) => {
     return (
         <tr className="border-b hover:bg-gray-50">
             {/* User Details */}
-            <td className="p-3 flex items-center gap-3">
+            <td className="p-2 flex items-center gap-2">
                 <img src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiFIoQnASEQh51blUTQTG7eAHKzXX6_NizCw&s"} alt={user.name} className="w-10 h-10 rounded-full" />
                 <div>
                     <p className="font-medium text-gray-900">{user.name}</p>
@@ -17,24 +17,24 @@ const UserRow = ({ user, index, toggleMenu, handleDelete, menuIndex }) => {
             </td>
 
             {/* Access / Role Badges */}
-            <td className="p-3">
+            <td className="p-2">
                 <span className={`px-3 py-1 text-sm rounded-full ${user.role === "Admin" ? "bg-green-100 text-green-700" : "bg-blue-100 text-blue-700"} `}>
                     {user.role}
                 </span>
             </td>
 
             {/* Last Active */}
-            <td className="p-3 text-gray-700">
+            <td className="p-2 text-gray-700">
                 {currentDate.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
             </td>
 
             {/* Date Added */}
-            <td className="p-3 text-gray-700">
+            <td className="p-2 text-gray-700">
                 {user.dateAdded ? new Date(user.dateAdded).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) : currentDate.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
             </td>
 
             {/* More Actions Dropdown */}
-            <td className="p-3 relative">
+            <td className="p-2 relative">
                 <button onClick={() => toggleMenu(index)} className="p-2 rounded-full hover:bg-gray-200">
                     <FiMoreVertical className="text-gray-600" />
                 </button>
