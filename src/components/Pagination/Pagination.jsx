@@ -1,4 +1,7 @@
+
 import React from "react";
+import { GrPrevious } from "react-icons/gr";
+import { GrNext } from "react-icons/gr";
 
 const Pagination = ({ currentPage, totalPages, setCurrentPage }) => {
     const pageNumbers = [];
@@ -7,19 +10,20 @@ const Pagination = ({ currentPage, totalPages, setCurrentPage }) => {
     }
 
     return (
-        <div className="flex justify-between items-center mt-4">
+        <div className="flex justify-center gap-2 items-center mt-4">
             <button
-                className={`px-4 py-2 rounded ${currentPage === 1 ? "bg-gray-300 cursor-not-allowed" : "bg-blue-500 text-white"}`}
+                className="pagination_next_prev"
                 onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
                 disabled={currentPage === 1}
             >
-                Previous
+                <GrPrevious />
             </button>
-            <div className="flex space-x-2">
+            <div className="flex justify-center items-center space-x-2">
                 {pageNumbers.map(number => (
                     <button
                         key={number}
-                        className={`px-4 py-2 rounded ${currentPage === number ? "bg-blue-500 text-white" : "bg-gray-200"}`}
+                        className={`w-6 h-6 p-2 rounded-[4px] text-sm flex items-center justify-center
+                            ${currentPage === number ? "bg-gray-400 text-white" : "bg-gray-200"}`}
                         onClick={() => setCurrentPage(number)}
                     >
                         {number}
@@ -27,11 +31,11 @@ const Pagination = ({ currentPage, totalPages, setCurrentPage }) => {
                 ))}
             </div>
             <button
-                className={`px-4 py-2 rounded ${currentPage === totalPages ? "bg-gray-300 cursor-not-allowed" : "bg-blue-500 text-white"}`}
+               className="pagination_next_prev"
                 onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
                 disabled={currentPage === totalPages}
             >
-                Next
+                <GrNext />
             </button>
         </div>
     );
