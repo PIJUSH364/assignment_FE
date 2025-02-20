@@ -36,7 +36,7 @@ const UserRow = ({ user, index, toggleMenu, handleDelete, menuIndex }) => {
 
             {/* More Actions Dropdown */}
 
-            <MoreActions index={index} menuIndex={menuIndex} toggleMenu={toggleMenu} />
+            <MoreActions index={index} menuIndex={menuIndex} toggleMenu={toggleMenu} user={user} />
             {/* <td className="p-2 relative ">
                 <button onClick={() => toggleMenu(index)} className="p-2 rounded-full hover:bg-gray-200">
                     <FiMoreVertical className="text-gray-600" />

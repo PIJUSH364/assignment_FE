@@ -1,8 +1,14 @@
 import { useState, useRef, useEffect } from "react";
 import { FiMoreVertical, FiUser, FiEdit, FiSettings, FiDownload, FiTrash2 } from "react-icons/fi";
+import { showConfirmationToast } from "./customConfirmationToast";
+import axios from "axios";
+import { addUser, setTotalPage } from "../../features/users/userSlice";
+import { useDispatch } from "react-redux";
+import toast from "react-hot-toast";
 
-const MoreActions = ({ index, menuIndex, toggleMenu }) => {
+const MoreActions = ({ index, menuIndex, toggleMenu, user }) => {
     const dropdownRef = useRef(null);
+    const dispatch = useDispatch();
     const [position, setPosition] = useState("bottom");
 
     useEffect(() => {
@@ -17,6 +23,29 @@ const MoreActions = ({ index, menuIndex, toggleMenu }) => {
             }
         }
     }, [menuIndex]);
+    const handleDelete = async (id) => {
+        try {
+            console.log(id);
+
+            // Send DELETE request with id as a query parameter
+            const res = await axios.delete(`http://localhost:8001/api/v1/user/delete_user`, {
+                data: { id: String(id) } // Use 'data' for DELETE body
+            });
+
+            if (res.data?.code === 200) {
+                // Fetch updated user data after deletion
+                const userRes = await axios.get(`http://localhost:8001/api/v1/user/get_user_data?page=1`);
+
+                if (userRes.data?.code === 200 && userRes.data?.data) {
+                    dispatch(addUser(userRes.data.data || []));
+                    dispatch(setTotalPage(userRes.data.pagination?.totalPages || 0));
+                    toast.success("User deleted successfully!");
+                }
+            }
+        } catch (err) {
+            toast.error("Error deleting user");
+        }
+    };
 
     return (
         <td className="p-2 relative">
@@ -41,7 +70,9 @@ const MoreActions = ({ index, menuIndex, toggleMenu }) => {
                     <button className="flex items-center w-full text-left px-3 py-2 text-base hover:bg-gray-100">
                         <FiDownload className="mr-2 text-gray-600" /> Export Details
                     </button>
-                    <button className="flex items-center w-full text-left px-3 py-2 text-red-500 hover:bg-gray-100">
+                    <button
+                        onClick={() => showConfirmationToast(() => handleDelete(user.id))}
+                        className="flex items-center w-full text-left px-3 py-2 text-red-500 hover:bg-gray-100">
                         <FiTrash2 className="mr-2 text-red-500" /> Delete User
                     </button>
                 </div>
