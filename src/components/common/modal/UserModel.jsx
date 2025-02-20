@@ -3,6 +3,8 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { AiOutlineClose } from 'react-icons/ai';
 import InputField from '../InputField';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
 
 const UserModel = ({ setShouldShow }) => {
@@ -17,9 +19,16 @@ const UserModel = ({ setShouldShow }) => {
             initialValues={{ name: "", email: '', role: 'member' }}
             validationSchema={validationSchema}
             onSubmit={(values, { setSubmitting }) => {
-                console.log(values);
-                setShouldShow(false);
-                setSubmitting(false);
+                axios.post('http://localhost:8001/api/v1/user/create_user', values)
+                    .then((res) => {
+                        toast.success(res.data.message);
+                        setSubmitting(false);
+                    })
+                    .catch((err) => {
+                        toast.error("Error adding user Data");
+                        setSubmitting(true);
+                    })
+                    .finally(() => setShouldShow(false))
             }}
         >
             {({ isSubmitting }) => (

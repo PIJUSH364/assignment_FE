@@ -1,8 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import UserRow from "./UserRow";
-import { FaArrowDown } from "react-icons/fa";
+import { FaArrowDown, FaArrowUp } from "react-icons/fa";
+import axios from "axios";
+import toast from "react-hot-toast";
 
-const UserTable = ({ users, toggleMenu, handleDelete, menuIndex }) => {
+
+const UserTable = ({ toggleMenu, handleDelete, menuIndex }) => {
+    const [sortByDesc, setSortByDesc] = useState(true);
+    const [users, setUsers] = useState([])
+
+    const handleSort = () => {
+        setUsers((prevData) =>
+            [...prevData].sort((a, b) => sortByDesc ? new Date(b.updatedAt) - new Date(a.updatedAt)
+                : new Date(a.updatedAt) - new Date(b.updatedAt))
+        );
+    }
+
+
+    useEffect(() => {
+        axios.get(`${"http://localhost:8001/api/v1/user"}/get_all_users`)
+            .then((res) => {
+                if (res.data?.code == 200 && res.data?.data) {
+                    setUsers(res.data.data);
+                    toast.success(res.data.message);
+                }
+            }).catch((err) => {
+                toast.error("Error fetching users Data");
+            });
+    }, [])
+
+
     return (
         <div className="overflow-hidden rounded-lg">
             <table className="w-full border-collapse">
@@ -12,9 +39,18 @@ const UserTable = ({ users, toggleMenu, handleDelete, menuIndex }) => {
                         <th className="p-3 font-nunito">Access</th>
 
                         {/* Last Active with Icon */}
-                        <th className="p-3 font-nunito cursor-pointer">
+                        <th className="p-3 font-nunito cursor-pointer"
+                            onClick={() => {
+                                handleSort()
+                                setSortByDesc(!sortByDesc)
+                            }}
+                        >
                             <div className="inline-flex items-center gap-1">
-                                Last Active <FaArrowDown className="text-gray-600" />
+                                Last Active
+                                {
+                                    sortByDesc ? <FaArrowDown className="text-gray-600" /> : <FaArrowUp className="text-gray-600" />
+                                }
+
                             </div>
                         </th>
 
@@ -27,7 +63,7 @@ const UserTable = ({ users, toggleMenu, handleDelete, menuIndex }) => {
 
 
                 <tbody>
-                    {users.slice(0, 5).map((user, index) => (
+                    {users.map((user, index) => (
                         <UserRow
                             key={index}
                             user={user}
