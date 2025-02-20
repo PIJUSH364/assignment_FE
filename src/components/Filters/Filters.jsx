@@ -2,10 +2,10 @@ import React from "react";
 import { FiPlus } from "react-icons/fi";
 import { MdFilterList } from "react-icons/md";
 import { FaSearch } from 'react-icons/fa';
-const Filters = ({ search, setSearch, roleFilter, setRoleFilter }) => {
+const Filters = ({ search, setSearch, roleFilter, setRoleFilter,title="All User" ,count=43}) => {
     return (
         <div className=" flex justify-between items-baseline pb-2">
-            <h2 className="text-lg font-bold mb-4 font-nunito">All User {43}</h2>
+            <h2 className="text-lg font-bold mb-4 font-nunito">{`${title} (${count})`}</h2>
             <div className="flex  gap-4">
                 <div className="relative flex items-center">
                     {search === '' && <FaSearch className="absolute left-3 text-gray-400" />}

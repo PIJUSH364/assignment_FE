@@ -1,11 +1,11 @@
 import React from "react";
 import { FaHome, FaChevronRight, FaUserCircle } from "react-icons/fa";
 
-const Breadcrumbs = () => {
+const Breadcrumbs = ({title="User Management"}) => {
     return (
         <div className="flex justify-between items-center mb-4">
             <div className="flex items-center text-gray-600">
-                <FaHome /> <FaChevronRight className="mx-2" /> <span>User Management</span>
+                <FaHome /> <FaChevronRight className="mx-2" /> <span>{title}</span>
             </div>
             <div className="flex items-center gap-2">
                 <img
