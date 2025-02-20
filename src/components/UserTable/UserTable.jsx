@@ -3,17 +3,20 @@ import UserRow from "./UserRow";
 import { FaArrowDown, FaArrowUp } from "react-icons/fa";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
+import { addUser } from "../../features/users/userSlice";
 
 
 const UserTable = ({ toggleMenu, handleDelete, menuIndex }) => {
     const [sortByDesc, setSortByDesc] = useState(true);
-    const [users, setUsers] = useState([])
+    const dispatch = useDispatch();
+    const users = useSelector(state => state.user.userList);
 
     const handleSort = () => {
-        setUsers((prevData) =>
-            [...prevData].sort((a, b) => sortByDesc ? new Date(b.updatedAt) - new Date(a.updatedAt)
-                : new Date(a.updatedAt) - new Date(b.updatedAt))
-        );
+        const data = [...users].sort((a, b) => sortByDesc ? new Date(b.updatedAt) - new Date(a.updatedAt)
+            : new Date(a.updatedAt) - new Date(b.updatedAt));
+
+        dispatch(addUser(data));
     }
 
 
@@ -21,7 +24,7 @@ const UserTable = ({ toggleMenu, handleDelete, menuIndex }) => {
         axios.get(`${"http://localhost:8001/api/v1/user"}/get_all_users`)
             .then((res) => {
                 if (res.data?.code == 200 && res.data?.data) {
-                    setUsers(res.data.data);
+                    dispatch(addUser(res.data.data || []));
                     toast.success(res.data.message);
                 }
             }).catch((err) => {

@@ -6,32 +6,54 @@ import Modal from "../common/Modal";
 import UserModel from "../common/modal/UserModel";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { addUser } from "../../features/users/userSlice";
+import { useDispatch } from "react-redux";
+import { debounce } from "../../utils/method/helper";
 
 const Roles = ["Member", "Admin"];
 
 const Filters = ({ search, setSearch, title = "All User", count = 43 }) => {
     const [shouldShow, setShouldShow] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
+    const dispatch = useDispatch();
 
     const handleSort = (order) => {
         console.log(`Sorting in ${order} order`);
         setIsOpen(false);
     };
-    const handleSearchData = (value) => {
-        setSearch(value)
 
-        axios.get(`${"http://localhost:8001/api/v1/user"}/search_user_details?search=${value}`)
-            .then((res) => {
-                if (res.data?.code == 200) {
-                    console.log(res.data.data);
-                    setUsers(res.data.data || []);
-                    toast.success(res.data.message);
-                }
-            }).catch((err) => {
-                toast.error("Error fetching users Data");
-            });
 
-    }
+
+
+    const handleSearchData = debounce(async (value, cancelTokenSource) => {
+
+        try {
+            const { data } = await axios.get(
+                `http://localhost:8001/api/v1/user/search_user_details?search=${value}`,
+                { cancelToken: cancelTokenSource.token }
+            );
+
+            if (data?.code === 200) {
+                dispatch(addUser(data.data || []));
+                toast.success(data.message);
+            } else {
+                toast.error("Error fetching users data");
+            }
+        } catch (error) {
+            if (axios.isCancel(error)) {
+                console.log("Request canceled:", error.message);
+            } else {
+                toast.error(`Error fetching users data: ${error.message}`);
+            }
+        }
+    }, 3000); // Adjust debounce delay as needed
+
+
+    const handleInputChange = (e) => {
+        const value = e.target.value.trim();
+        setSearch(value);
+        handleSearchData(value);
+    };
     return (
         <>
             <Modal shouldShow={shouldShow} setShouldShow={setShouldShow}>
@@ -52,9 +74,7 @@ const Filters = ({ search, setSearch, title = "All User", count = 43 }) => {
                             placeholder="Search"
                             className="font-nunito border border-gray-300 outline-none rounded-md px-10 py-2 h-8"
                             value={search}
-                            onChange={(e) => {
-                                handleSearchData(e.target.value)
-                            }}
+                            onChange={handleInputChange}
                         />
                     </div>
 
