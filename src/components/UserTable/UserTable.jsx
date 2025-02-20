@@ -4,7 +4,7 @@ import { FaArrowDown, FaArrowUp } from "react-icons/fa";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
-import { addUser } from "../../features/users/userSlice";
+import { addUser, setTotalPage } from "../../features/users/userSlice";
 
 
 const UserTable = ({ toggleMenu, handleDelete, menuIndex }) => {
@@ -25,6 +25,7 @@ const UserTable = ({ toggleMenu, handleDelete, menuIndex }) => {
             .then((res) => {
                 if (res.data?.code == 200 && res.data?.data) {
                     dispatch(addUser(res.data.data || []));
+                    dispatch(setTotalPage(res.data.pagination.totalPages || 0));
                     toast.success(res.data.message);
                 }
             }).catch((err) => {

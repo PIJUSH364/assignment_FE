@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   userList: [],
+  totalPage: 0,
   contactMetaData: null,
   loaderStatus: false,
   currentPage: 1,
@@ -17,6 +18,9 @@ const userSlice = createSlice({
   reducers: {
     addUser: (state, action) => {
       state.userList = action.payload;
+    },
+    setTotalPage: (state, action) => {
+      state.totalPage = action.payload;
     },
     addContactMetaData: (state, action) => {
       state.contactMetaData = action.payload;
@@ -62,8 +66,10 @@ const userSlice = createSlice({
 });
 
 export const {
-  addContactMetaData,
   addUser,
+  setTotalPage,
+  addContactMetaData,
+
   setLoaderStatus,
   setCurrentPage,
   setCategoryContactData,
