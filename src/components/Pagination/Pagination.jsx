@@ -29,7 +29,7 @@ const Pagination = ({ currentPage, setCurrentPage }) => {
     }
 
     return (
-        <div className="flex justify-center gap-2 items-center mt-4">
+        <div className="flex justify-center gap-2 items-center mt-8">
             <button
                 className="pagination_next_prev"
                 onClick={() => {

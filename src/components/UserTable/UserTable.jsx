@@ -7,8 +7,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { addUser, setTotalPage } from "../../features/users/userSlice";
 
 
-const UserTable = ({ toggleMenu, handleDelete, menuIndex }) => {
+const UserTable = ({ handleDelete }) => {
     const [sortByDesc, setSortByDesc] = useState(true);
+    const [menuIndex, setMenuIndex] = useState(-1);
+
     const dispatch = useDispatch();
     const users = useSelector(state => state.user.userList);
 
@@ -18,7 +20,9 @@ const UserTable = ({ toggleMenu, handleDelete, menuIndex }) => {
 
         dispatch(addUser(data));
     }
-
+    const toggleMenu = (index) => {
+        setMenuIndex(index === menuIndex ? -1 : index);
+    }
 
     useEffect(() => {
         axios.get(`${"http://localhost:8001/api/v1/user"}/get_user_data?page=1`)

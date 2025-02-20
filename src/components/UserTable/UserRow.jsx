@@ -1,6 +1,7 @@
 
 import React from "react";
 import { FiMoreVertical } from "react-icons/fi";
+import MoreActions from "./MoreActions";
 
 const UserRow = ({ user, index, toggleMenu, handleDelete, menuIndex }) => {
     const currentDate = new Date();
@@ -25,27 +26,30 @@ const UserRow = ({ user, index, toggleMenu, handleDelete, menuIndex }) => {
 
             {/* Last Active */}
             <td className="p-2 text-gray-700">
-                {currentDate.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+                {user.updatedAt ? new Date(user.updatedAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) : currentDate.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
             </td>
 
             {/* Date Added */}
             <td className="p-2 text-gray-700">
-                {user.dateAdded ? new Date(user.dateAdded).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) : currentDate.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+                {user.createdAt ? new Date(user.createdAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) : currentDate.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
             </td>
 
             {/* More Actions Dropdown */}
-            <td className="p-2 relative ">
+
+            <MoreActions index={index} menuIndex={menuIndex} toggleMenu={toggleMenu} />
+            {/* <td className="p-2 relative ">
                 <button onClick={() => toggleMenu(index)} className="p-2 rounded-full hover:bg-gray-200">
                     <FiMoreVertical className="text-gray-600" />
                 </button>
                 {menuIndex === index && (
-                    <div className="absolute right-0 mt-2 w-40 bg-white shadow-lg rounded-lg py-2 z-10">
-                        <button className="block w-full text-left px-4 py-2 hover:bg-gray-100">View Profile</button>
-                        <button className="block w-full text-left px-4 py-2 hover:bg-gray-100">Edit</button>
-                        <button onClick={() => handleDelete(index)} className="block w-full text-left px-4 py-2 text-red-500 hover:bg-gray-100">Delete</button>
+                    <div className="font-nunito absolute right-5  w-40 bg-white shadow-lg rounded-lg  z-10">
+
+                        <button className="block w-full text-left px-3 py-1 text-base hover:bg-gray-100">View Profile</button>
+                        <button className="block w-full text-left px-3 py-1 text-base hover:bg-gray-100">Edit</button>
+                        
                     </div>
                 )}
-            </td>
+            </td> */}
         </tr>
     );
 };
