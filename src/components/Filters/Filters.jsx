@@ -7,12 +7,13 @@ import UserModel from "../common/modal/UserModel";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { addUser } from "../../features/users/userSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { debounce } from "../../utils/method/helper";
 
 const Roles = ["Member", "Admin"];
 
-const Filters = ({ search, setSearch, title = "All User", count = 43 }) => {
+const Filters = ({ search, setSearch, title = "All User" }) => {
+    const totalUserCount = useSelector(state => state.user.totalUserCount);
     const [shouldShow, setShouldShow] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const dispatch = useDispatch();
@@ -74,7 +75,7 @@ const Filters = ({ search, setSearch, title = "All User", count = 43 }) => {
 
             <div className="flex justify-between items-center pb-4">
 
-                <h2 className="text-lg font-bold font-nunito">{`${title} (${count})`}</h2>
+                <h2 className="text-lg font-bold font-nunito">{`${title} (${totalUserCount})`}</h2>
 
                 {/* Controls */}
                 <div className="flex items-center gap-3">

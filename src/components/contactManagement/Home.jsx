@@ -34,9 +34,9 @@ export default function Home() {
   );
 }
 
-const CustomSkelton = ({ msg = "" }) => {
+export const CustomSkelton = ({ msg = "" }) => {
   return (
-    <div className="bg-[#303339] text-center h-2/3 flex justify-center items-center rounded-bl-[10px] rounded-br-[10px]">
+    <div className="text-[#303339] mt-8 font-nunito text-center h-2/3 flex justify-center items-center rounded-bl-[10px] rounded-br-[10px]">
       <p className="tracking-wider text-xl">{msg}</p>
     </div>
   );

@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import toast from "react-hot-toast";
-import { addUser, setTotalPage } from "../../../features/users/userSlice";
+import { addUser, setTotalPage, setTotalUserCount } from "../../../features/users/userSlice";
 
 export const useFetchUsers = () => {
     const dispatch = useDispatch();
@@ -15,6 +15,7 @@ export const useFetchUsers = () => {
                     toast.success(res.data.message);
                     dispatch(addUser(res.data.data || []));
                     dispatch(setTotalPage(res.data.pagination?.totalPages || 0));
+                    dispatch(setTotalUserCount(res.data.pagination?.totalRecords || 0));
                 }
             } catch (error) {
                 console.error("Error fetching contacts:", error.message);

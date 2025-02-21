@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import UserRow from "./UserRow";
 import { FaArrowDown, FaArrowUp } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { addUser, setTotalPage } from "../../features/users/userSlice";
+import { addUser } from "../../features/users/userSlice";
 import ViewProfile from "../common/modal/ViewProfile";
 import Modal from "../common/Modal";
 import UpdateUserModel from "../common/modal/UpdateUserModel";
 import { useFetchUsers } from "../custom/Hook/useFetchUsers";
+import { CustomSkelton } from "../contactManagement/Home";
 
 const UserTable = ({ handleDelete }) => {
     const [sortByDesc, setSortByDesc] = useState(true);
@@ -42,57 +43,59 @@ const UserTable = ({ handleDelete }) => {
     return (
         <div className=" rounded-lg">
             {viewUserModalStatus && <Modal shouldShow={shouldShow} setShouldShow={setShouldShow}>
-                <ViewProfile setShouldShow={setShouldShow} menuIndex={menuIndex} />
+                <ViewProfile setShouldShow={setShouldShow} menuIndex={menuIndex} toggleMenu={toggleMenu} />
             </Modal>}
             {editUserModalStatus && <Modal shouldShow={shouldShow} setShouldShow={setShouldShow}>
-                <UpdateUserModel setShouldShow={setShouldShow} menuIndex={menuIndex} />
+                <UpdateUserModel setShouldShow={setShouldShow} menuIndex={menuIndex} toggleMenu={toggleMenu} />
             </Modal>}
             {permissionUserModalStatus && <Modal shouldShow={shouldShow} setShouldShow={setShouldShow}>
-                <UpdateUserModel setShouldShow={setShouldShow} menuIndex={menuIndex} permissionModal={true} />
+                <UpdateUserModel setShouldShow={setShouldShow} menuIndex={menuIndex} permissionModal={true} toggleMenu={toggleMenu} />
             </Modal>}
 
-            <table className="w-full border-collapse">
-                <thead>
-                    <tr className="bg-gray-100 text-left">
-                        <th className="p-3 font-nunito rounded-tl-lg">User Name</th>
-                        <th className="p-3 font-nunito">Access</th>
+            {users.length
+                ?
+                <table className="w-full border-collapse">
+                    <thead>
+                        <tr className="bg-gray-100 text-left">
+                            <th className="p-3 font-nunito rounded-tl-lg">User Name</th>
+                            <th className="p-3 font-nunito">Access</th>
 
-                        {/* Last Active with Icon */}
-                        <th className="p-3 font-nunito cursor-pointer"
-                            onClick={() => {
-                                handleSort()
-                                setSortByDesc(!sortByDesc)
-                            }}
-                        >
-                            <div className="inline-flex items-center gap-1">
-                                Last Active
-                                {
-                                    sortByDesc ? <FaArrowDown className="text-gray-600" /> : <FaArrowUp className="text-gray-600" />
-                                }
+                            {/* Last Active with Icon */}
+                            <th className="p-3 font-nunito cursor-pointer"
+                                onClick={() => {
+                                    handleSort()
+                                    setSortByDesc(!sortByDesc)
+                                }}
+                            >
+                                <div className="inline-flex items-center gap-1">
+                                    Last Active
+                                    {
+                                        sortByDesc ? <FaArrowDown className="text-gray-600" /> : <FaArrowUp className="text-gray-600" />
+                                    }
+                                </div>
+                            </th>
+                            <th className="p-3 font-nunito">Date Added</th>
 
-                            </div>
-                        </th>
-
-                        <th className="p-3 font-nunito">Date Added</th>
-
-                        {/* Last column with width */}
-                        <th className="p-3 rounded-tr-lg "></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {users.map((user, index) => (
-                        <UserRow
-                            key={index}
-                            user={user}
-                            index={index}
-                            toggleMenu={toggleMenu}
-                            handleDelete={handleDelete}
-                            menuIndex={menuIndex}
-                            setShouldShow={setShouldShow}
-                        />
-                    ))}
-                </tbody>
-            </table>
+                            {/* Last column with width */}
+                            <th className="p-3 rounded-tr-lg "></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {users.map((user, index) => (
+                            <UserRow
+                                key={index}
+                                user={user}
+                                index={index}
+                                toggleMenu={toggleMenu}
+                                handleDelete={handleDelete}
+                                menuIndex={menuIndex}
+                                setShouldShow={setShouldShow}
+                            />
+                        ))}
+                    </tbody>
+                </table>
+                : <CustomSkelton msg="No record found!   :)" />
+            }
         </div>
     );
 };
