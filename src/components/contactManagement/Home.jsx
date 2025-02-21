@@ -1,6 +1,4 @@
 import React, { useEffect } from "react";
-import Action from "./Action";
-import Table from "./Table";
 import SideNavBar from "./SideNavBar";
 import { useSelector } from "react-redux";
 import { useFetchContacts } from "../custom/Hook/useFetchContacts";
@@ -12,7 +10,7 @@ export default function Home() {
   const currentPage = useSelector((state) => state.contact.currentPage);
   const filterValue = useSelector((state) => state.contact.filterValue);
   const fetchContacts = useFetchContacts();
-
+  return null
   useEffect(() => {
     fetchContacts(searchValue, currentPage, filterValue);
   }, []);

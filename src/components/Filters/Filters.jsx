@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FiPlus } from "react-icons/fi";
-import { MdFilterList } from "react-icons/md";
+import { MdFilterList, MdRefresh } from "react-icons/md";
 import { FaSearch } from "react-icons/fa";
 import Modal from "../common/Modal";
 import UserModel from "../common/modal/UserModel";
@@ -19,7 +19,6 @@ const Filters = ({ search, setSearch, title = "All User" }) => {
     const dispatch = useDispatch();
 
     const handleSort = async (value = "") => {
-
         try {
             const { data } = await axios.get(
                 `http://localhost:8001/api/v1/user/filter_user_data?role=${value.toLowerCase()}`
@@ -34,9 +33,13 @@ const Filters = ({ search, setSearch, title = "All User" }) => {
         } catch (error) {
             toast.error("Error fetching users data");
         }
-
         setIsOpen(false);
+    };
 
+    const handleReset = () => {
+        setSearch(""); // Clear search input
+        // dispatch(addUser([])); // Reset user list
+        toast.success("Filters reset successfully");
     };
 
     const handleSearchData = debounce(async (value, cancelTokenSource) => {
@@ -61,12 +64,12 @@ const Filters = ({ search, setSearch, title = "All User" }) => {
         }
     }, 3000);
 
-
     const handleInputChange = (e) => {
         const value = e.target.value.trim();
         setSearch(value);
         handleSearchData(value);
     };
+
     return (
         <>
             <Modal shouldShow={shouldShow} setShouldShow={setShouldShow}>
@@ -74,7 +77,6 @@ const Filters = ({ search, setSearch, title = "All User" }) => {
             </Modal>
 
             <div className="flex justify-between items-center pb-4">
-
                 <h2 className="text-lg font-bold font-nunito">{`${title} (${totalUserCount})`}</h2>
 
                 {/* Controls */}
@@ -95,7 +97,7 @@ const Filters = ({ search, setSearch, title = "All User" }) => {
                     <div className="relative">
                         <button
                             onClick={() => setIsOpen(!isOpen)}
-                            className="flex items-center gap-2 border border-gray-300 px-4 py-2 h-8 rounded-md text-sm bg-white hover:bg-gray-100 font-nunito"
+                            className="flex items-center gap-2 border border-gray-300 bg-white hover:bg-gray-100 px-4 py-2 h-8 rounded-md text-sm  font-nunito"
                         >
                             <MdFilterList />
                             Filter
@@ -120,10 +122,19 @@ const Filters = ({ search, setSearch, title = "All User" }) => {
                     {/* Add User Button */}
                     <button
                         onClick={() => setShouldShow(true)}
-                        className="font-nunito flex items-center gap-2 text-white bg-black text-sm px-4 py-2 h-8 rounded-md"
+                        className="font-nunito flex items-center gap-2  border border-gray-300 bg-white hover:bg-gray-100 text-sm px-4 py-2 h-8 rounded-md"
                     >
                         <FiPlus />
                         Add User
+                    </button>
+
+                    {/* Reset Button */}
+                    <button
+                        onClick={handleReset}
+                        className="font-nunito flex items-center gap-2 text-white bg-black  hover:bg-gray-700 text-sm px-4 py-2 h-8 rounded-md"
+                    >
+                        <MdRefresh />
+                        Reset
                     </button>
                 </div>
             </div>
