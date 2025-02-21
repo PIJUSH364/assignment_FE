@@ -5,39 +5,38 @@ import { AiOutlineClose } from 'react-icons/ai';
 import InputField from '../InputField';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import { addUser } from '../../../features/users/userSlice';
-import { useDispatch } from 'react-redux';
+import { useFetchUsers } from '../../custom/Hook/useFetchUsers';
 
 
 const UserModel = ({ setShouldShow }) => {
-    const dispatch = useDispatch();
+    const { fetchUser } = useFetchUsers()
     const validationSchema = Yup.object().shape({
         name: Yup.string().required('name is required'),
         email: Yup.string().email('Invalid email address').required('Email is required'),
         role: Yup.string().required('Role is required')
     });
 
+    const handleAddUser = (values, setSubmitting) => {
+        axios.post('http://localhost:8001/api/v1/user/create_user', values)
+            .then(async (res) => {
+                toast.success(res.data.message);
+                await fetchUser(1)
+                setSubmitting(false);
+            })
+            .catch((err) => {
+                console.log(err)
+                toast.error("Error adding user Data");
+                setSubmitting(true);
+            })
+            .finally(() => setShouldShow(false))
+    }
+
     return (
         <Formik
             initialValues={{ name: "", email: '', role: 'member' }}
             validationSchema={validationSchema}
             onSubmit={(values, { setSubmitting }) => {
-                axios.post('http://localhost:8001/api/v1/user/create_user', values)
-                    .then((res) => {
-                        toast.success(res.data.message);
-                        axios.get(`${"http://localhost:8001/api/v1/user"}/get_user_data?page=1`)
-                            .then((res) => {
-                                if (res.data?.code == 200 && res.data?.data) {
-                                    dispatch(addUser(res.data.data || []));
-                                }
-                            })
-                        setSubmitting(false);
-                    })
-                    .catch((err) => {
-                        toast.error("Error adding user Data");
-                        setSubmitting(true);
-                    })
-                    .finally(() => setShouldShow(false))
+                handleAddUser(values, setSubmitting)
             }}
         >
             {({ isSubmitting }) => (
