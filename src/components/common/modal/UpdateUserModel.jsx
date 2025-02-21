@@ -47,7 +47,7 @@ const UpdateUserModel = ({ setShouldShow, menuIndex, permissionModal = false }) 
         >
             {({ isSubmitting }) => (
                 <div className="modalBackground flex justify-center items-center py-5">
-                    <Form className="w-full max-w-lg mx-auto p-6 bg-white shadow-lg rounded-md relative">
+                    <Form className="w-full max-w-sm mx-auto p-6 bg-white shadow-lg rounded-md relative">
                         <button
                             type="button"
                             className="absolute top-4 right-4 text-gray-500 text-xl"
