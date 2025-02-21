@@ -13,6 +13,8 @@ const UserTable = ({ handleDelete }) => {
     const [sortByDesc, setSortByDesc] = useState(true);
     const [shouldShow, setShouldShow] = useState(false);
     const [menuIndex, setMenuIndex] = useState(-1);
+    const [selectedUsers, setSelectedUsers] = useState([]);
+
 
     const dispatch = useDispatch();
     const { fetchUser } = useFetchUsers()
@@ -40,6 +42,15 @@ const UserTable = ({ handleDelete }) => {
     }, [])
 
 
+    const handleSelect = (userId) => {
+        setSelectedUsers((prev) =>
+            prev.includes(userId) ? prev.filter((id) => id !== userId) : [...prev, userId]
+        );
+    };
+    const handleAllSelect = () => {
+        setSelectedUsers((prev) => prev.length === users.length ? [] : [...users.map((user) => user.id)]);
+    };
+
     return (
         <div className=" rounded-lg">
             {viewUserModalStatus && <Modal shouldShow={shouldShow} setShouldShow={setShouldShow}>
@@ -57,9 +68,17 @@ const UserTable = ({ handleDelete }) => {
                 <table className="w-full border-collapse">
                     <thead>
                         <tr className="bg-gray-100 text-left">
-                            <th className="p-3 font-nunito rounded-tl-lg">User Name</th>
+                            <th className="p-3 rounded-tl-lg">
+                                <input
+                                    type="checkbox"
+                                    checked={selectedUsers.length === users.length}
+                                    onChange={handleAllSelect}
+                                    className="w-4 h-4 cursor-pointer"
+                                />
+                            </th>
+                            <th className="p-3 font-nunito ">User Name</th>
                             <th className="p-3 font-nunito">Access</th>
-
+                            <th className="p-3 font-nunito">Status</th>
                             {/* Last Active with Icon */}
                             <th className="p-3 font-nunito cursor-pointer"
                                 onClick={() => {
@@ -76,8 +95,8 @@ const UserTable = ({ handleDelete }) => {
                             </th>
                             <th className="p-3 font-nunito">Date Added</th>
 
-                            {/* Last column with width */}
-                            <th className="p-3 rounded-tr-lg "></th>
+
+                            <th className="p-3 font-nunito rounded-tr-lg ">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -90,6 +109,9 @@ const UserTable = ({ handleDelete }) => {
                                 handleDelete={handleDelete}
                                 menuIndex={menuIndex}
                                 setShouldShow={setShouldShow}
+                                onSelect={handleSelect}
+                                isSelected={selectedUsers.includes(user.id)}
+
                             />
                         ))}
                     </tbody>
