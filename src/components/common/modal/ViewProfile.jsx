@@ -5,6 +5,7 @@ import { dateFormatter } from '../../../utils/method/helper';
 
 export default function ViewProfile({ setShouldShow, menuIndex }) {
     const user = useSelector(state => state.user.userList).filter((user, index) => index === menuIndex)[0]
+    if (!user) return null
     const { name, email, status, createdAt, updatedAt, role } = user
 
     return (
