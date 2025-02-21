@@ -60,7 +60,7 @@ const UserRow = ({ user, index, toggleMenu, menuIndex, setShouldShow, onSelect, 
                 {user.createdAt ? dateFormatter(user.createdAt) : dateFormatter()}
             </td>
 
-            {/* More Actions Dropdown */}
+
             <td className="p-2 text-center align-middle">
                 <MoreActions
                     index={index}

@@ -9,13 +9,13 @@ import toast from "react-hot-toast";
 import { addUser } from "../../features/users/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { debounce } from "../../utils/method/helper";
-
-const Roles = ["Member", "Admin"];
+import FilterUserModel from "../common/modal/FilterUserModel";
 
 const Filters = ({ search, setSearch, title = "All User" }) => {
     const totalUserCount = useSelector(state => state.user.totalUserCount);
     const [shouldShow, setShouldShow] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
+    const [isOpenFilterModel, setIsOpenFilterModel] = useState(false);
     const dispatch = useDispatch();
 
     const handleSort = async (value = "") => {
@@ -72,9 +72,14 @@ const Filters = ({ search, setSearch, title = "All User" }) => {
 
     return (
         <>
-            <Modal shouldShow={shouldShow} setShouldShow={setShouldShow}>
-                {shouldShow && <UserModel setShouldShow={setShouldShow} />}
-            </Modal>
+            {isOpen && <Modal shouldShow={shouldShow} setShouldShow={setShouldShow}>
+                <UserModel setShouldShow={setShouldShow} />
+            </Modal>}
+
+
+            {isOpenFilterModel && <Modal shouldShow={shouldShow} setShouldShow={setShouldShow}>
+                <FilterUserModel setShouldShow={setShouldShow} />
+            </Modal>}
 
             <div className="flex justify-between items-center pb-4">
                 <h2 className="text-lg font-bold font-nunito">{`${title} (${totalUserCount})`}</h2>
@@ -83,7 +88,7 @@ const Filters = ({ search, setSearch, title = "All User" }) => {
                 <div className="flex items-center gap-3">
                     {/* Search Input */}
                     <div className="relative flex items-center">
-                        {search === "" && <FaSearch className="absolute left-3 text-gray-400" />}
+                        <FaSearch className="absolute left-3 text-gray-400" />
                         <input
                             type="text"
                             placeholder="Search"
@@ -94,34 +99,26 @@ const Filters = ({ search, setSearch, title = "All User" }) => {
                     </div>
 
                     {/* Filter Button */}
-                    <div className="relative">
-                        <button
-                            onClick={() => setIsOpen(!isOpen)}
-                            className="flex items-center gap-2 border border-gray-300 bg-white hover:bg-gray-100 px-4 py-2 h-8 rounded-md text-sm  font-nunito"
-                        >
-                            <MdFilterList />
-                            Filter
-                        </button>
-
-                        {/* Dropdown */}
-                        {isOpen && (
-                            <div className="absolute left-0 mt-2 w-48 bg-white border shadow-md rounded-md z-50">
-                                {Roles.map((role, index) => (
-                                    <button
-                                        key={index}
-                                        className="font-nunito flex items-center px-3 py-1 text-base hover:bg-gray-100 w-full text-left"
-                                        onClick={() => handleSort(role)}
-                                    >
-                                        {role}
-                                    </button>
-                                ))}
-                            </div>
-                        )}
-                    </div>
+                    <button
+                        onClick={() => {
+                            setShouldShow(true)
+                            setIsOpenFilterModel(true)
+                            setIsOpen(false)
+                        }}
+                        className="flex items-center gap-2 border border-gray-300 bg-white hover:bg-gray-100 px-4 py-2 h-8 rounded-md text-sm  font-nunito"
+                    >
+                        <MdFilterList />
+                        Filter
+                    </button>
 
                     {/* Add User Button */}
                     <button
-                        onClick={() => setShouldShow(true)}
+                        onClick={() => {
+                            setIsOpen(true)
+                            setShouldShow(true)
+                            setIsOpenFilterModel(false)
+                        }
+                        }
                         className="font-nunito flex items-center gap-2  border border-gray-300 bg-white hover:bg-gray-100 text-sm px-4 py-2 h-8 rounded-md"
                     >
                         <FiPlus />

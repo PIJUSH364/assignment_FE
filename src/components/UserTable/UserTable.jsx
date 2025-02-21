@@ -63,6 +63,8 @@ const UserTable = ({ handleDelete }) => {
                 <UpdateUserModel setShouldShow={setShouldShow} menuIndex={menuIndex} permissionModal={true} toggleMenu={toggleMenu} />
             </Modal>}
 
+
+
             {users.length
                 ?
                 <table className="w-full border-collapse">
