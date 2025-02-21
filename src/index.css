@@ -37,6 +37,9 @@
   .drop_down_button_icon {
     @apply mr-2 text-gray-600;
   }
+  .error_msg {
+    @apply text-red-500 text-sm mt-1;
+  }
 }
 
 @layer base {

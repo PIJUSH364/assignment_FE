@@ -1,12 +1,13 @@
 import React from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, } from 'formik';
 import * as Yup from 'yup';
 import { AiOutlineClose } from 'react-icons/ai';
 import InputField from '../InputField';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useFetchUsers } from '../../custom/Hook/useFetchUsers';
-
+import { Role } from '../../../utils/method/helper';
+import SelectInputField from '../SelectInputField';
 
 const UserModel = ({ setShouldShow }) => {
     const { fetchUser } = useFetchUsers()
@@ -49,25 +50,9 @@ const UserModel = ({ setShouldShow }) => {
                         >
                             <AiOutlineClose />
                         </button>
-
                         <InputField label="Name" name="name" placeholder="Enter your name" />
                         <InputField label="Email" name="email" type="email" placeholder="Enter your Email" />
-
-                        <div className="mb-4">
-                            <label htmlFor="role" className="block text-black">Role</label>
-                            <Field
-                                as="select"
-                                name="role"
-                                id="role"
-                                className="mt-1 outline-none block w-full border border-gray-200 rounded-md shadow-sm focus:ring-black focus:border-black sm:text-sm text-black p-2"
-                            >
-                                <option value="member">Member</option>
-                                <option value="admin">Admin</option>
-
-                            </Field>
-                            <ErrorMessage name="role" component="div" className="text-red-500 text-sm mt-1" />
-                        </div>
-
+                        <SelectInputField label="Role" name="role" optionList={Role} />
                         <button
                             type="submit"
                             disabled={isSubmitting}

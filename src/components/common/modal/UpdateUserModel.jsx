@@ -1,5 +1,5 @@
 import React from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { AiOutlineClose } from 'react-icons/ai';
 import InputField from '../InputField';
@@ -7,6 +7,8 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useFetchUsers } from '../../custom/Hook/useFetchUsers';
 import { useSelector } from 'react-redux';
+import { Role, Status } from '../../../utils/method/helper';
+import SelectInputField from '../SelectInputField';
 
 const UpdateUserModel = ({ setShouldShow, menuIndex, permissionModal = false }) => {
     const user = useSelector(state => state.user.userList).filter((user, index) => index === menuIndex)[0]
@@ -16,11 +18,12 @@ const UpdateUserModel = ({ setShouldShow, menuIndex, permissionModal = false }) 
     const validationSchema = Yup.object().shape({
         name: Yup.string().required('name is required'),
         email: Yup.string().email('Invalid email address').required('Email is required'),
-        role: Yup.string().required('Role is required')
+        role: Yup.string().required('Role is required'),
+        ...permissionModal && { status: Yup.string().required('Status is required') }
     });
 
     const handleAddUser = (values, setSubmitting) => {
-        axios.post('http://localhost:8001/api/v1/user/create_user', values)
+        axios.put('http://localhost:8001/api/v1/user/update_user', { ...values, id: String(user.id) })
             .then(async (res) => {
                 toast.success(res.data.message);
                 await fetchUser(1)
@@ -36,7 +39,7 @@ const UpdateUserModel = ({ setShouldShow, menuIndex, permissionModal = false }) 
 
     return (
         <Formik
-            initialValues={{ name: name, email: email, role: role, status: status }}
+            initialValues={{ name: name, email: email, role: role, ...permissionModal && { status: status } }}
             validationSchema={validationSchema}
             onSubmit={(values, { setSubmitting }) => {
                 handleAddUser(values, setSubmitting)
@@ -53,41 +56,12 @@ const UpdateUserModel = ({ setShouldShow, menuIndex, permissionModal = false }) 
                             <AiOutlineClose />
                         </button>
 
-                        <InputField label="Name" name="name" placeholder="Enter your name" />
-                        <InputField label="Email" name="email" type="email" placeholder="Enter your Email" />
-
+                        <InputField label="Name" name="name" placeholder="Enter your name" disabled={permissionModal} />
+                        <InputField label="Email" name="email" type="email" placeholder="Enter your Email" disabled={permissionModal} />
                         {
-                            permissionModal && <div className="mb-4">
-                                <label htmlFor="status" className="block text-black">Status</label>
-                                <Field
-                                    as="select"
-                                    name="status"
-                                    id="status"
-                                    className="mt-1 outline-none block w-full border border-gray-200 rounded-md shadow-sm focus:ring-black focus:border-black sm:text-sm text-black p-2"
-                                >
-                                    <option value="active">Active</option>
-                                    <option value="deactive">DeActive</option>
-
-                                </Field>
-                                <ErrorMessage name="role" component="div" className="text-red-500 text-sm mt-1" />
-                            </div>
+                            permissionModal && <SelectInputField label="Status" name="status" optionList={Status} />
                         }
-
-
-                        <div className="mb-4">
-                            <label htmlFor="role" className="block text-black">Role</label>
-                            <Field
-                                as="select"
-                                name="role"
-                                id="role"
-                                className="mt-1 outline-none block w-full border border-gray-200 rounded-md shadow-sm focus:ring-black focus:border-black sm:text-sm text-black p-2"
-                            >
-                                <option value="member">Member</option>
-                                <option value="admin">Admin</option>
-
-                            </Field>
-                            <ErrorMessage name="role" component="div" className="text-red-500 text-sm mt-1" />
-                        </div>
+                        <SelectInputField label="Role" name="role" optionList={Role} disabled={permissionModal} />
 
                         <button
                             type="submit"

@@ -27,3 +27,6 @@ export const dateFormatter = (date = new Date()) => {
     year: "numeric",
   });
 };
+
+export const Role = ["Member", "Admin"];
+export const Status = ["Active", "InActive"];
