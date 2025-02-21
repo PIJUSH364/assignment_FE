@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 import { setModalStatus } from "../../features/users/userSlice";
 import { allModalStatus } from "../../utils/enum";
 
-const MoreActions = ({ index, menuIndex, toggleMenu, user }) => {
+const MoreActions = ({ index, menuIndex, toggleMenu, user, setShouldShow }) => {
     const dropdownRef = useRef(null);
     const dispatch = useDispatch();
     const { fetchUser } = useFetchUsers();
@@ -74,17 +74,29 @@ const MoreActions = ({ index, menuIndex, toggleMenu, user }) => {
                         ${position === "top" ? "bottom-full mb-[-1.1rem]" : "top-full mt-[-1.1rem]"}`}
                 >
                     <button className="drop_down_button"
-                        onClick={() => dispatch(setModalStatus({ key: allModalStatus.VIEW_USER, value: true }))}
+                        onClick={() => {
+                            dispatch(setModalStatus({ key: allModalStatus.VIEW_USER, value: true }))
+                            setShouldShow(true)
+                        }
+                        }
                     >
                         <FiUser className="drop_down_button_icon" /> View Profile
                     </button>
                     <button className="drop_down_button"
-                        onClick={() => dispatch(setModalStatus({ key: allModalStatus.EDIT_USER, value: true }))}
+                        onClick={() => {
+                            dispatch(setModalStatus({ key: allModalStatus.EDIT_USER, value: true }))
+                            setShouldShow(true)
+                        }
+                        }
                     >
                         <FiEdit className="drop_down_button_icon" /> Edit Details
                     </button>
                     <button className="drop_down_button"
-                        onClick={() => dispatch(setModalStatus({ key: allModalStatus.PERMISSION_CHANGE, value: true }))}
+                        onClick={() => {
+                            setShouldShow(true)
+                            dispatch(setModalStatus({ key: allModalStatus.PERMISSION_CHANGE, value: true }))
+                        }
+                        }
                     >
                         <FiSettings className="drop_down_button_icon" /> Change Permission
                     </button>

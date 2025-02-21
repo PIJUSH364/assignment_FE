@@ -3,7 +3,7 @@ import React from "react";
 import { FiMoreVertical } from "react-icons/fi";
 import MoreActions from "./MoreActions";
 
-const UserRow = ({ user, index, toggleMenu, handleDelete, menuIndex, setShouldShow }) => {
+const UserRow = ({ user, index, toggleMenu, menuIndex, setShouldShow }) => {
     const currentDate = new Date();
 
     return (

@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import UserRow from "./UserRow";
 import { FaArrowDown, FaArrowUp } from "react-icons/fa";
-import axios from "axios";
-import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser, setTotalPage } from "../../features/users/userSlice";
 import ViewProfile from "../common/modal/ViewProfile";
 import Modal from "../common/Modal";
-
+import UpdateUserModel from "../common/modal/UpdateUserModel";
+import { useFetchUsers } from "../custom/Hook/useFetchUsers";
 
 const UserTable = ({ handleDelete }) => {
     const [sortByDesc, setSortByDesc] = useState(true);
@@ -15,7 +14,14 @@ const UserTable = ({ handleDelete }) => {
     const [menuIndex, setMenuIndex] = useState(-1);
 
     const dispatch = useDispatch();
+    const { fetchUser } = useFetchUsers()
     const users = useSelector(state => state.user.userList);
+    const {
+        addUserModalStatus,
+        editUserModalStatus,
+        permissionUserModalStatus,
+        viewUserModalStatus
+    } = useSelector(state => state.user.allModalStatus);
 
     const handleSort = () => {
         const data = [...users].sort((a, b) => sortByDesc ? new Date(b.updatedAt) - new Date(a.updatedAt)
@@ -23,29 +29,27 @@ const UserTable = ({ handleDelete }) => {
 
         dispatch(addUser(data));
     }
+
     const toggleMenu = (index) => {
         setMenuIndex(index === menuIndex ? -1 : index);
     }
 
-    useEffect(() => {
-        axios.get(`${"http://localhost:8001/api/v1/user"}/get_user_data?page=1`)
-            .then((res) => {
-                if (res.data?.code == 200 && res.data?.data) {
-                    dispatch(addUser(res.data.data || []));
-                    dispatch(setTotalPage(res.data.pagination.totalPages || 0));
-                    toast.success(res.data.message);
-                }
-            }).catch((err) => {
-                toast.error("Error fetching users Data");
-            });
+    useEffect(async () => {
+        await fetchUser(1)
     }, [])
 
 
     return (
         <div className=" rounded-lg">
-            <Modal shouldShow={shouldShow} setShouldShow={setShouldShow}>
-                {shouldShow && <ViewProfile setShouldShow={setShouldShow} menuIndex={menuIndex} />}
-            </Modal>
+            {viewUserModalStatus && <Modal shouldShow={shouldShow} setShouldShow={setShouldShow}>
+                <ViewProfile setShouldShow={setShouldShow} menuIndex={menuIndex} />
+            </Modal>}
+            {editUserModalStatus && <Modal shouldShow={shouldShow} setShouldShow={setShouldShow}>
+                <UpdateUserModel setShouldShow={setShouldShow} menuIndex={menuIndex} />
+            </Modal>}
+            {permissionUserModalStatus && <Modal shouldShow={shouldShow} setShouldShow={setShouldShow}>
+                <UpdateUserModel setShouldShow={setShouldShow} menuIndex={menuIndex} permissionModal={true} />
+            </Modal>}
 
             <table className="w-full border-collapse">
                 <thead>
@@ -75,8 +79,6 @@ const UserTable = ({ handleDelete }) => {
                         <th className="p-3 rounded-tr-lg "></th>
                     </tr>
                 </thead>
-
-
                 <tbody>
                     {users.map((user, index) => (
                         <UserRow
