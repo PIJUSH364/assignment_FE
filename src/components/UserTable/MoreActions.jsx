@@ -5,11 +5,42 @@ import axios from "axios";
 import { addUser, setTotalPage } from "../../features/users/userSlice";
 import { useDispatch } from "react-redux";
 import toast from "react-hot-toast";
+import * as XLSX from "xlsx";
+import { saveAs } from "file-saver";
 
-const MoreActions = ({ index, menuIndex, toggleMenu, user }) => {
+
+const MoreActions = ({ index, menuIndex, toggleMenu, user, setShouldShow }) => {
     const dropdownRef = useRef(null);
     const dispatch = useDispatch();
     const [position, setPosition] = useState("bottom");
+
+
+
+    const handleExport = () => {
+        const userData = { ...user };
+        try {
+
+            delete userData.id
+            delete userData.deletedAt
+            delete userData.createdAt
+            delete userData.updatedAt
+
+            // Convert JSON data to worksheet
+            const worksheet = XLSX.utils.json_to_sheet([userData]);
+            const workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, worksheet, "User Data");
+
+            // Convert to binary and create blob
+            const excelBuffer = XLSX.write(workbook, { bookType: "xlsx", type: "array" });
+            const dataBlob = new Blob([excelBuffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+
+            // Save file
+            saveAs(dataBlob, `User.xlsx`);
+
+        } catch (error) {
+            console.error("Error exporting user data", error);
+        }
+    };
 
     useEffect(() => {
         if (menuIndex === index && dropdownRef.current) {
@@ -23,6 +54,7 @@ const MoreActions = ({ index, menuIndex, toggleMenu, user }) => {
             }
         }
     }, [menuIndex]);
+
     const handleDelete = async (id) => {
         try {
             console.log(id);
@@ -58,7 +90,9 @@ const MoreActions = ({ index, menuIndex, toggleMenu, user }) => {
                     className={`font-nunito absolute right-5 w-48 bg-white shadow-lg rounded-lg z-10 ${position === "top" ? "bottom-full mb-2" : "top-full mt-2"
                         }`}
                 >
-                    <button className="flex items-center w-full text-left px-3 py-2 text-base hover:bg-gray-100">
+                    <button className="flex items-center w-full text-left px-3 py-2 text-base hover:bg-gray-100"
+                        onClick={() => setShouldShow(true)}
+                    >
                         <FiUser className="mr-2 text-gray-600" /> View Profile
                     </button>
                     <button className="flex items-center w-full text-left px-3 py-2 text-base hover:bg-gray-100">
@@ -67,7 +101,9 @@ const MoreActions = ({ index, menuIndex, toggleMenu, user }) => {
                     <button className="flex items-center w-full text-left px-3 py-2 text-base hover:bg-gray-100">
                         <FiSettings className="mr-2 text-gray-600" /> Change Permission
                     </button>
-                    <button className="flex items-center w-full text-left px-3 py-2 text-base hover:bg-gray-100">
+                    <button className="flex items-center w-full text-left px-3 py-2 text-base hover:bg-gray-100"
+                        onClick={handleExport}
+                    >
                         <FiDownload className="mr-2 text-gray-600" /> Export Details
                     </button>
                     <button

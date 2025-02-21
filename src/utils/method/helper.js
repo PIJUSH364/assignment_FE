@@ -19,3 +19,11 @@ export const debounce = (func, delay) => {
     }, delay);
   };
 };
+
+export const dateFormatter = (date = new Date()) => {
+  return new Date(date).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+};

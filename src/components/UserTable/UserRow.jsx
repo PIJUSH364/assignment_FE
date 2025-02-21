@@ -3,7 +3,7 @@ import React from "react";
 import { FiMoreVertical } from "react-icons/fi";
 import MoreActions from "./MoreActions";
 
-const UserRow = ({ user, index, toggleMenu, handleDelete, menuIndex }) => {
+const UserRow = ({ user, index, toggleMenu, handleDelete, menuIndex, setShouldShow }) => {
     const currentDate = new Date();
 
     return (
@@ -36,20 +36,8 @@ const UserRow = ({ user, index, toggleMenu, handleDelete, menuIndex }) => {
 
             {/* More Actions Dropdown */}
 
-            <MoreActions index={index} menuIndex={menuIndex} toggleMenu={toggleMenu} user={user} />
-            {/* <td className="p-2 relative ">
-                <button onClick={() => toggleMenu(index)} className="p-2 rounded-full hover:bg-gray-200">
-                    <FiMoreVertical className="text-gray-600" />
-                </button>
-                {menuIndex === index && (
-                    <div className="font-nunito absolute right-5  w-40 bg-white shadow-lg rounded-lg  z-10">
+            <MoreActions index={index} menuIndex={menuIndex} toggleMenu={toggleMenu} user={user} setShouldShow={setShouldShow} />
 
-                        <button className="block w-full text-left px-3 py-1 text-base hover:bg-gray-100">View Profile</button>
-                        <button className="block w-full text-left px-3 py-1 text-base hover:bg-gray-100">Edit</button>
-                        
-                    </div>
-                )}
-            </td> */}
         </tr>
     );
 };

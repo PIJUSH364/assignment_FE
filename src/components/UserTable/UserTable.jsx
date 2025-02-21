@@ -5,10 +5,13 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser, setTotalPage } from "../../features/users/userSlice";
+import ViewProfile from "../common/modal/ViewProfile";
+import Modal from "../common/Modal";
 
 
 const UserTable = ({ handleDelete }) => {
     const [sortByDesc, setSortByDesc] = useState(true);
+    const [shouldShow, setShouldShow] = useState(false);
     const [menuIndex, setMenuIndex] = useState(-1);
 
     const dispatch = useDispatch();
@@ -40,6 +43,10 @@ const UserTable = ({ handleDelete }) => {
 
     return (
         <div className="overflow-hidden rounded-lg">
+            <Modal shouldShow={shouldShow} setShouldShow={setShouldShow}>
+                {shouldShow && <ViewProfile setShouldShow={setShouldShow} menuIndex={menuIndex} />}
+            </Modal>
+
             <table className="w-full border-collapse">
                 <thead>
                     <tr className="bg-gray-100 text-left">
@@ -79,6 +86,7 @@ const UserTable = ({ handleDelete }) => {
                             toggleMenu={toggleMenu}
                             handleDelete={handleDelete}
                             menuIndex={menuIndex}
+                            setShouldShow={setShouldShow}
                         />
                     ))}
                 </tbody>
