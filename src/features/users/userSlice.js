@@ -3,6 +3,12 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   userList: [],
   totalPage: 0,
+  allModalStatus: {
+    addUserModalStatus: false,
+    editUserModalStatus: false,
+    permissionUserModalStatus: false,
+    viewUserModalStatus: false,
+  },
   contactMetaData: null,
   loaderStatus: false,
   currentPage: 1,
@@ -21,6 +27,12 @@ const userSlice = createSlice({
     },
     setTotalPage: (state, action) => {
       state.totalPage = action.payload;
+    },
+    setModalStatus: (state, action) => {
+      Object.entries(state.allModalStatus).forEach(
+        ([key, _]) => (state.allModalStatus[key] = false)
+      );
+      state.allModalStatus[action.payload.key] = action.payload.value;
     },
     addContactMetaData: (state, action) => {
       state.contactMetaData = action.payload;
@@ -68,8 +80,9 @@ const userSlice = createSlice({
 export const {
   addUser,
   setTotalPage,
-  addContactMetaData,
+  setModalStatus,
 
+  addContactMetaData,
   setLoaderStatus,
   setCurrentPage,
   setCategoryContactData,

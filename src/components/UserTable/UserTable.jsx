@@ -42,7 +42,7 @@ const UserTable = ({ handleDelete }) => {
 
 
     return (
-        <div className="overflow-hidden rounded-lg">
+        <div className=" rounded-lg">
             <Modal shouldShow={shouldShow} setShouldShow={setShouldShow}>
                 {shouldShow && <ViewProfile setShouldShow={setShouldShow} menuIndex={menuIndex} />}
             </Modal>

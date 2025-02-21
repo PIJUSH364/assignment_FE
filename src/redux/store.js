@@ -6,6 +6,7 @@ const store = configureStore({
     contact: contactReducer,
     user: userReducer,
   },
+  devTools: process.env.NODE_ENV !== "production",
 });
 
 export default store;
