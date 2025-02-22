@@ -40,6 +40,12 @@
   .error_msg {
     @apply text-red-500 text-sm mt-1;
   }
+  .md-hide-table-col {
+    @apply p-3 font-nunito hidden md:table-cell;
+  }
+  .md-hide-table-cel {
+    @apply p-2 text-gray-700 font-nunito align-middle text-center  hidden md:table-cell;
+  }
 }
 
 @layer base {
