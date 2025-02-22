@@ -8,9 +8,17 @@ export const useFetchUsers = () => {
     const dispatch = useDispatch();
 
     const fetchUser = useCallback(
-        async (pageIndex = 2, pageSize = 5) => {
+        async (pageIndex = 2, pageSize = 5, currentUrl = "") => {
             try {
-                const res = await axios.get(`${"http://localhost:8001/api/v1/user"}/get_user_data?page=${pageIndex}&pageSize=${pageSize}`);
+                const paginationUrl = `page=${pageIndex}&pageSize=${pageSize}`
+                const defaultUrl = `${"http://localhost:8001/api/v1/user"}/get_user_data?` + paginationUrl;
+                let originalUrl = defaultUrl;
+
+                if (currentUrl !== "") {
+                    originalUrl = currentUrl + paginationUrl;
+                }
+
+                const res = await axios.get(originalUrl);
                 if (res.data?.code == 200 && res.data?.data) {
                     toast.success(res.data.message);
                     dispatch(addUser(res.data.data || []));

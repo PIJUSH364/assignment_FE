@@ -8,16 +8,29 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { addUser } from "../../features/users/userSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { debounce } from "../../utils/method/helper";
 import FilterUserModel from "../common/modal/FilterUserModel";
+import { useFetchUsers } from "../custom/Hook/useFetchUsers";
+import { useDebouncedEffect } from "../custom/Hook/useDebouncedEffect";
 
 const Filters = ({ title = "All User" }) => {
     const totalUserCount = useSelector(state => state.user.totalUserCount);
     const [search, setSearch] = useState("");
     const [shouldShow, setShouldShow] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
+    const [isRest, setIsRest] = useState(false);
     const [isOpenFilterModel, setIsOpenFilterModel] = useState(false);
+
     const dispatch = useDispatch();
+    const { fetchUser } = useFetchUsers();
+
+    useDebouncedEffect(() => {
+        if (search !== "") {
+            const uri = `http://localhost:8001/api/v1/user/search_user_details?search=${search}&`
+            return fetchUser(1, 5, uri);
+        }
+        fetchUser(1, 5);
+    }, [isRest, search], 2000);
+
 
     const handleSort = async (value = "") => {
         try {
@@ -35,40 +48,6 @@ const Filters = ({ title = "All User" }) => {
             toast.error("Error fetching users data");
         }
         setIsOpen(false);
-    };
-
-    const handleReset = () => {
-        setSearch(""); // Clear search input
-        // dispatch(addUser([])); // Reset user list
-        toast.success("Filters reset successfully");
-    };
-
-    const handleSearchData = debounce(async (value, cancelTokenSource) => {
-        try {
-            const { data } = await axios.get(
-                `http://localhost:8001/api/v1/user/search_user_details?search=${value}`,
-                { cancelToken: cancelTokenSource.token }
-            );
-
-            if (data?.code === 200) {
-                dispatch(addUser(data.data || []));
-                toast.success(data.message);
-            } else {
-                toast.error("Error fetching users data");
-            }
-        } catch (error) {
-            if (axios.isCancel(error)) {
-                console.log("Request canceled:", error.message);
-            } else {
-                toast.error(`Error fetching users data: ${error.message}`);
-            }
-        }
-    }, 3000);
-
-    const handleInputChange = (e) => {
-        const value = e.target.value.trim();
-        setSearch(value);
-        handleSearchData(value);
     };
 
     return (
@@ -95,7 +74,9 @@ const Filters = ({ title = "All User" }) => {
                             placeholder="Search"
                             className="font-nunito border border-gray-300 outline-none rounded-md px-10 py-2 h-8"
                             value={search}
-                            onChange={handleInputChange}
+                            onChange={(e) => {
+                                setSearch(e.target.value.trim());
+                            }}
                         />
                     </div>
 
@@ -128,7 +109,11 @@ const Filters = ({ title = "All User" }) => {
 
                     {/* Reset Button */}
                     <button
-                        onClick={handleReset}
+                        onClick={() => {
+                            toast.success("Filters reset successfully");
+                            setSearch("");
+                            setIsRest(!isRest)
+                        }}
                         className="font-nunito flex items-center gap-2 text-white bg-black  hover:bg-gray-700 text-sm px-4 py-2 h-8 rounded-md"
                     >
                         <MdRefresh />
