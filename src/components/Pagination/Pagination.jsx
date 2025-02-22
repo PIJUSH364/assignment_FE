@@ -4,12 +4,12 @@ import { useSelector } from "react-redux";
 import { useFetchUsers } from "../custom/Hook/useFetchUsers";
 import { useDebouncedEffect } from "../custom/Hook/useDebouncedEffect";
 
-const Pagination = ({ currentPage, setCurrentPage }) => {
+const Pagination = () => {
     const { fetchUser } = useFetchUsers();
     const totalPages = useSelector(state => state.user.totalPage);
     const users = useSelector(state => state.user.userList);
     const [pageSize, setPageSize] = useState(5);
-
+    const [currentPage, setCurrentPage] = useState(1);
 
     // Debounce API call
     useDebouncedEffect(() => {

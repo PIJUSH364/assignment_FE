@@ -9,7 +9,7 @@ import UpdateUserModel from "../common/modal/UpdateUserModel";
 import { useFetchUsers } from "../custom/Hook/useFetchUsers";
 import { CustomSkelton } from "../contactManagement/Home";
 
-const UserTable = ({ handleDelete }) => {
+const UserTable = () => {
     const [sortByDesc, setSortByDesc] = useState(true);
     const [shouldShow, setShouldShow] = useState(false);
     const [menuIndex, setMenuIndex] = useState(-1);
@@ -108,7 +108,6 @@ const UserTable = ({ handleDelete }) => {
                                 user={user}
                                 index={index}
                                 toggleMenu={toggleMenu}
-                                handleDelete={handleDelete}
                                 menuIndex={menuIndex}
                                 setShouldShow={setShouldShow}
                                 onSelect={handleSelect}

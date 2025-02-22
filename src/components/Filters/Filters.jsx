@@ -11,8 +11,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { debounce } from "../../utils/method/helper";
 import FilterUserModel from "../common/modal/FilterUserModel";
 
-const Filters = ({ search, setSearch, title = "All User" }) => {
+const Filters = ({ title = "All User" }) => {
     const totalUserCount = useSelector(state => state.user.totalUserCount);
+    const [search, setSearch] = useState("");
     const [shouldShow, setShouldShow] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const [isOpenFilterModel, setIsOpenFilterModel] = useState(false);
