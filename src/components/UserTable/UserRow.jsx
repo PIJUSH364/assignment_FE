@@ -2,12 +2,29 @@ import React, { useState } from "react";
 import MoreActions from "./MoreActions";
 import { dateFormatter } from "../../utils/method/helper";
 import ToggleSwitch from "../common/ToggleSwitch";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { useFetchUsers } from "../custom/Hook/useFetchUsers";
+
 
 const UserRow = ({ user, index, toggleMenu, menuIndex, setShouldShow, onSelect, isSelected }) => {
     const [toggleStatus, setToggleStatus] = useState(user.status.toUpperCase() === "ACTIVE");
+    const { fetchUser } = useFetchUsers()
 
     const handleToggle = () => {
         setToggleStatus(!toggleStatus);
+        const url = 'http://localhost:8001/api/v1/user/update_user'
+        axios.put(url, { status: !toggleStatus ? "active" : "inactive", id: String(user.id) })
+            .then(async (res) => {
+                toast.success(res.data.message);
+                await fetchUser()
+            })
+            .catch((err) => {
+                console.log(err)
+                toast.error("Error adding user Data");
+
+            })
+
     };
 
     return (
