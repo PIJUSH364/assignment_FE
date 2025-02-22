@@ -8,9 +8,9 @@ export const useFetchUsers = () => {
     const dispatch = useDispatch();
 
     const fetchUser = useCallback(
-        async (pageIndex = 2) => {
+        async (pageIndex = 2, pageSize = 5) => {
             try {
-                const res = await axios.get(`${"http://localhost:8001/api/v1/user"}/get_user_data?page=${pageIndex}`)
+                const res = await axios.get(`${"http://localhost:8001/api/v1/user"}/get_user_data?page=${pageIndex}&pageSize=${pageSize}`);
                 if (res.data?.code == 200 && res.data?.data) {
                     toast.success(res.data.message);
                     dispatch(addUser(res.data.data || []));
