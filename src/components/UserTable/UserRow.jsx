@@ -28,7 +28,6 @@ const UserRow = ({ user, index, toggleMenu, menuIndex, setShouldShow, onSelect, 
         });
     };
 
-
     async function updateUser(data) {
         try {
             const res = await axios.put(url, data);
@@ -42,8 +41,8 @@ const UserRow = ({ user, index, toggleMenu, menuIndex, setShouldShow, onSelect, 
 
     const handleDropDownChange = (e) => {
         const newRole = e.target.value;
-        setRole(newRole); // Update local state
-        handleRoleChange(newRole); // Send update request
+        setRole(newRole);
+        handleRoleChange(newRole);
     }
 
     return (

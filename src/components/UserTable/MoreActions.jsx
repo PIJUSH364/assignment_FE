@@ -62,7 +62,7 @@ const MoreActions = ({ index, menuIndex, toggleMenu, user, setShouldShow }) => {
     }, [menuIndex, index]); // Runs only when the menu opens
 
     return (
-        <td className="p-2 relative">
+        <div className="p-2 relative">
             <button onClick={() => toggleMenu(index)} className="p-2 rounded-full hover:bg-gray-200">
                 <FiMoreVertical className="text-gray-600" />
             </button>
@@ -111,7 +111,7 @@ const MoreActions = ({ index, menuIndex, toggleMenu, user, setShouldShow }) => {
                     </button>
                 </div>
             )}
-        </td>
+        </div>
     );
 };
 
