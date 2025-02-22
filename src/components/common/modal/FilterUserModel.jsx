@@ -52,7 +52,7 @@ export default function FilterUserModel({ setShouldShow }) {
 
     return (
         <div className="modalBackground flex justify-center items-center">
-            <div className="max-w-2xl w-full min-h-[200px] rounded-lg border bg-white px-10 pt-16 pb-10 shadow-lg relative">
+            <div className="max-w-2xl w-full min-h-[200px] rounded-lg border bg-white px-10 pt-14 pb-10 shadow-lg relative">
                 {/* Close Button */}
                 <button
                     type="button"
