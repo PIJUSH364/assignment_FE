@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 
 const initialState = {
   userList: [],
@@ -11,11 +11,16 @@ const initialState = {
     permissionUserModalStatus: false,
     viewUserModalStatus: false,
   },
+  paginationMetaData: {
+    currentPage: 1,
+    pageSize: 5,
+  },
+  searchValue: "",
   contactMetaData: null,
   loaderStatus: false,
   currentPage: 1,
   categoryContactData: [],
-  searchValue: "",
+
   filterValue: "",
   pageRange: [1],
 };
@@ -43,7 +48,12 @@ const userSlice = createSlice({
       state.userActionFlag = true;
       state.allModalStatus[action.payload.key] = action.payload.value;
     },
-
+    setPaginationMetaData: (state, action) => {
+      state.paginationMetaData[action.payload.key] = action.payload.value;
+    },
+    setSearchValue: (state, action) => {
+      state.searchValue = action.payload;
+    },
     addContactMetaData: (state, action) => {
       state.contactMetaData = action.payload;
     },
@@ -56,10 +66,7 @@ const userSlice = createSlice({
     setCategoryContactData: (state, action) => {
       state.categoryContactData = action.payload;
     },
-    setSearchValue: (state, action) => {
-      state.searchValue = action.payload;
-      state.filterValue = "";
-    },
+
     setFilterValue: (state, action) => {
       state.filterValue = action.payload.trim();
       state.searchValue = "";
@@ -93,12 +100,13 @@ export const {
   setModalStatus,
   setTotalUserCount,
   setUserActionFlag,
+  setPaginationMetaData,
+  setSearchValue,
 
   addContactMetaData,
   setLoaderStatus,
   setCurrentPage,
   setCategoryContactData,
-  setSearchValue,
   setFilterValue,
   resetFilterValue,
   setInitialPageRange,

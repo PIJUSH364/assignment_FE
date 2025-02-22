@@ -1,15 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GrNext, GrPrevious } from "react-icons/gr";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useFetchUsers } from "../custom/Hook/useFetchUsers";
 import { useDebouncedEffect } from "../custom/Hook/useDebouncedEffect";
+import { setPaginationMetaData } from "../../features/users/userSlice";
 
 const Pagination = () => {
     const { fetchUser } = useFetchUsers();
+    const dispatch = useDispatch();
     const totalPages = useSelector(state => state.user.totalPage);
     const users = useSelector(state => state.user.userList);
-    const [pageSize, setPageSize] = useState(5);
-    const [currentPage, setCurrentPage] = useState(1);
+    const { currentPage, pageSize } = useSelector(state => state.user.paginationMetaData);
+
+    // console.log({ currentPage, pageSize })
 
     // Debounce API call
     useDebouncedEffect(() => {
@@ -19,8 +22,11 @@ const Pagination = () => {
     const handlePageSizeChange = (e) => {
         let value = parseInt(e.target.value, 10);
         if (Number.isNaN(value) || value < 1 || value > 100) return;
-        setPageSize(value);
+        dispatch(setPaginationMetaData({ key: "pageSize", value }))
     };
+
+    useEffect(() => { }, [currentPage, pageSize])
+
 
     return (
         <>
@@ -29,7 +35,7 @@ const Pagination = () => {
                     <div className="flex gap-2 items-center absolute left-1/2 transform -translate-x-1/2">
                         <button
                             className="pagination_next_prev"
-                            onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                            onClick={() => dispatch(setPaginationMetaData({ key: "currentPage", value: Math.max(currentPage - 1, 1) }))}
                             disabled={currentPage === 1}
                             aria-label="Previous Page"
                             aria-disabled={currentPage === 1}
@@ -43,7 +49,7 @@ const Pagination = () => {
                                     key={number}
                                     className={`w-6 h-6 p-2 rounded-[4px] text-sm flex items-center justify-center
                                     ${currentPage === number ? "bg-gray-400 text-white" : "bg-gray-200"}`}
-                                    onClick={() => setCurrentPage(number)}
+                                    onClick={() => dispatch(setPaginationMetaData({ key: "currentPage", value: number }))}
                                     aria-label={`Page ${number}`}
                                     aria-current={currentPage === number ? "page" : undefined}
                                 >
@@ -54,7 +60,9 @@ const Pagination = () => {
 
                         <button
                             className="pagination_next_prev"
-                            onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                            onClick={() => {
+                                dispatch(setPaginationMetaData({ key: "currentPage", value: Math.min(currentPage + 1, totalPages) }))
+                            }}
                             disabled={currentPage === totalPages}
                             aria-label="Next Page"
                             aria-disabled={currentPage === totalPages}

@@ -1,38 +1,31 @@
 import { useCallback } from "react";
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import { addUser, setTotalPage, setTotalUserCount } from "../../../features/users/userSlice";
 
 export const useFetchUsers = () => {
     const dispatch = useDispatch();
+    const searchValue = useSelector(state => state.user.searchValue);
 
     const fetchUser = useCallback(
-        async (pageIndex = 2, pageSize = 5, currentUrl = "") => {
+        async (pageIndex = 2, pageSize = 5) => {
             try {
-                const paginationUrl = `page=${pageIndex}&pageSize=${pageSize}`
-                const defaultUrl = `${"http://localhost:8001/api/v1/user"}/get_user_data?` + paginationUrl;
-                let originalUrl = defaultUrl;
+                const defaultUrl = `http://localhost:8001/api/v1/user/get_user_data?page=${pageIndex}&pageSize=${pageSize}&search=${searchValue}`;
 
-                if (currentUrl !== "") {
-                    originalUrl = currentUrl + paginationUrl;
-                }
-
-                const res = await axios.get(originalUrl);
-                if (res.data?.code == 200 && res.data?.data) {
+                const res = await axios.get(defaultUrl);
+                if (res.data?.code === 200 && res.data?.data) {
                     toast.success(res.data.message);
                     dispatch(addUser(res.data.data || []));
                     dispatch(setTotalPage(res.data.pagination?.totalPages || 0));
                     dispatch(setTotalUserCount(res.data.pagination?.totalRecords || 0));
                 }
             } catch (error) {
-                console.error("Error fetching contacts:", error.message);
+                console.error("Error fetching users:", error.message);
                 toast.error(error.message);
-            } finally {
-
             }
         },
-        []
+        [searchValue, dispatch] // Dependency array added
     );
 
     return { fetchUser };
