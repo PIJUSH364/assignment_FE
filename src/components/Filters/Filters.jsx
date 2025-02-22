@@ -24,9 +24,7 @@ const Filters = ({ title = "All User" }) => {
     const { fetchUser } = useFetchUsers();
 
     useDebouncedEffect(() => {
-        if (searchValue !== "") {
-            return fetchUser(1, 5);
-        }
+        fetchUser(1, 5);
     }, [isRest, searchValue], 2000);
 
 
@@ -73,7 +71,7 @@ const Filters = ({ title = "All User" }) => {
                             className="font-nunito border border-gray-300 outline-none rounded-md px-10 py-2 h-8"
                             value={searchValue}
                             onChange={(e) => {
-                                dispatch(setSearchValue(e.target.value.trim()))
+                                dispatch(setSearchValue(e.target.value.trim()));
                             }}
                         />
                     </div>
