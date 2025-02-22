@@ -37,8 +37,8 @@ const UserTable = ({ selectedUsers, setSelectedUsers }) => {
         setMenuIndex(index === menuIndex ? -1 : index);
     }
 
-    useEffect(async () => {
-        await fetchUser(1)
+    useEffect(() => {
+        fetchUser(1)
     }, [])
 
 
