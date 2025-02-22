@@ -10,12 +10,10 @@ import { useFetchUsers } from "../custom/Hook/useFetchUsers";
 import { CustomSkelton } from "../../utils/Helper";
 
 
-const UserTable = () => {
+const UserTable = ({ selectedUsers, setSelectedUsers }) => {
     const [sortByDesc, setSortByDesc] = useState(true);
     const [shouldShow, setShouldShow] = useState(false);
     const [menuIndex, setMenuIndex] = useState(-1);
-    const [selectedUsers, setSelectedUsers] = useState([]);
-
 
     const dispatch = useDispatch();
     const { fetchUser } = useFetchUsers()
