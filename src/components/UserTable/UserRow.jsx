@@ -6,25 +6,28 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useFetchUsers } from "../custom/Hook/useFetchUsers";
 
+const requestCounter = { count: 0, isThrottled: false };
+
+
 
 const UserRow = ({ user, index, toggleMenu, menuIndex, setShouldShow, onSelect, isSelected }) => {
     const [toggleStatus, setToggleStatus] = useState(user.status.toUpperCase() === "ACTIVE");
-    const { fetchUser } = useFetchUsers()
+    const { fetchUser } = useFetchUsers();
 
-    const handleToggle = () => {
-        setToggleStatus(!toggleStatus);
-        const url = 'http://localhost:8001/api/v1/user/update_user'
-        axios.put(url, { status: !toggleStatus ? "active" : "inactive", id: String(user.id) })
-            .then(async (res) => {
+    const handleToggle = async () => {
+        await throttleRequest(async () => {
+            setToggleStatus(!toggleStatus);
+            const url = "http://localhost:8001/api/v1/user/update_user";
+
+            try {
+                const res = await axios.put(url, { status: !toggleStatus ? "active" : "inactive", id: String(user.id) });
                 toast.success(res.data.message);
-                await fetchUser()
-            })
-            .catch((err) => {
-                console.log(err)
-                toast.error("Error adding user Data");
-
-            })
-
+                await fetchUser();
+            } catch (err) {
+                console.error(err);
+                toast.error("Error updating user data.");
+            }
+        });
     };
 
     return (
@@ -77,18 +80,31 @@ const UserRow = ({ user, index, toggleMenu, menuIndex, setShouldShow, onSelect, 
                 {user.createdAt ? dateFormatter(user.createdAt) : dateFormatter()}
             </td>
 
-
             <td className="p-2 text-center align-middle">
-                <MoreActions
-                    index={index}
-                    menuIndex={menuIndex}
-                    toggleMenu={toggleMenu}
-                    user={user}
-                    setShouldShow={setShouldShow}
-                />
+                <MoreActions index={index} menuIndex={menuIndex} toggleMenu={toggleMenu} user={user} setShouldShow={setShouldShow} />
             </td>
         </tr>
     );
 };
 
+const throttleRequest = async (callback) => {
+    if (requestCounter.isThrottled) {
+        toast.error("Too many requests! Please wait 10 seconds.");
+        return;
+    }
+
+    requestCounter.count += 1;
+
+    if (requestCounter.count >= 3) {
+        requestCounter.isThrottled = true;
+        toast.error("Rate limit reached. Waiting 10 seconds...");
+        setTimeout(() => {
+            requestCounter.count = 0;
+            requestCounter.isThrottled = false;
+            toast.success("You can make requests again.");
+        }, 10000); // 10 sec cooldown
+    }
+
+    await callback();
+};
 export default UserRow;
