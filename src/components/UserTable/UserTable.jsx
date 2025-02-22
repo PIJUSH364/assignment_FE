@@ -7,7 +7,8 @@ import ViewProfile from "../common/modal/ViewProfile";
 import Modal from "../common/Modal";
 import UpdateUserModel from "../common/modal/UpdateUserModel";
 import { useFetchUsers } from "../custom/Hook/useFetchUsers";
-import { CustomSkelton } from "../contactManagement/Home";
+import { CustomSkelton } from "../../utils/Helper";
+
 
 const UserTable = () => {
     const [sortByDesc, setSortByDesc] = useState(true);

@@ -2,7 +2,6 @@ import React from "react";
 import Filters from "../components/Filters/Filters";
 import UserTable from "../components/UserTable/UserTable";
 import Pagination from "../components/Pagination/Pagination";
-import { usersData } from "../utils/constant/data";
 import DashboardLayout from "../layouts/DashboardLayout";
 
 const UserManagement = () => {

@@ -22,13 +22,6 @@ const initialState = {
     status: "",
     search: "",
   },
-
-  contactMetaData: null,
-  loaderStatus: false,
-  currentPage: 1,
-  categoryContactData: [],
-  filterValue: "",
-  pageRange: [1],
 };
 
 const userSlice = createSlice({
@@ -87,23 +80,6 @@ const userSlice = createSlice({
       };
       state.searchValue = "";
     },
-
-    setInitialPageRange: (state) => {
-      state.currentPage = 1;
-      if (state.contactMetaData) {
-        state.pageRange = new Array(
-          state.contactMetaData.totalPages > 5
-            ? 5
-            : state.contactMetaData.totalPages
-        )
-          .fill(null)
-          .map((_, index) => index + 1);
-      }
-    },
-
-    setCustomPageRange: (state, action) => {
-      state.pageRange = action.payload;
-    },
   },
 });
 
@@ -118,12 +94,5 @@ export const {
   toggleUserDataLoader,
   resetFilterValue,
   setFilterValue,
-
-  addContactMetaData,
-  setLoaderStatus,
-  setCurrentPage,
-  setCategoryContactData,
-  setInitialPageRange,
-  setCustomPageRange,
 } = userSlice.actions;
 export default userSlice.reducer;
