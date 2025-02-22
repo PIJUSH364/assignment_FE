@@ -1,4 +1,3 @@
-export const status = ["Active", "InActive"];
 export const defaultFormData = {
   name: "",
   email: "",

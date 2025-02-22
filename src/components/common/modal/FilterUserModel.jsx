@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { AiOutlineClose } from "react-icons/ai";
-import { Role } from "../../../utils/method/helper";
-import { status } from "../../../Enum";
+import { Role, Status } from "../../../utils/method/helper";
 import { useFetchUsers } from "../../custom/Hook/useFetchUsers";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function FilterUserModel({ setShouldShow }) {
     const [isOpen1, setIsOpen1] = useState(false);
@@ -11,7 +11,11 @@ export default function FilterUserModel({ setShouldShow }) {
     const [selected2, setSelected2] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
+    const dispatch = useDispatch();
     const { fetchUser } = useFetchUsers()
+    const { role, status, search } = useSelector(state => state.user.filterData);
+    console.log({ role, status, search })
+
 
     const dropdownRef1 = useRef(null);
     const dropdownRef2 = useRef(null);
@@ -106,7 +110,7 @@ export default function FilterUserModel({ setShouldShow }) {
                         {isOpen2 && (
                             <div className="absolute left-0 w-full bg-white border border-gray-300 rounded-md shadow-md mt-1 z-20">
                                 <ul className="max-h-40 overflow-auto">
-                                    {status.map((option, index) => (
+                                    {Status.map((option, index) => (
                                         <li
                                             key={index}
                                             className="px-3 py-1 cursor-pointer hover:bg-gray-100"

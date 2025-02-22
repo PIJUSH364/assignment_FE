@@ -17,11 +17,16 @@ const initialState = {
   },
   searchValue: "",
   userDataLoader: false,
+  filterData: {
+    role: "",
+    status: "",
+    search: "",
+  },
+
   contactMetaData: null,
   loaderStatus: false,
   currentPage: 1,
   categoryContactData: [],
-
   filterValue: "",
   pageRange: [1],
 };
@@ -70,15 +75,19 @@ const userSlice = createSlice({
     toggleUserDataLoader: (state, action) => {
       state.userDataLoader = action.payload;
     },
-
     setFilterValue: (state, action) => {
-      state.filterValue = action.payload.trim();
+      state.filterValue[action.payload.key] = action.payload.value;
       state.searchValue = "";
     },
     resetFilterValue: (state) => {
-      state.filterValue = "";
+      state.filterValue = {
+        role: "",
+        status: "",
+        search: "",
+      };
       state.searchValue = "";
     },
+
     setInitialPageRange: (state) => {
       state.currentPage = 1;
       if (state.contactMetaData) {
@@ -107,13 +116,13 @@ export const {
   setPaginationMetaData,
   setSearchValue,
   toggleUserDataLoader,
+  resetFilterValue,
+  setFilterValue,
 
   addContactMetaData,
   setLoaderStatus,
   setCurrentPage,
   setCategoryContactData,
-  setFilterValue,
-  resetFilterValue,
   setInitialPageRange,
   setCustomPageRange,
 } = userSlice.actions;
