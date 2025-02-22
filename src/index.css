@@ -46,6 +46,9 @@
   .md-hide-table-cel {
     @apply p-2 text-gray-700 font-nunito align-middle text-center  hidden md:table-cell;
   }
+  .delete-modal-btn {
+    @apply bg-black text-white hover:bg-gray-800 hover:text-gray-300 font-medium p-2 px-6 rounded-md transition-all duration-300 disabled:opacity-50 font-nunito;
+  }
 }
 
 @layer base {

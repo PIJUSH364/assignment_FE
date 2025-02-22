@@ -8,6 +8,7 @@ import Modal from "../common/Modal";
 import UpdateUserModel from "../common/modal/UpdateUserModel";
 import { useFetchUsers } from "../custom/Hook/useFetchUsers";
 import { CustomSkelton } from "../../utils/Helper";
+import DeleteModel from "../common/modal/DeleteModel";
 
 
 const UserTable = ({ selectedUsers, setSelectedUsers }) => {
@@ -62,6 +63,10 @@ const UserTable = ({ selectedUsers, setSelectedUsers }) => {
             {permissionUserModalStatus && <Modal shouldShow={shouldShow} setShouldShow={setShouldShow}>
                 <UpdateUserModel setShouldShow={setShouldShow} menuIndex={menuIndex} permissionModal={true} toggleMenu={toggleMenu} />
             </Modal>}
+            {<Modal shouldShow={true} setShouldShow={setShouldShow}>
+                <DeleteModel setShouldShow={setShouldShow} />
+            </Modal>}
+
 
             {userDataLoader ? <CustomSkelton msg="Loading..." /> :
                 users.length
