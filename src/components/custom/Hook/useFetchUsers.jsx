@@ -7,11 +7,18 @@ import { addUser, setTotalPage, setTotalUserCount, toggleUserDataLoader } from "
 export const useFetchUsers = () => {
     const dispatch = useDispatch();
     const searchValue = useSelector(state => state.user.searchValue);
+    const { role, status, search } = useSelector(state => state.user.filterData);
 
     const fetchUser = useCallback(
         async (pageIndex = 1, pageSize = 5) => {
             try {
-                const defaultUrl = `http://localhost:8001/api/v1/user/get_user_data?page=${pageIndex}&pageSize=${pageSize}&search=${searchValue}`;
+                let subQuery = "";
+                if (role) subQuery += `&role=${role}`;
+                if (status) subQuery += `&status=${status}`;
+                if (searchValue) subQuery += `&search=${searchValue}`;
+
+
+                const defaultUrl = `http://localhost:8001/api/v1/user/get_user_data?page=${pageIndex}&pageSize=${pageSize}` + subQuery.toLowerCase()
 
                 const res = await axios.get(defaultUrl);
                 if (res.data?.code === 200 && res.data?.data) {
@@ -27,7 +34,7 @@ export const useFetchUsers = () => {
                 dispatch(toggleUserDataLoader(false))
             }
         },
-        [searchValue, dispatch] // Dependency array added
+        [searchValue, role, status, dispatch] // Dependency array added
     );
 
     return { fetchUser };

@@ -76,11 +76,11 @@ const userSlice = createSlice({
       state.userDataLoader = action.payload;
     },
     setFilterValue: (state, action) => {
-      state.filterValue[action.payload.key] = action.payload.value;
+      state.filterData[action.payload.key] = action.payload.value;
       state.searchValue = "";
     },
     resetFilterValue: (state) => {
-      state.filterValue = {
+      state.filterData = {
         role: "",
         status: "",
         search: "",

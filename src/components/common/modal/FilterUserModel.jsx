@@ -3,12 +3,11 @@ import { AiOutlineClose } from "react-icons/ai";
 import { Role, Status } from "../../../utils/method/helper";
 import { useFetchUsers } from "../../custom/Hook/useFetchUsers";
 import { useDispatch, useSelector } from "react-redux";
+import { resetFilterValue, setFilterValue } from "../../../features/users/userSlice";
 
 export default function FilterUserModel({ setShouldShow }) {
     const [isOpen1, setIsOpen1] = useState(false);
     const [isOpen2, setIsOpen2] = useState(false);
-    const [selected1, setSelected1] = useState(null);
-    const [selected2, setSelected2] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
     const dispatch = useDispatch();
@@ -41,9 +40,9 @@ export default function FilterUserModel({ setShouldShow }) {
     const handleFilter = async () => {
         setIsLoading(true);
         await fetchUser()
-        console.log(selected1, selected2)
         setShouldShow(false);
         setIsLoading(false);
+        dispatch(resetFilterValue());
     };
 
     return (
@@ -53,7 +52,10 @@ export default function FilterUserModel({ setShouldShow }) {
                 <button
                     type="button"
                     className="absolute top-2 right-2 text-black text-2xl p-2 hover:bg-gray-200 rounded-full"
-                    onClick={() => setShouldShow(false)}
+                    onClick={() => {
+                        dispatch(resetFilterValue());
+                        setShouldShow(false)
+                    }}
                 >
                     <AiOutlineClose />
                 </button>
@@ -68,7 +70,7 @@ export default function FilterUserModel({ setShouldShow }) {
                             }}
                             className="w-full font-nunito bg-white border border-gray-300 rounded-md p-2 text-left flex justify-between items-center shadow-sm"
                         >
-                            {selected1 ? selected1 : "Filter by Role"}
+                            {role ? role : "Filter by Role"}
                             <span className="ml-auto text-gray-400">&#9662;</span>
                         </button>
 
@@ -81,7 +83,7 @@ export default function FilterUserModel({ setShouldShow }) {
                                             key={index}
                                             className="px-3 py-1 cursor-pointer hover:bg-gray-100"
                                             onClick={() => {
-                                                setSelected1(option);
+                                                dispatch(setFilterValue({ key: "role", value: option }));
                                                 setIsOpen1(false);
                                             }}
                                         >
@@ -102,7 +104,7 @@ export default function FilterUserModel({ setShouldShow }) {
                             }}
                             className="w-full font-nunito bg-white border border-gray-300 rounded-md p-2 text-left flex justify-between items-center shadow-sm"
                         >
-                            {selected2 ? selected2 : "Filter by Status"}
+                            {status ? status : "Filter by Status"}
                             <span className="ml-auto text-gray-400">&#9662;</span>
                         </button>
 
@@ -115,7 +117,7 @@ export default function FilterUserModel({ setShouldShow }) {
                                             key={index}
                                             className="px-3 py-1 cursor-pointer hover:bg-gray-100"
                                             onClick={() => {
-                                                setSelected2(option);
+                                                dispatch(setFilterValue({ key: "status", value: option }));
                                                 setIsOpen2(false);
                                             }}
                                         >
@@ -130,7 +132,10 @@ export default function FilterUserModel({ setShouldShow }) {
 
                 <div className="flex justify-end mt-6 gap-4">
                     <button
-                        onClick={() => setShouldShow(false)}
+                        onClick={() => {
+                            dispatch(resetFilterValue());
+                            setShouldShow(false)
+                        }}
                         disabled={isLoading}
                         className="font-nunito border border-gray-300 bg-white text-gray-700 hover:bg-gray-100 transition-all duration-200 ease-in-out text-base px-6 py-2 h-9 rounded-md shadow-sm flex items-center justify-center"
                     >
@@ -138,7 +143,7 @@ export default function FilterUserModel({ setShouldShow }) {
                     </button>
                     <button
                         onClick={handleFilter}
-                        disabled={!(selected1 || selected2) || isLoading}  // Allow at least one selection
+                        disabled={!(status || role) || isLoading}  // Allow at least one selection
                         className={`cursor-pointer font-nunito border border-transparent bg-black text-white 
                 hover:bg-gray-800  duration-300 ease-in-out text-base px-6 py-2 h-9 
                 rounded-md shadow-md flex items-center justify-center 

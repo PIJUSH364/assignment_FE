@@ -13,5 +13,5 @@ export const dateFormatter = (date = new Date()) => {
     .replace(",", "");
 };
 
-export const Role = ["Member", "Admin", "Super Admin"];
+export const Role = ["Member", "Admin", "Super_Admin"];
 export const Status = ["Active", "InActive"];
