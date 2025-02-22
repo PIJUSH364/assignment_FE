@@ -3,28 +3,34 @@ import { AiOutlineClose } from "react-icons/ai";
 import { Role, Status } from "../../../utils/method/helper";
 import { useFetchUsers } from "../../custom/Hook/useFetchUsers";
 import { useDispatch, useSelector } from "react-redux";
-import { resetFilterValue, setFilterValue } from "../../../features/users/userSlice";
+import {
+    resetFilterValue,
+    setFilterValue,
+} from "../../../features/users/userSlice";
 
 export default function FilterUserModel({ setShouldShow }) {
+    const dropdownRef1 = useRef(null);
+    const dropdownRef2 = useRef(null);
+
     const [isOpen1, setIsOpen1] = useState(false);
     const [isOpen2, setIsOpen2] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
     const dispatch = useDispatch();
-    const { fetchUser } = useFetchUsers()
-    const { role, status, search } = useSelector(state => state.user.filterData);
-    console.log({ role, status, search })
-
-
-    const dropdownRef1 = useRef(null);
-    const dropdownRef2 = useRef(null);
+    const { fetchUser } = useFetchUsers();
+    const { role, status, search } = useSelector(
+        (state) => state.user.filterData
+    );
+    // console.log({ role, status, search })
 
     // Close dropdown when clicking outside
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (
-                dropdownRef1.current && !dropdownRef1.current.contains(event.target) &&
-                dropdownRef2.current && !dropdownRef2.current.contains(event.target)
+                dropdownRef1.current &&
+                !dropdownRef1.current.contains(event.target) &&
+                dropdownRef2.current &&
+                !dropdownRef2.current.contains(event.target)
             ) {
                 setIsOpen1(false);
                 setIsOpen2(false);
@@ -36,10 +42,9 @@ export default function FilterUserModel({ setShouldShow }) {
         };
     }, []);
 
-
     const handleFilter = async () => {
         setIsLoading(true);
-        await fetchUser()
+        await fetchUser();
         setShouldShow(false);
         setIsLoading(false);
         dispatch(resetFilterValue());
@@ -54,7 +59,7 @@ export default function FilterUserModel({ setShouldShow }) {
                     className="absolute top-2 right-2 text-black text-2xl p-2 hover:bg-gray-200 rounded-full"
                     onClick={() => {
                         dispatch(resetFilterValue());
-                        setShouldShow(false)
+                        setShouldShow(false);
                     }}
                 >
                     <AiOutlineClose />
@@ -83,7 +88,9 @@ export default function FilterUserModel({ setShouldShow }) {
                                             key={index}
                                             className="px-3 py-1 cursor-pointer hover:bg-gray-100"
                                             onClick={() => {
-                                                dispatch(setFilterValue({ key: "role", value: option }));
+                                                dispatch(
+                                                    setFilterValue({ key: "role", value: option })
+                                                );
                                                 setIsOpen1(false);
                                             }}
                                         >
@@ -117,7 +124,9 @@ export default function FilterUserModel({ setShouldShow }) {
                                             key={index}
                                             className="px-3 py-1 cursor-pointer hover:bg-gray-100"
                                             onClick={() => {
-                                                dispatch(setFilterValue({ key: "status", value: option }));
+                                                dispatch(
+                                                    setFilterValue({ key: "status", value: option })
+                                                );
                                                 setIsOpen2(false);
                                             }}
                                         >
@@ -134,7 +143,7 @@ export default function FilterUserModel({ setShouldShow }) {
                     <button
                         onClick={() => {
                             dispatch(resetFilterValue());
-                            setShouldShow(false)
+                            setShouldShow(false);
                         }}
                         disabled={isLoading}
                         className="font-nunito border border-gray-300 bg-white text-gray-700 hover:bg-gray-100 transition-all duration-200 ease-in-out text-base px-6 py-2 h-9 rounded-md shadow-sm flex items-center justify-center"
@@ -143,7 +152,7 @@ export default function FilterUserModel({ setShouldShow }) {
                     </button>
                     <button
                         onClick={handleFilter}
-                        disabled={!(status || role) || isLoading}  // Allow at least one selection
+                        disabled={!(status || role) || isLoading} // Allow at least one selection
                         className={`cursor-pointer font-nunito border border-transparent bg-black text-white 
                 hover:bg-gray-800  duration-300 ease-in-out text-base px-6 py-2 h-9 
                 rounded-md shadow-md flex items-center justify-center 
@@ -152,8 +161,6 @@ export default function FilterUserModel({ setShouldShow }) {
                     >
                         {isLoading ? "Loading..." : "Continue"}
                     </button>
-
-
                 </div>
             </div>
         </div>
