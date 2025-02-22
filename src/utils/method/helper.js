@@ -15,3 +15,5 @@ export const dateFormatter = (date = new Date()) => {
 
 export const Role = ["Member", "Admin", "Super_Admin"];
 export const Status = ["Active", "InActive"];
+
+export const requestCounter = { count: 0, isThrottled: false };

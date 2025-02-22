@@ -1,34 +1,50 @@
 import React, { useState } from "react";
 import MoreActions from "./MoreActions";
-import { dateFormatter } from "../../utils/method/helper";
+import { dateFormatter, requestCounter } from "../../utils/method/helper";
 import ToggleSwitch from "../common/ToggleSwitch";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useFetchUsers } from "../custom/Hook/useFetchUsers";
+import SelectDropDown from "../common/SelectDropDown";
 
-const requestCounter = { count: 0, isThrottled: false };
-
-
-
+const url = "http://localhost:8001/api/v1/user/update_user";
 const UserRow = ({ user, index, toggleMenu, menuIndex, setShouldShow, onSelect, isSelected }) => {
     const [toggleStatus, setToggleStatus] = useState(user.status.toUpperCase() === "ACTIVE");
+    const [role, setRole] = useState(user.role.toLowerCase());
     const { fetchUser } = useFetchUsers();
 
     const handleToggle = async () => {
         await throttleRequest(async () => {
             setToggleStatus(!toggleStatus);
-            const url = "http://localhost:8001/api/v1/user/update_user";
-
-            try {
-                const res = await axios.put(url, { status: !toggleStatus ? "active" : "inactive", id: String(user.id) });
-                toast.success(res.data.message);
-                await fetchUser();
-            } catch (err) {
-                console.error(err);
-                toast.error("Error updating user data.");
-            }
+            const data = { status: !toggleStatus ? "active" : "inactive", id: String(user.id) }
+            await updateUser(data)
         });
     };
+
+    const handleRoleChange = async (role) => {
+        await throttleRequest(async () => {
+            const data = { role: role.toLowerCase(), id: String(user.id) }
+            await updateUser(data)
+        });
+    };
+
+
+    async function updateUser(data) {
+        try {
+            const res = await axios.put(url, data);
+            toast.success(res.data.message);
+            await fetchUser();
+        } catch (err) {
+            console.error(err);
+            toast.error("Error updating user data.");
+        }
+    }
+
+    const handleDropDownChange = (e) => {
+        const newRole = e.target.value;
+        setRole(newRole); // Update local state
+        handleRoleChange(newRole); // Send update request
+    }
 
     return (
         <tr className="border-b hover:bg-gray-50">
@@ -55,15 +71,11 @@ const UserRow = ({ user, index, toggleMenu, menuIndex, setShouldShow, onSelect, 
                 </div>
             </td>
 
-            {/* Access / Role Badges */}
+            {/* Access / Role Assignment Dropdown */}
             <td className="p-2 align-middle">
-                <span
-                    className={`px-3 py-1 text-sm rounded-full ${user.role === "Admin" ? "bg-green-100 text-green-700" : "bg-blue-100 text-blue-700"
-                        }`}
-                >
-                    {user.role.toUpperCase()}
-                </span>
+                <SelectDropDown role={role} handleDropDownChange={handleDropDownChange} />
             </td>
+
 
             {/* Toggle Switch */}
             <td className="p-2 text-center align-middle">
@@ -95,16 +107,18 @@ const throttleRequest = async (callback) => {
 
     requestCounter.count += 1;
 
-    if (requestCounter.count >= 3) {
+    if (requestCounter.count >= 10) {
         requestCounter.isThrottled = true;
         toast.error("Rate limit reached. Waiting 10 seconds...");
         setTimeout(() => {
             requestCounter.count = 0;
             requestCounter.isThrottled = false;
             toast.success("You can make requests again.");
-        }, 10000); // 10 sec cooldown
+        }, 5000);
     }
 
     await callback();
 };
+
+
 export default UserRow;
