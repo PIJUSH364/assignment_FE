@@ -2,14 +2,14 @@ import { useCallback } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
-import { addUser, setTotalPage, setTotalUserCount } from "../../../features/users/userSlice";
+import { addUser, setTotalPage, setTotalUserCount, toggleUserDataLoader } from "../../../features/users/userSlice";
 
 export const useFetchUsers = () => {
     const dispatch = useDispatch();
     const searchValue = useSelector(state => state.user.searchValue);
 
     const fetchUser = useCallback(
-        async (pageIndex = 2, pageSize = 5) => {
+        async (pageIndex = 1, pageSize = 5) => {
             try {
                 const defaultUrl = `http://localhost:8001/api/v1/user/get_user_data?page=${pageIndex}&pageSize=${pageSize}&search=${searchValue}`;
 
@@ -23,6 +23,8 @@ export const useFetchUsers = () => {
             } catch (error) {
                 console.error("Error fetching users:", error.message);
                 toast.error(error.message);
+            } finally {
+                dispatch(toggleUserDataLoader(false))
             }
         },
         [searchValue, dispatch] // Dependency array added

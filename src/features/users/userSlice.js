@@ -16,6 +16,7 @@ const initialState = {
     pageSize: 5,
   },
   searchValue: "",
+  userDataLoader: false,
   contactMetaData: null,
   loaderStatus: false,
   currentPage: 1,
@@ -66,6 +67,9 @@ const userSlice = createSlice({
     setCategoryContactData: (state, action) => {
       state.categoryContactData = action.payload;
     },
+    toggleUserDataLoader: (state, action) => {
+      state.userDataLoader = action.payload;
+    },
 
     setFilterValue: (state, action) => {
       state.filterValue = action.payload.trim();
@@ -102,6 +106,7 @@ export const {
   setUserActionFlag,
   setPaginationMetaData,
   setSearchValue,
+  toggleUserDataLoader,
 
   addContactMetaData,
   setLoaderStatus,

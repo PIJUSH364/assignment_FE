@@ -3,13 +3,14 @@ import { GrNext, GrPrevious } from "react-icons/gr";
 import { useDispatch, useSelector } from "react-redux";
 import { useFetchUsers } from "../custom/Hook/useFetchUsers";
 import { useDebouncedEffect } from "../custom/Hook/useDebouncedEffect";
-import { setPaginationMetaData } from "../../features/users/userSlice";
+import { setPaginationMetaData, toggleUserDataLoader } from "../../features/users/userSlice";
 
 const Pagination = () => {
     const { fetchUser } = useFetchUsers();
     const dispatch = useDispatch();
     const totalPages = useSelector(state => state.user.totalPage);
     const users = useSelector(state => state.user.userList);
+    const userDataLoader = useSelector(state => state.user.userDataLoader);
     const { currentPage, pageSize } = useSelector(state => state.user.paginationMetaData);
 
     // console.log({ currentPage, pageSize })
@@ -23,6 +24,8 @@ const Pagination = () => {
         let value = parseInt(e.target.value, 10);
         if (Number.isNaN(value) || value < 1 || value > 100) return;
         dispatch(setPaginationMetaData({ key: "pageSize", value }))
+        dispatch(setPaginationMetaData({ key: "currentPage", value: 1 }))
+        dispatch(toggleUserDataLoader(true))
     };
 
     useEffect(() => { }, [currentPage, pageSize])
@@ -30,7 +33,7 @@ const Pagination = () => {
 
     return (
         <>
-            {users.length ? (
+            {!userDataLoader && users.length ? (
                 <div className="flex justify-center items-center w-full px-6 mt-6 relative">
                     <div className="flex gap-2 items-center absolute left-1/2 transform -translate-x-1/2">
                         <button
@@ -49,7 +52,12 @@ const Pagination = () => {
                                     key={number}
                                     className={`w-6 h-6 p-2 rounded-[4px] text-sm flex items-center justify-center
                                     ${currentPage === number ? "bg-gray-400 text-white" : "bg-gray-200"}`}
-                                    onClick={() => dispatch(setPaginationMetaData({ key: "currentPage", value: number }))}
+                                    onClick={() => {
+                                        dispatch(toggleUserDataLoader(true));
+                                        dispatch(setPaginationMetaData({ key: "currentPage", value: number }))
+                                    }
+
+                                    }
                                     aria-label={`Page ${number}`}
                                     aria-current={currentPage === number ? "page" : undefined}
                                 >
