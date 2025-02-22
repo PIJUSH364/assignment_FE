@@ -6,7 +6,7 @@ import Modal from "../common/Modal";
 import UserModel from "../common/modal/UserModel";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { addUser } from "../../features/users/userSlice";
+import { addUser, setPaginationMetaData, setSearchValue } from "../../features/users/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import FilterUserModel from "../common/modal/FilterUserModel";
 import { useFetchUsers } from "../custom/Hook/useFetchUsers";
@@ -14,7 +14,7 @@ import { useDebouncedEffect } from "../custom/Hook/useDebouncedEffect";
 
 const Filters = ({ title = "All User" }) => {
     const totalUserCount = useSelector(state => state.user.totalUserCount);
-    const [search, setSearch] = useState("");
+    const searchValue = useSelector(state => state.user.searchValue);
     const [shouldShow, setShouldShow] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const [isRest, setIsRest] = useState(false);
@@ -24,12 +24,10 @@ const Filters = ({ title = "All User" }) => {
     const { fetchUser } = useFetchUsers();
 
     useDebouncedEffect(() => {
-        if (search !== "") {
-            const uri = `http://localhost:8001/api/v1/user/search_user_details?search=${search}&`
-            return fetchUser(1, 5, uri);
+        if (searchValue !== "") {
+            return fetchUser(1, 5);
         }
-        fetchUser(1, 5);
-    }, [isRest, search], 2000);
+    }, [isRest, searchValue], 2000);
 
 
     const handleSort = async (value = "") => {
@@ -73,9 +71,9 @@ const Filters = ({ title = "All User" }) => {
                             type="text"
                             placeholder="Search"
                             className="font-nunito border border-gray-300 outline-none rounded-md px-10 py-2 h-8"
-                            value={search}
+                            value={searchValue}
                             onChange={(e) => {
-                                setSearch(e.target.value.trim());
+                                dispatch(setSearchValue(e.target.value.trim()))
                             }}
                         />
                     </div>
@@ -111,8 +109,10 @@ const Filters = ({ title = "All User" }) => {
                     <button
                         onClick={() => {
                             toast.success("Filters reset successfully");
-                            setSearch("");
-                            setIsRest(!isRest)
+                            setIsRest(!isRest);
+                            dispatch(setPaginationMetaData({ key: "currentPage", value: 1 }));
+                            dispatch(setPaginationMetaData({ key: "pageSize", value: 5 }));
+                            dispatch(setSearchValue(""))
                         }}
                         className="font-nunito flex items-center gap-2 text-white bg-black  hover:bg-gray-700 text-sm px-4 py-2 h-8 rounded-md"
                     >
