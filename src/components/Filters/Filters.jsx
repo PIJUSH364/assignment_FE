@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FiPlus } from "react-icons/fi";
-import { MdFilterList, MdRefresh } from "react-icons/md";
+import { MdFilterList } from "react-icons/md";
 import { FaSearch } from "react-icons/fa";
 import Modal from "../common/Modal";
 import UserModel from "../common/modal/UserModel";
@@ -29,7 +29,7 @@ const Filters = ({ title = "All User", setIsRest, setLocalPageSize }) => {
         dispatch(ResetPaginationMetaData());
         dispatch(resetFilterValue());
         dispatch(setSearchValue(""));
-        setLocalPageSize(5)
+        setLocalPageSize(5);
     };
 
     const handleFilter = () => {
@@ -58,13 +58,14 @@ const Filters = ({ title = "All User", setIsRest, setLocalPageSize }) => {
                 </Modal>
             )}
 
-            <div className="flex flex-col sm:flex-row gap-4  justify-between items-start sm:items-center pb-4">
+            {/* Responsive Container */}
+            <div className="flex flex-col sm:flex-row md:flex-row gap-4 justify-between items-start sm:items-center md:items-center pb-4">
                 <h2 className="text-lg font-bold font-nunito">{`${title} (${totalUserCount})`}</h2>
 
                 {/* Controls */}
-                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                <div className="flex flex-col sm:flex-row md:flex-row items-start sm:items-center md:items-center gap-3">
                     {/* Search Input */}
-                    <div className="relative flex  items-center">
+                    <div className="relative flex items-center">
                         <FaSearch className="absolute left-3 text-gray-400" />
                         <input
                             type="text"
@@ -76,12 +77,10 @@ const Filters = ({ title = "All User", setIsRest, setLocalPageSize }) => {
                             }}
                         />
                     </div>
-                    <div className="flex  items-center gap-2">
+
+                    <div className="flex items-center gap-2">
                         {/* Filter Button */}
-                        <button
-                            onClick={handleFilter}
-                            className="primary-bw-btn"
-                        >
+                        <button onClick={handleFilter} className="primary-bw-btn">
                             <MdFilterList />
                             Filter
                         </button>
@@ -89,11 +88,13 @@ const Filters = ({ title = "All User", setIsRest, setLocalPageSize }) => {
                         {/* Add User Button */}
                         <button
                             onClick={handleNewUser}
-                            className="primary-bw-btn"
+                            className="primary-bw-btn whitespace-nowrap"
                         >
                             <FiPlus />
                             Add User
                         </button>
+
+                        {/* Reset Button */}
                         <ResetButton handleRest={handleRest} />
                     </div>
                 </div>

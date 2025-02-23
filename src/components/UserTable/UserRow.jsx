@@ -81,7 +81,7 @@ const UserRow = ({
                         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiFIoQnASEQh51blUTQTG7eAHKzXX6_NizCw&s"
                     }
                     alt={user.name}
-                    className="w-10 h-10 rounded-full"
+                    className="w-10 h-10 rounded-full hidden sm:inline-block "
                 />
                 <div>
                     <p className="font-medium text-gray-900">{user.name}</p>
