@@ -1,4 +1,3 @@
-export const status = ["draft", "finalized"];
 export const defaultFormData = {
   name: "",
   email: "",

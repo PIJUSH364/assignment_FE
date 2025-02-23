@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200..1000&display=swap");
+
 * {
   margin: 0;
   padding: 0;
@@ -9,6 +11,10 @@
 html,
 body {
   min-width: 1000px;
+}
+
+body {
+  font-family: "Nunito Sans", sans-serif !important;
 }
 
 @media (max-width: 1000px) {
@@ -26,32 +32,6 @@ body {
     border-radius: 0.6rem;
   }
 }
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-th,
-td {
-  padding: 18px;
-  text-align: left;
-  font-size: 16px;
-}
-thead {
-  background-color: #303339;
-}
-th {
-  font-weight: 400;
-  text-transform: uppercase;
-}
-td {
-  font-weight: 300;
-}
-
-tbody {
-  background-color: #292c30;
-}
-
 .modalBackground {
   position: fixed;
   z-index: 9999; /* Ensure a very high value */
@@ -60,15 +40,15 @@ tbody {
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.196);
 }
 
 .ModalBody {
-  background-color: black;
+  /* background-color: black; */
   margin: 9% auto;
   /* padding: 20px; */
   min-width: 30%;
-  max-width: 33%;
+  max-width: 43%;
   border-radius: 8px;
   z-index: 10000;
 }
