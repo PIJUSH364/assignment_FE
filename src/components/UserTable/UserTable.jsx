@@ -13,10 +13,9 @@ import DeleteModel from "../common/modal/DeleteModel";
 import { allModalStatus } from "../../utils/enum";
 import toast from "react-hot-toast";
 import axios from "axios";
-import API_URLS from "../../utils/constant/UrlContant";
+import API_URLS from "../../utils/constant/UrlConstant";
 
 const UserTable = ({ selectedUsers, setSelectedUsers, isRest }) => {
-    console.log("selectedUsers", selectedUsers)
     const [sortByDesc, setSortByDesc] = useState(true);
     const [shouldShow, setShouldShow] = useState(false);
     const [menuIndex, setMenuIndex] = useState(-1);
@@ -100,7 +99,6 @@ const UserTable = ({ selectedUsers, setSelectedUsers, isRest }) => {
             dispatch(resetFilterValue());
             await fetchUser();
         } catch (error) {
-            console.log(error)
             const message = error?.response?.data?.message || "Something went wrong";
             toast.error(message);
         } finally {

@@ -6,8 +6,8 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useFetchUsers } from "../custom/Hook/useFetchUsers";
 import SelectDropDown from "../common/SelectDropDown";
+import API_URLS from "../../utils/constant/UrlConstant";
 
-const url = "http://localhost:8001/api/v1/user/update_user";
 const UserRow = ({
     user,
     index,
@@ -44,7 +44,7 @@ const UserRow = ({
 
     async function updateUser(data) {
         try {
-            const res = await axios.put(url, data);
+            const res = await axios.put(API_URLS.USER.UPDATE, data);
             toast.success(res.data.message, {
                 position: "bottom-right",
             });

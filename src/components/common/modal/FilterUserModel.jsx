@@ -22,7 +22,6 @@ export default function FilterUserModel({ setShouldShow }) {
     const { role, status, search } = useSelector(
         (state) => state.user.filterData
     );
-    // console.log({ role, status, search })
 
     // Close dropdown when clicking outside
     useEffect(() => {

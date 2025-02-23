@@ -10,7 +10,7 @@ export const API_URLS = {
     GET_ALL: `${API_BASE_URL}${USER}/get_all_users`,
     SEARCH: `${API_BASE_URL}${USER}/search_user_details`,
     FILTER: `${API_BASE_URL}${USER}/filter_user_data`,
-    DATA: `${API_BASE_URL}${USER}/get_user_data`,
+    PAGINATION_DATA: `${API_BASE_URL}${USER}/get_user_data`,
   },
 };
 

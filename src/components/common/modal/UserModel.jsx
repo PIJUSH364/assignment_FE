@@ -13,7 +13,7 @@ import {
     ResetPaginationMetaData,
 } from "../../../features/users/userSlice";
 import { useDispatch } from "react-redux";
-import API_URLS from "../../../utils/constant/UrlContant";
+import API_URLS from "../../../utils/constant/UrlConstant";
 
 const UserModel = ({ setShouldShow }) => {
     const { fetchUser } = useFetchUsers();
@@ -34,7 +34,9 @@ const UserModel = ({ setShouldShow }) => {
         axios
             .post(API_URLS.USER.CREATE, values)
             .then(async (res) => {
-                toast.success(res.data.message);
+                toast.success(res.data.message, {
+                    position: "bottom-right",
+                });
                 setShouldShow(false);
                 dispatch(ResetPaginationMetaData());
                 dispatch(resetFilterValue());
@@ -42,7 +44,6 @@ const UserModel = ({ setShouldShow }) => {
             })
             .catch((err) => {
                 const message = err?.response?.data?.message || "Something went wrong";
-                // console.log(message);
                 toast.error(message);
             })
             .finally(() => {

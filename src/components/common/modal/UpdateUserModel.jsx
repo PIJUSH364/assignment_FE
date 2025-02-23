@@ -9,7 +9,7 @@ import { useFetchUsers } from "../../custom/Hook/useFetchUsers";
 import { useDispatch, useSelector } from "react-redux";
 import { Role, Status } from "../../../utils/method/helper";
 import SelectInputField from "../SelectInputField";
-import API_URLS from "../../../utils/constant/UrlContant";
+import API_URLS from "../../../utils/constant/UrlConstant";
 import {
     resetFilterValue,
     ResetPaginationMetaData,
@@ -53,7 +53,6 @@ const UpdateUserModel = ({
             })
             .catch((err) => {
                 const message = err?.response?.data?.message || "Something went wrong";
-                // console.log(message);
                 toast.error(message);
             })
             .finally(() => {

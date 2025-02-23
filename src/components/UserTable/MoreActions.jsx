@@ -20,7 +20,7 @@ import { allModalStatus } from "../../utils/enum";
 import DeleteModel from "../common/modal/DeleteModel";
 import Modal from "../common/Modal";
 import toast from "react-hot-toast";
-import API_URLS from "../../utils/constant/UrlContant";
+import API_URLS from "../../utils/constant/UrlConstant";
 import axios from "axios";
 
 const MoreActions = ({
@@ -70,7 +70,7 @@ const MoreActions = ({
         try {
             setIsLoading(true);
             const response = await axios.delete(API_URLS.USER.DELETE, {
-                data: { id: String(user.id) },
+                data: { ids: [user.id] },
             });
 
             toast.success(response.data.message, { position: "bottom-right" });
