@@ -79,7 +79,7 @@ const Filters = ({ title = "All User", setIsRest }) => {
                     {/* Filter Button */}
                     <button
                         onClick={handleFilter}
-                        className="flex items-center gap-2 border border-gray-300 bg-white hover:bg-gray-100 px-4 py-2 h-8 rounded-md text-sm  font-nunito"
+                        className="primary-bw-btn"
                     >
                         <MdFilterList />
                         Filter
@@ -88,7 +88,7 @@ const Filters = ({ title = "All User", setIsRest }) => {
                     {/* Add User Button */}
                     <button
                         onClick={handleNewUser}
-                        className="font-nunito flex items-center gap-2  border border-gray-300 bg-white hover:bg-gray-100 text-sm px-4 py-2 h-8 rounded-md"
+                        className="primary-bw-btn"
                     >
                         <FiPlus />
                         Add User

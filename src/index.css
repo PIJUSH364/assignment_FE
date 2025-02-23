@@ -53,6 +53,9 @@
     @apply w-full bg-black border-black border-2 text-white py-2 mt-4 px-4 rounded-md transition-all duration-300 
     hover:text-black hover:bg-white hover:border-gray-400 hover:border-2;
   }
+  .primary-bw-btn {
+    @apply flex items-center gap-2 border border-gray-300 bg-white hover:bg-gray-100 px-4 py-2 h-8 rounded-md text-sm font-nunito;
+  }
 }
 
 @layer base {

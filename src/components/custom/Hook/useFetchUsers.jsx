@@ -12,6 +12,7 @@ export const useFetchUsers = () => {
     const fetchUser = useCallback(
         async (pageIndex = 1, pageSize = 5) => {
             try {
+                dispatch(toggleUserDataLoader(true));
                 let subQuery = "";
                 if (role) subQuery += `&role=${role}`;
                 if (status) subQuery += `&status=${status}`;

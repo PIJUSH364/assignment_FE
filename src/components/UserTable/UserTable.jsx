@@ -104,68 +104,69 @@ const UserTable = ({ selectedUsers, setSelectedUsers, isRest }) => {
 
             <div className="overflow-y-auto max-h-[400px]">
                 {userDataLoader ? (
-                    <CustomSkelton msg="Loading..." />
-                ) : users.length ? (
-                    <table className="min-w-full table-fixed border-collapse">
-                        {/* Sticky Header */}
-                        <thead className="sticky top-0  z-10 shadow-sm">
-                            <tr className="bg-gray-100 text-left">
-                                <th className="p-3 rounded-tl-lg ">
-                                    <input
-                                        type="checkbox"
-                                        checked={selectedUsers.length === users.length}
-                                        onChange={handleAllSelect}
-                                        className="w-4 h-4 cursor-pointer"
-                                    />
-                                </th>
-                                <th className="p-3 font-nunito ">User Name</th>
-                                <th className="p-3 font-nunito ">Access</th>
-                                <th className="p-3 font-nunito ">Status</th>
-                                <th
-                                    className="p-3 font-nunito cursor-pointer "
-                                    onClick={() => {
-                                        handleSort();
-                                        setSortByDesc(!sortByDesc);
-                                    }}
-                                >
-                                    <div className="inline-flex items-center gap-1">
-                                        Last Active
-                                        {sortByDesc ? (
-                                            <FaArrowDown className="text-gray-600" />
-                                        ) : (
-                                            <FaArrowUp className="text-gray-600" />
-                                        )}
-                                    </div>
-                                </th>
-                                <th className="p-3 font-nunito ">Date Added</th>
-                                <th className="p-3 font-nunito rounded-tr-lg ">
-                                    Action
-                                </th>
-                            </tr>
-                        </thead>
-
-                        {/* Scrollable Table Body */}
-                        <tbody className=" overflow-y-auto max-h-[300px] w-full cursor-pointer">
-                            {users.map((user, index) => (
-                                <UserRow
-                                    key={index}
-                                    user={user}
-                                    index={index}
-                                    toggleMenu={toggleMenu}
-                                    menuIndex={menuIndex}
-                                    setShouldShow={setShouldShow}
-                                    onSelect={handleSelect}
-                                    isSelected={selectedUsers.includes(user.id)}
-                                />
-                            ))}
-                        </tbody>
-                    </table>
+                    <CustomSkelton />
                 ) : (
-                    <CustomSkelton msg="No record found!   :)" />
+                    <>
+                        {users?.length > 0 ? (
+                            <table className="min-w-full table-fixed border-collapse">
+                                {/* Sticky Header */}
+                                <thead className="sticky top-0  z-10 shadow-sm">
+                                    <tr className="bg-gray-100 text-left">
+                                        <th className="p-3 rounded-tl-lg ">
+                                            <input
+                                                type="checkbox"
+                                                checked={selectedUsers.length === users.length}
+                                                onChange={handleAllSelect}
+                                                className="w-4 h-4 cursor-pointer"
+                                            />
+                                        </th>
+                                        <th className="p-3 font-nunito ">User Name</th>
+                                        <th className="p-3 font-nunito ">Access</th>
+                                        <th className="p-3 font-nunito ">Status</th>
+                                        <th
+                                            className="p-3 font-nunito cursor-pointer "
+                                            onClick={() => {
+                                                handleSort();
+                                                setSortByDesc(!sortByDesc);
+                                            }}
+                                        >
+                                            <div className="inline-flex items-center gap-1">
+                                                Last Active
+                                                {sortByDesc ? (
+                                                    <FaArrowDown className="text-gray-600" />
+                                                ) : (
+                                                    <FaArrowUp className="text-gray-600" />
+                                                )}
+                                            </div>
+                                        </th>
+                                        <th className="p-3 font-nunito ">Date Added</th>
+                                        <th className="p-3 font-nunito rounded-tr-lg ">Action</th>
+                                    </tr>
+                                </thead>
+
+                                {/* Scrollable Table Body */}
+                                <tbody className=" overflow-y-auto max-h-[300px] w-full cursor-pointer">
+                                    {users.map((user, index) => (
+                                        <UserRow
+                                            key={index}
+                                            user={user}
+                                            index={index}
+                                            toggleMenu={toggleMenu}
+                                            menuIndex={menuIndex}
+                                            setShouldShow={setShouldShow}
+                                            onSelect={handleSelect}
+                                            isSelected={selectedUsers.includes(user.id)}
+                                        />
+                                    ))}
+                                </tbody>
+                            </table>
+                        ) : (
+                            <CustomSkelton msg="No record found!   :)" />
+                        )}
+                    </>
                 )}
             </div>
         </div>
-
     );
 };
 
