@@ -50,6 +50,12 @@ const userSlice = createSlice({
     setPaginationMetaData: (state, action) => {
       state.paginationMetaData[action.payload.key] = action.payload.value;
     },
+    ResetPaginationMetaData: (state) => {
+      state.paginationMetaData = {
+        currentPage: 1,
+        pageSize: 5,
+      };
+    },
     setSearchValue: (state, action) => {
       state.searchValue = action.payload;
     },
@@ -94,5 +100,6 @@ export const {
   toggleUserDataLoader,
   resetFilterValue,
   setFilterValue,
+  ResetPaginationMetaData,
 } = userSlice.actions;
 export default userSlice.reducer;

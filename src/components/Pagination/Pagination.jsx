@@ -5,6 +5,7 @@ import {
     setPaginationMetaData,
     toggleUserDataLoader,
 } from "../../features/users/userSlice";
+import PageSize from "./PageSize";
 
 const Pagination = ({ setSelectedUsers }) => {
     const dispatch = useDispatch();
@@ -44,7 +45,7 @@ const Pagination = ({ setSelectedUsers }) => {
         );
     };
 
-    useEffect(() => { }, [currentPage, pageSize]);
+
 
     return (
         <>
@@ -90,22 +91,7 @@ const Pagination = ({ setSelectedUsers }) => {
                     </div>
 
                     <div className="ml-auto hidden sm:flex">
-                        <div className="flex items-center gap-3">
-                            <label className="text-sm font-medium" htmlFor="pageSize">
-                                Page Size:
-                            </label>
-                            <input
-                                type="number"
-                                id="pageSize"
-                                value={pageSize}
-                                min="1"
-                                max="100"
-                                onChange={handlePageSizeChange}
-                                className="w-16 h-8 border border-gray-400 rounded-md p-1 text-center outline-none font-nunito"
-                                aria-label="Select Page Size"
-                            />
-                            <span className="text-sm font-medium font-nunito">/ pages</span>
-                        </div>
+                        <PageSize pageSize={pageSize} handlePageSizeChange={handlePageSizeChange} />
                     </div>
                 </div>
             ) : null}

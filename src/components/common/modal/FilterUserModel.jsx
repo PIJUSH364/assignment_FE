@@ -5,6 +5,7 @@ import { useFetchUsers } from "../../custom/Hook/useFetchUsers";
 import { useDispatch, useSelector } from "react-redux";
 import {
     resetFilterValue,
+    ResetPaginationMetaData,
     setFilterValue,
 } from "../../../features/users/userSlice";
 
@@ -43,11 +44,11 @@ export default function FilterUserModel({ setShouldShow }) {
     }, []);
 
     const handleFilter = async () => {
+        dispatch(ResetPaginationMetaData());
         setIsLoading(true);
         await fetchUser();
         setShouldShow(false);
         setIsLoading(false);
-        dispatch(resetFilterValue());
     };
 
     return (
