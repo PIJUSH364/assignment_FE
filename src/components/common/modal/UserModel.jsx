@@ -8,7 +8,10 @@ import toast from "react-hot-toast";
 import { useFetchUsers } from "../../custom/Hook/useFetchUsers";
 import { Role } from "../../../utils/method/helper";
 import SelectInputField from "../SelectInputField";
-import { resetFilterValue, ResetPaginationMetaData } from "../../../features/users/userSlice";
+import {
+    resetFilterValue,
+    ResetPaginationMetaData,
+} from "../../../features/users/userSlice";
 import { useDispatch } from "react-redux";
 import API_URLS from "../../../utils/constant/UrlContant";
 
@@ -27,23 +30,24 @@ const UserModel = ({ setShouldShow }) => {
     });
 
     const handleAddUser = (values, setSubmitting) => {
-        setIsLoading(prev => !prev)
+        setIsLoading((prev) => !prev);
         axios
             .post(API_URLS.USER.CREATE, values)
             .then(async (res) => {
                 toast.success(res.data.message);
-                setShouldShow(false)
+                setShouldShow(false);
                 dispatch(ResetPaginationMetaData());
                 dispatch(resetFilterValue());
                 await fetchUser(1, 5);
             })
             .catch((err) => {
-                console.log(err);
-                toast.error("Error adding user Data");
+                const message = err?.response?.data?.message || "Something went wrong";
+                // console.log(message);
+                toast.error(message);
             })
             .finally(() => {
                 setSubmitting(false);
-                setIsLoading(prev => !prev)
+                setIsLoading((prev) => !prev);
             });
     };
 
@@ -66,27 +70,31 @@ const UserModel = ({ setShouldShow }) => {
                             <AiOutlineClose />
                         </button>
                         <InputField
+                            disabled={isLoading}
                             label="Name"
                             name="name"
                             placeholder="Enter your name"
                         />
                         <InputField
+                            disabled={isLoading}
                             label="Email"
                             name="email"
                             type="email"
                             placeholder="Enter your Email"
                         />
-                        <SelectInputField label="Role" name="role" optionList={Role} />
+                        <SelectInputField
+                            disabled={isLoading}
+                            label="Role"
+                            name="role"
+                            optionList={Role}
+                        />
                         <button
                             type="submit"
                             disabled={isLoading}
-                            className={`w-full bg-black border-black border-2 text-white py-2 mt-4 px-4 rounded-md transition-all duration-300 
-        hover:text-black hover:bg-white hover:border-gray-400 hover:border-2
-        ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
+                            className={`modal_submit_btn ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
                         >
                             {isLoading ? "Saving..." : "Continue"}
                         </button>
-
                     </Form>
                 </div>
             )}

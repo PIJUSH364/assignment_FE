@@ -1,48 +1,78 @@
-import React from 'react';
-import { Formik, Form } from 'formik';
-import * as Yup from 'yup';
-import { AiOutlineClose } from 'react-icons/ai';
-import InputField from '../InputField';
-import axios from 'axios';
-import toast from 'react-hot-toast';
-import { useFetchUsers } from '../../custom/Hook/useFetchUsers';
-import { useSelector } from 'react-redux';
-import { Role, Status } from '../../../utils/method/helper';
-import SelectInputField from '../SelectInputField';
+import React, { useState } from "react";
+import { Formik, Form } from "formik";
+import * as Yup from "yup";
+import { AiOutlineClose } from "react-icons/ai";
+import InputField from "../InputField";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { useFetchUsers } from "../../custom/Hook/useFetchUsers";
+import { useDispatch, useSelector } from "react-redux";
+import { Role, Status } from "../../../utils/method/helper";
+import SelectInputField from "../SelectInputField";
+import API_URLS from "../../../utils/constant/UrlContant";
+import {
+    resetFilterValue,
+    ResetPaginationMetaData,
+} from "../../../features/users/userSlice";
 
-const UpdateUserModel = ({ setShouldShow, menuIndex, permissionModal = false }) => {
-    const user = useSelector(state => state.user.userList).filter((user, index) => index === menuIndex)[0]
-    const { name, email, status, role } = user
+const UpdateUserModel = ({
+    setShouldShow,
+    menuIndex,
+    permissionModal = false,
+}) => {
+    const [isLoading, setIsLoading] = useState(false);
 
-    const { fetchUser } = useFetchUsers()
+    const user = useSelector((state) => state.user.userList).filter(
+        (user, index) => index === menuIndex
+    )[0];
+    const { fetchUser } = useFetchUsers();
+    const dispatch = useDispatch();
+    const { name, email, status, role } = user;
+
     const validationSchema = Yup.object().shape({
-        name: Yup.string().required('name is required'),
-        email: Yup.string().email('Invalid email address').required('Email is required'),
-        role: Yup.string().required('Role is required'),
-        ...permissionModal && { status: Yup.string().required('Status is required') }
+        name: Yup.string().required("name is required"),
+        email: Yup.string()
+            .email("Invalid email address")
+            .required("Email is required"),
+        role: Yup.string().required("Role is required"),
+        ...(permissionModal && {
+            status: Yup.string().required("Status is required"),
+        }),
     });
 
     const handleAddUser = (values, setSubmitting) => {
-        axios.put('http://localhost:8001/api/v1/user/update_user', { ...values, id: String(user.id) })
+        setIsLoading((prev) => !prev);
+        axios
+            .put(API_URLS.USER.UPDATE, { ...values, id: String(user.id) })
             .then(async (res) => {
                 toast.success(res.data.message);
-                await fetchUser(1)
-                setSubmitting(false);
+                setShouldShow(false);
+                dispatch(ResetPaginationMetaData());
+                dispatch(resetFilterValue());
+                await fetchUser(1, 5);
             })
             .catch((err) => {
-                console.log(err)
-                toast.error("Error adding user Data");
-                setSubmitting(true);
+                const message = err?.response?.data?.message || "Something went wrong";
+                // console.log(message);
+                toast.error(message);
             })
-            .finally(() => setShouldShow(false))
-    }
+            .finally(() => {
+                setSubmitting(false);
+                setIsLoading((prev) => !prev);
+            });
+    };
 
     return (
         <Formik
-            initialValues={{ name: name, email: email, role: role, ...permissionModal && { status: status } }}
+            initialValues={{
+                name: name,
+                email: email,
+                role: role,
+                ...(permissionModal && { status: status }),
+            }}
             validationSchema={validationSchema}
             onSubmit={(values, { setSubmitting }) => {
-                handleAddUser(values, setSubmitting)
+                handleAddUser(values, setSubmitting);
             }}
         >
             {({ isSubmitting }) => (
@@ -56,19 +86,40 @@ const UpdateUserModel = ({ setShouldShow, menuIndex, permissionModal = false }) 
                             <AiOutlineClose />
                         </button>
 
-                        <InputField label="Name" name="name" placeholder="Enter your name" disabled={permissionModal} />
-                        <InputField label="Email" name="email" type="email" placeholder="Enter your Email" disabled={permissionModal} />
-                        {
-                            permissionModal && <SelectInputField label="Status" name="status" optionList={Status} />
-                        }
-                        <SelectInputField label="Role" name="role" optionList={Role} disabled={permissionModal} />
+                        <InputField
+                            label="Name"
+                            name="name"
+                            placeholder="Enter your name"
+                            disabled={isLoading || permissionModal}
+                        />
+                        <InputField
+                            label="Email"
+                            name="email"
+                            type="email"
+                            placeholder="Enter your Email"
+                            disabled={isLoading || permissionModal}
+                        />
+                        {permissionModal && (
+                            <SelectInputField
+                                label="Status"
+                                name="status"
+                                optionList={Status}
+                                disabled={isLoading}
+                            />
+                        )}
+                        <SelectInputField
+                            label="Role"
+                            name="role"
+                            optionList={Role}
+                            disabled={isLoading || permissionModal}
+                        />
 
                         <button
                             type="submit"
-                            disabled={isSubmitting}
-                            className="w-full bg-black border-black border-2 text-white py-2 mt-4 px-4 rounded-md transition-all duration-300 hover:text-black hover:bg-white hover:border-gray-400 hover:border-2"
+                            disabled={isLoading}
+                            className={`modal_submit_btn ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
                         >
-                            Update
+                            {isLoading ? "Updating..." : "Update"}
                         </button>
                     </Form>
                 </div>
@@ -78,7 +129,3 @@ const UpdateUserModel = ({ setShouldShow, menuIndex, permissionModal = false }) 
 };
 
 export default UpdateUserModel;
-
-
-
-
