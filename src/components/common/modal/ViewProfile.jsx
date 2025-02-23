@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { dateFormatter } from "../../../utils/method/helper";
+import { capitalizeFirstLetter, dateFormatter } from "../../../utils/method/helper";
 import CloseModel from "../CloseModel";
 
 export default function ViewProfile({ setShouldShow, menuIndex }) {
@@ -53,13 +53,14 @@ export default function ViewProfile({ setShouldShow, menuIndex }) {
                                     : "bg-slate-200 text-slate-700"
                                     }  py-1 px-2 text-xs font-medium`}
                             >
-                                {status}
+
+                                {capitalizeFirstLetter(status)}
                             </span>
                         </span>
                     </li>
                     <li className="flex items-center py-3 text-sm">
                         <span>Role</span>
-                        <span className="ml-auto">{role}</span>
+                        <span className="ml-auto">{capitalizeFirstLetter(role)}</span>
                     </li>
 
                     <li className="flex items-center py-3 text-sm">

@@ -19,6 +19,7 @@ const UpdateUserModel = ({
     setShouldShow,
     menuIndex,
     permissionModal = false,
+    toggleMenu
 }) => {
     const [isLoading, setIsLoading] = useState(false);
 
@@ -45,10 +46,13 @@ const UpdateUserModel = ({
         axios
             .put(API_URLS.USER.UPDATE, { ...values, id: String(user.id) })
             .then(async (res) => {
-                toast.success(res.data.message);
+                toast.success(res.data.message, {
+                    position: "bottom-right",
+                });
                 setShouldShow(false);
                 dispatch(ResetPaginationMetaData());
                 dispatch(resetFilterValue());
+                toggleMenu(-1)
                 await fetchUser(1, 5);
             })
             .catch((err) => {
