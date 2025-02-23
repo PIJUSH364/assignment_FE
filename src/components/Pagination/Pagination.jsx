@@ -18,11 +18,10 @@ const Pagination = ({ selectedUsers, setSelectedUsers }) => {
         (state) => state.user.paginationMetaData
     );
 
-    // console.log({ currentPage, pageSize })
-
     // Debounce API call
     useDebouncedEffect(
         () => {
+            alert("debounce---paination");
             fetchUser(currentPage, pageSize);
         },
         [currentPage, pageSize],

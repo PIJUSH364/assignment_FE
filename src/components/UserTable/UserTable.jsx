@@ -2,14 +2,13 @@ import React, { useEffect, useState } from "react";
 import UserRow from "./UserRow";
 import { FaArrowDown, FaArrowUp } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { addUser, setTotalPage } from "../../features/users/userSlice";
+import { addUser } from "../../features/users/userSlice";
 import ViewProfile from "../common/modal/ViewProfile";
 import Modal from "../common/Modal";
 import UpdateUserModel from "../common/modal/UpdateUserModel";
 import { useFetchUsers } from "../custom/Hook/useFetchUsers";
 import { CustomSkelton } from "../../utils/Helper";
 import DeleteModel from "../common/modal/DeleteModel";
-
 
 const UserTable = ({ selectedUsers, setSelectedUsers }) => {
     const [sortByDesc, setSortByDesc] = useState(true);
@@ -63,7 +62,7 @@ const UserTable = ({ selectedUsers, setSelectedUsers }) => {
             {permissionUserModalStatus && <Modal shouldShow={shouldShow} setShouldShow={setShouldShow}>
                 <UpdateUserModel setShouldShow={setShouldShow} menuIndex={menuIndex} permissionModal={true} toggleMenu={toggleMenu} />
             </Modal>}
-            {<Modal shouldShow={true} setShouldShow={setShouldShow}>
+            {<Modal shouldShow={!true} setShouldShow={setShouldShow}>
                 <DeleteModel setShouldShow={setShouldShow} />
             </Modal>}
 

@@ -24,6 +24,7 @@ const Filters = ({ title = "All User" }) => {
     const { fetchUser } = useFetchUsers();
 
     useDebouncedEffect(() => {
+        alert("debounce");
         fetchUser(1, 5);
     }, [isRest, searchValue], 2000);
 
