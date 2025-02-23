@@ -1,34 +1,40 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import UserRow from "./UserRow";
 import { FaArrowDown, FaArrowUp } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { addUser } from "../../features/users/userSlice";
+import { addUser, setModalStatus } from "../../features/users/userSlice";
 import ViewProfile from "../common/modal/ViewProfile";
 import Modal from "../common/Modal";
 import UpdateUserModel from "../common/modal/UpdateUserModel";
 import { useFetchUsers } from "../custom/Hook/useFetchUsers";
 import { CustomSkelton } from "../../utils/Helper";
-import DeleteModel from "../common/modal/DeleteModel";
 import { useDebouncedEffect } from "../custom/Hook/useDebouncedEffect";
+import DeleteModel from "../common/modal/DeleteModel";
+import { allModalStatus } from "../../utils/enum";
+import toast from "react-hot-toast";
+import axios from "axios";
+import API_URLS from "../../utils/constant/UrlContant";
 
 const UserTable = ({ selectedUsers, setSelectedUsers, isRest }) => {
+    console.log("selectedUsers", selectedUsers)
     const [sortByDesc, setSortByDesc] = useState(true);
     const [shouldShow, setShouldShow] = useState(false);
     const [menuIndex, setMenuIndex] = useState(-1);
+    const [isLoading, setIsLoading] = useState(false);
 
     const dispatch = useDispatch();
     const { fetchUser } = useFetchUsers();
     const users = useSelector((state) => state.user.userList);
     const userDataLoader = useSelector((state) => state.user.userDataLoader);
+    const searchValue = useSelector((state) => state.user.searchValue);
     const { currentPage, pageSize } = useSelector(
         (state) => state.user.paginationMetaData
     );
-    const searchValue = useSelector((state) => state.user.searchValue);
     const {
         editUserModalStatus,
         permissionUserModalStatus,
         viewUserModalStatus,
-        deleteUserModalStatus
+        bulkDeleteUserModalStatus,
     } = useSelector((state) => state.user.allModalStatus);
 
     const handleSort = () => {
@@ -59,18 +65,55 @@ const UserTable = ({ selectedUsers, setSelectedUsers, isRest }) => {
     };
 
     useEffect(() => {
-        // alert("first render");
+        // alert("First Render");
         fetchUser();
     }, []);
 
+    useEffect(() => {
+        if (selectedUsers.length === users.length && selectedUsers.length > 0) {
+            dispatch(
+                setModalStatus({ key: allModalStatus.BULK_DELETE_USER, value: true })
+            );
+            setShouldShow(true);
+        }
+    }, [selectedUsers]);
+
     useDebouncedEffect(
         () => {
-            // alert("once any value change");
+            // alert("Once any value change");
             fetchUser(currentPage, pageSize);
         },
         [isRest, searchValue, currentPage, pageSize],
         2000
     );
+
+    const handleDelete = useCallback(async (ids) => {
+        try {
+            setIsLoading(true);
+            const response = await axios.delete(API_URLS.USER.DELETE, {
+                data: { ids: [...ids] },
+            });
+
+            toast.success(response.data.message, { position: "bottom-right" });
+            setShouldShow(false);
+            dispatch(ResetPaginationMetaData());
+            dispatch(resetFilterValue());
+            await fetchUser();
+        } catch (error) {
+            console.log(error)
+            const message = error?.response?.data?.message || "Something went wrong";
+            toast.error(message);
+        } finally {
+            setIsLoading(false);
+        }
+    }, [setShouldShow, dispatch, fetchUser]);
+
+    const handleCancel = () => {
+        dispatch(
+            setModalStatus({ key: allModalStatus.BULK_DELETE_USER, value: false })
+        );
+        setShouldShow(false);
+    };
 
     return (
         <div className="rounded-lg border border-gray-200">
@@ -103,8 +146,16 @@ const UserTable = ({ selectedUsers, setSelectedUsers, isRest }) => {
                 </Modal>
             )}
 
-
-
+            {bulkDeleteUserModalStatus && (
+                <Modal shouldShow={shouldShow} setShouldShow={setShouldShow}>
+                    <DeleteModel
+                        setShouldShow={setShouldShow}
+                        handleCancel={handleCancel}
+                        handleDelete={() => handleDelete(selectedUsers)}
+                        isLoading={isLoading}
+                    />
+                </Modal>
+            )}
             <div className="overflow-y-auto max-h-[400px]">
                 {userDataLoader ? (
                     <CustomSkelton />

@@ -11,6 +11,7 @@ const initialState = {
     permissionUserModalStatus: false,
     viewUserModalStatus: false,
     deleteUserModalStatus: false,
+    bulkDeleteUserModalStatus: false,
   },
   paginationMetaData: {
     currentPage: 1,

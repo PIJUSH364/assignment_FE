@@ -4,6 +4,7 @@ export const allModalStatus = {
   PERMISSION_CHANGE: "permissionUserModalStatus",
   VIEW_USER: "viewUserModalStatus",
   DELETE_USER: "deleteUserModalStatus",
+  BULK_DELETE_USER: "bulkDeleteUserModalStatus",
 };
 
 export const tagColors = {

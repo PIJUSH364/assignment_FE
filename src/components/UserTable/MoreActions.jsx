@@ -1,4 +1,4 @@
-import { useRef, useMemo } from "react";
+import { useRef, useMemo, useCallback, useState } from "react";
 import {
     FiMoreVertical,
     FiUser,
@@ -7,17 +7,21 @@ import {
     FiDownload,
     FiTrash2,
 } from "react-icons/fi";
-import { showConfirmationToast } from "./customConfirmationToast";
-import axios from "axios";
-import toast from "react-hot-toast";
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
 import { useFetchUsers } from "../custom/Hook/useFetchUsers";
 import { useDispatch, useSelector } from "react-redux";
-import { setModalStatus } from "../../features/users/userSlice";
+import {
+    resetFilterValue,
+    ResetPaginationMetaData,
+    setModalStatus,
+} from "../../features/users/userSlice";
 import { allModalStatus } from "../../utils/enum";
 import DeleteModel from "../common/modal/DeleteModel";
 import Modal from "../common/Modal";
+import toast from "react-hot-toast";
+import API_URLS from "../../utils/constant/UrlContant";
+import axios from "axios";
 
 const MoreActions = ({
     index,
@@ -27,15 +31,14 @@ const MoreActions = ({
     setShouldShow,
     shouldShow,
 }) => {
+    const [isLoading, setIsLoading] = useState(false);
+
     const dropdownRef = useRef(null);
     const dispatch = useDispatch();
+    const { deleteUserModalStatus } = useSelector(
+        (state) => state.user.allModalStatus
+    );
     const { fetchUser } = useFetchUsers();
-    const {
-        editUserModalStatus,
-        permissionUserModalStatus,
-        viewUserModalStatus,
-        deleteUserModalStatus,
-    } = useSelector((state) => state.user.allModalStatus);
 
     const handleExport = () => {
         const userData = { ...user };
@@ -63,6 +66,33 @@ const MoreActions = ({
         }
     };
 
+    const handleDelete = useCallback(async () => {
+        try {
+            setIsLoading(true);
+            const response = await axios.delete(API_URLS.USER.DELETE, {
+                data: { id: String(user.id) },
+            });
+
+            toast.success(response.data.message, { position: "bottom-right" });
+            toggleMenu(-1);
+            setShouldShow(false);
+            dispatch(ResetPaginationMetaData());
+            dispatch(resetFilterValue());
+            await fetchUser();
+        } catch (error) {
+            const message = error?.response?.data?.message || "Something went wrong";
+            toast.error(message);
+        } finally {
+            setIsLoading(false);
+        }
+    }, [toggleMenu, setShouldShow, dispatch, fetchUser]);
+
+    const handleCancel = () => {
+        toggleMenu(-1);
+        dispatch(setModalStatus({ key: allModalStatus.DELETE_USER, value: false }));
+        setShouldShow(false);
+    };
+
     const position = useMemo(() => {
         if (menuIndex === index && dropdownRef.current) {
             const rect = dropdownRef.current.getBoundingClientRect();
@@ -78,9 +108,9 @@ const MoreActions = ({
                 <Modal shouldShow={shouldShow} setShouldShow={setShouldShow}>
                     <DeleteModel
                         setShouldShow={setShouldShow}
-                        menuIndex={menuIndex}
-                        toggleMenu={toggleMenu}
-                        id={user.id}
+                        isLoading={isLoading}
+                        handleDelete={handleDelete}
+                        handleCancel={handleCancel}
                     />
                 </Modal>
             )}
