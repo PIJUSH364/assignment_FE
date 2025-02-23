@@ -4,7 +4,6 @@ import {
     FaCog,
     FaHome,
     FaPaintBrush,
-    FaDatabase,
     FaPlug,
     FaClock,
     FaBell,
@@ -16,16 +15,18 @@ import {
     FaBook,
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import SidebarItem from "../common/SidebarItem";
 
 const Sidebar = () => {
     const navigate = useNavigate();
 
     return (
         <aside
-            className="w-64 h-screen bg-white shadow-md p-6 flex flex-col font-nunito"
+            className="w-20 sm:w-64 p-6 sm:p-3 h-screen bg-white shadow-md flex flex-col font-nunito"
             aria-label="Sidebar navigation"
         >
-            <h2 className="text-xl font-semibold mb-4">Admin CMS</h2>
+            <h2 className="font-semibold mb-4 text-sm sm:text-xl inline sm:hidden">CMS</h2>
+            <h2 className="font-semibold mb-4 text-sm sm:text-xl hidden sm:inline">Admin CMS</h2>
 
             {/* Navigation Container */}
             <nav
@@ -42,29 +43,17 @@ const Sidebar = () => {
                         <div className="flex flex-col space-y-2">
                             <li
                                 id="general-section"
-                                className="sidebar-nav-group-title"
+                                className="sidebar-nav-group-title hidden sm:inline"
                                 role="presentation"
                             >
                                 GENERAL
                             </li>
-                            <li className="sidebar-nav-item" role="menuitem">
-                                <FaHome aria-hidden="true" /> <span>Dashboard</span>
-                            </li>
-                            <li className="sidebar-nav-item" role="menuitem">
-                                <FaPaintBrush aria-hidden="true" /> <span>Appearance</span>
-                            </li>
-                            <li className="sidebar-nav-item" role="menuitem">
-                                <FaDatabase aria-hidden="true" /> <span>Database</span>
-                            </li>
-                            <li className="sidebar-nav-item" role="menuitem">
-                                <FaPlug aria-hidden="true" /> <span>Connections</span>
-                            </li>
-                            <li className="sidebar-nav-item" role="menuitem">
-                                <FaClock aria-hidden="true" /> <span>Timezones</span>
-                            </li>
-                            <li className="sidebar-nav-item" role="menuitem">
-                                <FaBell aria-hidden="true" /> <span>Notifications</span>
-                            </li>
+
+                            <SidebarItem icon={FaHome} label="Dashboard" />
+                            <SidebarItem icon={FaPaintBrush} label="Appearance" />
+                            <SidebarItem icon={FaPlug} label="Connections" />
+                            <SidebarItem icon={FaClock} label="Timezones" />
+                            <SidebarItem icon={FaBell} label="Notifications" />
                         </div>
 
                         <div
@@ -74,7 +63,7 @@ const Sidebar = () => {
                         >
                             <li
                                 id="druta-section"
-                                className="sidebar-nav-group-title"
+                                className="sidebar-nav-group-title hidden sm:inline "
                                 role="presentation"
                             >
                                 DRUTA VENTURES
@@ -87,23 +76,15 @@ const Sidebar = () => {
                                 onKeyDown={(e) => e.key === "Enter" && navigate("/users")}
                                 aria-label="User Management"
                             >
-                                <FaUsers aria-hidden="true" /> <span>User Management</span>
+                                <FaUsers aria-hidden="true" />{" "}
+                                <span className="hidden sm:inline">User Management</span>
                             </li>
-                            <li className="sidebar-nav-item" role="menuitem">
-                                <FaLock aria-hidden="true" /> <span>Security & Access</span>
-                            </li>
-                            <li className="sidebar-nav-item" role="menuitem">
-                                <FaKey aria-hidden="true" /> <span>Authentication</span>
-                            </li>
-                            <li className="sidebar-nav-item" role="menuitem">
-                                <FaMoneyBill aria-hidden="true" /> <span>Payments</span>
-                            </li>
-                            <li className="sidebar-nav-item" role="menuitem">
-                                <FaFileImport aria-hidden="true" /> <span>Import Data</span>
-                            </li>
-                            <li className="sidebar-nav-item" role="menuitem">
-                                <FaFileExport aria-hidden="true" /> <span>Export Data</span>
-                            </li>
+
+                            <SidebarItem icon={FaLock} label="Security & Access" />
+                            <SidebarItem icon={FaKey} label="Authentication" />
+                            <SidebarItem icon={FaMoneyBill} label="Payments" />
+                            <SidebarItem icon={FaFileImport} label="Import Data" />
+                            <SidebarItem icon={FaFileExport} label="Export Data" />
                         </div>
                     </div>
 
@@ -113,16 +94,8 @@ const Sidebar = () => {
                         role="group"
                         aria-labelledby="settings-section"
                     >
-                        <li
-                            id="settings-section"
-                            className="sidebar-nav-item"
-                            role="menuitem"
-                        >
-                            <FaCog aria-hidden="true" /> <span>Settings</span>
-                        </li>
-                        <li className="sidebar-nav-item" role="menuitem">
-                            <FaBook aria-hidden="true" /> <span>Documentation</span>
-                        </li>
+                        <SidebarItem icon={FaCog} label="Settings" />
+                        <SidebarItem icon={FaBook} label="Documentation" />
                     </div>
                 </ul>
             </nav>

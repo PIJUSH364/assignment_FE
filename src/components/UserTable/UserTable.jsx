@@ -154,6 +154,7 @@ const UserTable = ({ selectedUsers, setSelectedUsers, isRest }) => {
                     />
                 </Modal>
             )}
+
             <div className="overflow-y-auto max-h-[400px]">
                 {userDataLoader ? (
                     <CustomSkelton />

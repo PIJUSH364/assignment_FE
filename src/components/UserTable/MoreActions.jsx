@@ -94,11 +94,11 @@ const MoreActions = ({
     };
 
     const position = useMemo(() => {
-        if (menuIndex === index && dropdownRef.current) {
-            const rect = dropdownRef.current.getBoundingClientRect();
-            const spaceBelow = window.innerHeight - rect.bottom;
-            return spaceBelow < 150 ? "top" : "bottom";
-        }
+        // if (menuIndex === index && dropdownRef.current) {
+        //     const rect = dropdownRef.current.getBoundingClientRect();
+        //     const spaceBelow = window.innerHeight - rect.bottom;
+        //     return spaceBelow < 150 ? "top" : "bottom";
+        // }
         return "top";
     }, [menuIndex, index]); // Runs only when the menu opens
 
