@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import FilterUserModel from "../common/modal/FilterUserModel";
 import ResetButton from "./ResetButton";
 
-const Filters = ({ title = "All User", setIsRest }) => {
+const Filters = ({ title = "All User", setIsRest, setLocalPageSize }) => {
     const dispatch = useDispatch();
     const totalUserCount = useSelector((state) => state.user.totalUserCount);
     const searchValue = useSelector((state) => state.user.searchValue);
@@ -29,6 +29,7 @@ const Filters = ({ title = "All User", setIsRest }) => {
         dispatch(ResetPaginationMetaData());
         dispatch(resetFilterValue());
         dispatch(setSearchValue(""));
+        setLocalPageSize(5)
     };
 
     const handleFilter = () => {
