@@ -28,6 +28,7 @@ const UserTable = ({ selectedUsers, setSelectedUsers, isRest }) => {
         editUserModalStatus,
         permissionUserModalStatus,
         viewUserModalStatus,
+        deleteUserModalStatus
     } = useSelector((state) => state.user.allModalStatus);
 
     const handleSort = () => {
@@ -102,6 +103,8 @@ const UserTable = ({ selectedUsers, setSelectedUsers, isRest }) => {
                 </Modal>
             )}
 
+
+
             <div className="overflow-y-auto max-h-[400px]">
                 {userDataLoader ? (
                     <CustomSkelton />
@@ -154,6 +157,7 @@ const UserTable = ({ selectedUsers, setSelectedUsers, isRest }) => {
                                             toggleMenu={toggleMenu}
                                             menuIndex={menuIndex}
                                             setShouldShow={setShouldShow}
+                                            shouldShow={shouldShow}
                                             onSelect={handleSelect}
                                             isSelected={selectedUsers.includes(user.id)}
                                         />

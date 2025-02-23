@@ -3,6 +3,7 @@ export const allModalStatus = {
   EDIT_USER: "editUserModalStatus",
   PERMISSION_CHANGE: "permissionUserModalStatus",
   VIEW_USER: "viewUserModalStatus",
+  DELETE_USER: "deleteUserModalStatus",
 };
 
 export const tagColors = {
