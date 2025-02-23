@@ -1,32 +1,17 @@
 import { useEffect, useState } from "react";
 import { GrNext, GrPrevious } from "react-icons/gr";
 import { useDispatch, useSelector } from "react-redux";
-import { useFetchUsers } from "../custom/Hook/useFetchUsers";
-import { useDebouncedEffect } from "../custom/Hook/useDebouncedEffect";
 import {
     setPaginationMetaData,
     toggleUserDataLoader,
 } from "../../features/users/userSlice";
 
-const Pagination = ({ selectedUsers, setSelectedUsers }) => {
-    const { fetchUser } = useFetchUsers();
+const Pagination = ({ setSelectedUsers }) => {
     const dispatch = useDispatch();
     const totalPages = useSelector((state) => state.user.totalPage);
     const users = useSelector((state) => state.user.userList);
     const userDataLoader = useSelector((state) => state.user.userDataLoader);
-    const { currentPage, pageSize } = useSelector(
-        (state) => state.user.paginationMetaData
-    );
-
-    // Debounce API call
-    useDebouncedEffect(
-        () => {
-            alert("debounce---paination");
-            fetchUser(currentPage, pageSize);
-        },
-        [currentPage, pageSize],
-        2000
-    );
+    const { currentPage, pageSize } = useSelector((state) => state.user.paginationMetaData);
 
     const handlePageSizeChange = (e) => {
         let value = parseInt(e.target.value, 10);

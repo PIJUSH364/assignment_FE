@@ -4,48 +4,19 @@ import { MdFilterList, MdRefresh } from "react-icons/md";
 import { FaSearch } from "react-icons/fa";
 import Modal from "../common/Modal";
 import UserModel from "../common/modal/UserModel";
-import axios from "axios";
 import toast from "react-hot-toast";
-import { addUser, setPaginationMetaData, setSearchValue } from "../../features/users/userSlice";
+import { setPaginationMetaData, setSearchValue } from "../../features/users/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import FilterUserModel from "../common/modal/FilterUserModel";
-import { useFetchUsers } from "../custom/Hook/useFetchUsers";
-import { useDebouncedEffect } from "../custom/Hook/useDebouncedEffect";
 
-const Filters = ({ title = "All User" }) => {
+const Filters = ({ title = "All User", setIsRest }) => {
+    const dispatch = useDispatch();
     const totalUserCount = useSelector(state => state.user.totalUserCount);
     const searchValue = useSelector(state => state.user.searchValue);
+
     const [shouldShow, setShouldShow] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
-    const [isRest, setIsRest] = useState(false);
     const [isOpenFilterModel, setIsOpenFilterModel] = useState(false);
-
-    const dispatch = useDispatch();
-    const { fetchUser } = useFetchUsers();
-
-    useDebouncedEffect(() => {
-        alert("debounce");
-        fetchUser(1, 5);
-    }, [isRest, searchValue], 2000);
-
-
-    const handleSort = async (value = "") => {
-        try {
-            const { data } = await axios.get(
-                `http://localhost:8001/api/v1/user/filter_user_data?role=${value.toLowerCase()}`
-            );
-
-            if (data?.code === 200) {
-                dispatch(addUser(data.data || []));
-                toast.success(data.message);
-            } else {
-                toast.error("Error fetching users data");
-            }
-        } catch (error) {
-            toast.error("Error fetching users data");
-        }
-        setIsOpen(false);
-    };
 
     return (
         <>
@@ -108,7 +79,7 @@ const Filters = ({ title = "All User" }) => {
                     <button
                         onClick={() => {
                             toast.success("Filters reset successfully");
-                            setIsRest(!isRest);
+                            setIsRest(prev => !prev);
                             dispatch(setPaginationMetaData({ key: "currentPage", value: 1 }));
                             dispatch(setPaginationMetaData({ key: "pageSize", value: 5 }));
                             dispatch(setSearchValue(""))
