@@ -76,7 +76,6 @@ const userSlice = createSlice({
     },
     setFilterValue: (state, action) => {
       state.filterData[action.payload.key] = action.payload.value;
-      state.searchValue = "";
     },
     resetFilterValue: (state) => {
       state.filterData = {
