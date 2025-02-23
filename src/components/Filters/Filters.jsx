@@ -12,6 +12,7 @@ import {
 } from "../../features/users/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import FilterUserModel from "../common/modal/FilterUserModel";
+import ResetButton from "./ResetButton";
 
 const Filters = ({ title = "All User", setIsRest }) => {
     const dispatch = useDispatch();
@@ -27,7 +28,6 @@ const Filters = ({ title = "All User", setIsRest }) => {
         setIsRest((prev) => !prev);
         dispatch(ResetPaginationMetaData());
         dispatch(resetFilterValue());
-        alert("reset");
         dispatch(setSearchValue(""));
     };
 
@@ -41,7 +41,7 @@ const Filters = ({ title = "All User", setIsRest }) => {
         setIsOpen(true);
         setShouldShow(true);
         setIsOpenFilterModel(false);
-    }
+    };
 
     return (
         <>
@@ -94,14 +94,7 @@ const Filters = ({ title = "All User", setIsRest }) => {
                         Add User
                     </button>
 
-                    {/* Reset Button */}
-                    <button
-                        onClick={handleRest}
-                        className="font-nunito flex items-center gap-2 text-white bg-black  hover:bg-gray-700 text-sm px-4 py-2 h-8 rounded-md"
-                    >
-                        <MdRefresh />
-                        Reset
-                    </button>
+                    <ResetButton handleRest={handleRest} />
                 </div>
             </div>
         </>
