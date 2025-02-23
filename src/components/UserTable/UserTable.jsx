@@ -20,10 +20,11 @@ const UserTable = ({ selectedUsers, setSelectedUsers, isRest }) => {
     const { fetchUser } = useFetchUsers();
     const users = useSelector((state) => state.user.userList);
     const userDataLoader = useSelector((state) => state.user.userDataLoader);
-    const { currentPage, pageSize } = useSelector((state) => state.user.paginationMetaData);
-    const searchValue = useSelector(state => state.user.searchValue);
+    const { currentPage, pageSize } = useSelector(
+        (state) => state.user.paginationMetaData
+    );
+    const searchValue = useSelector((state) => state.user.searchValue);
     const {
-        addUserModalStatus,
         editUserModalStatus,
         permissionUserModalStatus,
         viewUserModalStatus,
@@ -32,8 +33,8 @@ const UserTable = ({ selectedUsers, setSelectedUsers, isRest }) => {
     const handleSort = () => {
         const data = [...users].sort((a, b) =>
             sortByDesc
-                ? new Date(b.updatedAt) - new Date(a.updatedAt)
-                : new Date(a.updatedAt) - new Date(b.updatedAt)
+                ? new Date(a.updatedAt) - new Date(b.updatedAt)
+                : new Date(b.updatedAt) - new Date(a.updatedAt)
         );
         dispatch(addUser(data));
     };
@@ -57,23 +58,21 @@ const UserTable = ({ selectedUsers, setSelectedUsers, isRest }) => {
     };
 
     useEffect(() => {
-        alert("first render")
-        fetchUser()
-    }, [])
+        // alert("first render");
+        fetchUser();
+    }, []);
 
     useDebouncedEffect(
         () => {
-            alert("once any value change");
+            // alert("once any value change");
             fetchUser(currentPage, pageSize);
         },
         [isRest, searchValue, currentPage, pageSize],
         2000
     );
 
-
-
     return (
-        <div className=" rounded-lg">
+        <div className="rounded-lg border border-gray-200">
             {viewUserModalStatus && (
                 <Modal shouldShow={shouldShow} setShouldShow={setShouldShow}>
                     <ViewProfile
@@ -102,70 +101,71 @@ const UserTable = ({ selectedUsers, setSelectedUsers, isRest }) => {
                     />
                 </Modal>
             )}
-            {
-                <Modal shouldShow={!true} setShouldShow={setShouldShow}>
-                    <DeleteModel setShouldShow={setShouldShow} />
-                </Modal>
-            }
 
-            {userDataLoader ? (
-                <CustomSkelton msg="Loading..." />
-            ) : users.length ? (
-                <table className="w-full border-collapse">
-                    <thead>
-                        <tr className="bg-gray-100 text-left">
-                            <th className="p-3 rounded-tl-lg">
-                                <input
-                                    type="checkbox"
-                                    checked={selectedUsers.length === users.length}
-                                    onChange={handleAllSelect}
-                                    className="w-4 h-4 cursor-pointer"
+            <div className="overflow-y-auto max-h-[400px]">
+                {userDataLoader ? (
+                    <CustomSkelton msg="Loading..." />
+                ) : users.length ? (
+                    <table className="min-w-full table-fixed border-collapse">
+                        {/* Sticky Header */}
+                        <thead className="sticky top-0  z-50 shadow-sm">
+                            <tr className="bg-gray-100 text-left">
+                                <th className="p-3 rounded-tl-lg ">
+                                    <input
+                                        type="checkbox"
+                                        checked={selectedUsers.length === users.length}
+                                        onChange={handleAllSelect}
+                                        className="w-4 h-4 cursor-pointer"
+                                    />
+                                </th>
+                                <th className="p-3 font-nunito ">User Name</th>
+                                <th className="p-3 font-nunito ">Access</th>
+                                <th className="p-3 font-nunito ">Status</th>
+                                <th
+                                    className="p-3 font-nunito cursor-pointer "
+                                    onClick={() => {
+                                        handleSort();
+                                        setSortByDesc(!sortByDesc);
+                                    }}
+                                >
+                                    <div className="inline-flex items-center gap-1">
+                                        Last Active
+                                        {sortByDesc ? (
+                                            <FaArrowDown className="text-gray-600" />
+                                        ) : (
+                                            <FaArrowUp className="text-gray-600" />
+                                        )}
+                                    </div>
+                                </th>
+                                <th className="p-3 font-nunito ">Date Added</th>
+                                <th className="p-3 font-nunito rounded-tr-lg ">
+                                    Action
+                                </th>
+                            </tr>
+                        </thead>
+
+                        {/* Scrollable Table Body */}
+                        <tbody className=" overflow-y-auto max-h-[300px] w-full cursor-pointer">
+                            {users.map((user, index) => (
+                                <UserRow
+                                    key={index}
+                                    user={user}
+                                    index={index}
+                                    toggleMenu={toggleMenu}
+                                    menuIndex={menuIndex}
+                                    setShouldShow={setShouldShow}
+                                    onSelect={handleSelect}
+                                    isSelected={selectedUsers.includes(user.id)}
                                 />
-                            </th>
-                            <th className="p-3 font-nunito ">User Name</th>
-                            <th className="p-3 font-nunito">Access</th>
-                            <th className="p-3 font-nunito">Status</th>
-                            {/* Last Active with Icon */}
-                            <th
-                                className="p-3 font-nunito cursor-pointer"
-                                onClick={() => {
-                                    handleSort();
-                                    setSortByDesc(!sortByDesc);
-                                }}
-                            >
-                                <div className="inline-flex items-center gap-1">
-                                    Last Active
-                                    {sortByDesc ? (
-                                        <FaArrowDown className="text-gray-600" />
-                                    ) : (
-                                        <FaArrowUp className="text-gray-600" />
-                                    )}
-                                </div>
-                            </th>
-                            <th className="p-3 font-nunito">Date Added</th>
-
-                            <th className="p-3 font-nunito rounded-tr-lg ">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {users.map((user, index) => (
-                            <UserRow
-                                key={index}
-                                user={user}
-                                index={index}
-                                toggleMenu={toggleMenu}
-                                menuIndex={menuIndex}
-                                setShouldShow={setShouldShow}
-                                onSelect={handleSelect}
-                                isSelected={selectedUsers.includes(user.id)}
-                            />
-                        ))}
-                    </tbody>
-                </table>
-            ) : (
-                <CustomSkelton msg="No record found!   :)" />
-            )}
+                            ))}
+                        </tbody>
+                    </table>
+                ) : (
+                    <CustomSkelton msg="No record found!   :)" />
+                )}
+            </div>
         </div>
+
     );
 };
 

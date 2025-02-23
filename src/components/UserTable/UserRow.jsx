@@ -48,7 +48,7 @@ const UserRow = ({ user, index, toggleMenu, menuIndex, setShouldShow, onSelect, 
     return (
         <tr className="border-b hover:bg-gray-50">
             {/* Checkbox */}
-            <td className="p-2 text-center align-middle">
+            <td className="p-2 text-center align-middle ">
                 <input
                     type="checkbox"
                     checked={isSelected}
