@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import { useFetchUsers } from "../custom/Hook/useFetchUsers";
 import SelectDropDown from "../common/SelectDropDown";
 import API_URLS from "../../utils/constant/UrlConstant";
+import TableCell from "./TableCell";
 
 const UserRow = ({
     user,
@@ -102,16 +103,12 @@ const UserRow = ({
             </td>
 
             {/* Last Active */}
-            <td className="p-2 text-gray-700 font-nunito align-middle text-center">
-                {user.updatedAt ? dateFormatter(user.updatedAt) : dateFormatter()}
-            </td>
+            <TableCell date={user.updatedAt} />
 
             {/* Date Added */}
-            <td className="p-2 text-gray-700 font-nunito align-middle text-center">
-                {user.createdAt ? dateFormatter(user.createdAt) : dateFormatter()}
-            </td>
+            <TableCell date={user.createdAt} />
 
-            <td className="p-2 text-center align-middle">
+            <td className="p-2 text-center align-middle hidden sm:table-cell  md:table-cell">
                 <MoreActions
                     index={index}
                     menuIndex={menuIndex}

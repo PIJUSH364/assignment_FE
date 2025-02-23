@@ -58,13 +58,13 @@ const Filters = ({ title = "All User", setIsRest, setLocalPageSize }) => {
                 </Modal>
             )}
 
-            <div className="flex justify-between items-center pb-4">
+            <div className="flex flex-col sm:flex-row gap-4  justify-between items-start sm:items-center pb-4">
                 <h2 className="text-lg font-bold font-nunito">{`${title} (${totalUserCount})`}</h2>
 
                 {/* Controls */}
-                <div className="flex items-center gap-3">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
                     {/* Search Input */}
-                    <div className="relative flex items-center">
+                    <div className="relative flex  items-center">
                         <FaSearch className="absolute left-3 text-gray-400" />
                         <input
                             type="text"
@@ -76,26 +76,26 @@ const Filters = ({ title = "All User", setIsRest, setLocalPageSize }) => {
                             }}
                         />
                     </div>
+                    <div className="flex  items-center gap-2">
+                        {/* Filter Button */}
+                        <button
+                            onClick={handleFilter}
+                            className="primary-bw-btn"
+                        >
+                            <MdFilterList />
+                            Filter
+                        </button>
 
-                    {/* Filter Button */}
-                    <button
-                        onClick={handleFilter}
-                        className="primary-bw-btn"
-                    >
-                        <MdFilterList />
-                        Filter
-                    </button>
-
-                    {/* Add User Button */}
-                    <button
-                        onClick={handleNewUser}
-                        className="primary-bw-btn"
-                    >
-                        <FiPlus />
-                        Add User
-                    </button>
-
-                    <ResetButton handleRest={handleRest} />
+                        {/* Add User Button */}
+                        <button
+                            onClick={handleNewUser}
+                            className="primary-bw-btn"
+                        >
+                            <FiPlus />
+                            Add User
+                        </button>
+                        <ResetButton handleRest={handleRest} />
+                    </div>
                 </div>
             </div>
         </>

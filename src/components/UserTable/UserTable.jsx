@@ -183,7 +183,7 @@ const UserTable = ({ selectedUsers, setSelectedUsers, isRest }) => {
                                                 setSortByDesc(!sortByDesc);
                                             }}
                                         >
-                                            <div className="inline-flex items-center gap-1">
+                                            <div className=" items-center gap-1 hidden sm:inline-flex  md:inline-flex">
                                                 Last Active
                                                 {sortByDesc ? (
                                                     <FaArrowDown className="text-gray-600" />
@@ -192,8 +192,8 @@ const UserTable = ({ selectedUsers, setSelectedUsers, isRest }) => {
                                                 )}
                                             </div>
                                         </th>
-                                        <th className="p-3 font-nunito ">Date Added</th>
-                                        <th className="p-3 font-nunito rounded-tr-lg ">Action</th>
+                                        <th className="p-3 font-nunito hidden sm:table-cell  md:table-cell">Date Added</th>
+                                        <th className="p-3 font-nunito rounded-tr-lg hidden sm:table-cell  md:table-cell">Action</th>
                                     </tr>
                                 </thead>
 
