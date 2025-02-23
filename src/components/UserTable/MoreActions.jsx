@@ -70,7 +70,7 @@ const MoreActions = ({ index, menuIndex, toggleMenu, user, setShouldShow }) => {
             {menuIndex === index && (
                 <div
                     ref={dropdownRef}
-                    className={`font-nunito absolute right-5 w-48 bg-white shadow-lg rounded-lg z-10 
+                    className={`font-nunito absolute right-5 w-48 bg-white shadow-lg rounded-lg z-20 
                         ${position === "top" ? "bottom-full mb-[-1.1rem]" : "top-full mt-[-1.1rem]"}`}
                 >
                     <button className="drop_down_button"

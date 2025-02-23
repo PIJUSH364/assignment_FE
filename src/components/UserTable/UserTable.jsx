@@ -108,7 +108,7 @@ const UserTable = ({ selectedUsers, setSelectedUsers, isRest }) => {
                 ) : users.length ? (
                     <table className="min-w-full table-fixed border-collapse">
                         {/* Sticky Header */}
-                        <thead className="sticky top-0  z-50 shadow-sm">
+                        <thead className="sticky top-0  z-10 shadow-sm">
                             <tr className="bg-gray-100 text-left">
                                 <th className="p-3 rounded-tl-lg ">
                                     <input

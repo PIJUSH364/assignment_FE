@@ -31,7 +31,9 @@ const UserRow = ({ user, index, toggleMenu, menuIndex, setShouldShow, onSelect, 
     async function updateUser(data) {
         try {
             const res = await axios.put(url, data);
-            toast.success(res.data.message);
+            toast.success(res.data.message, {
+                position: "bottom-right",
+            });
             await fetchUser();
         } catch (err) {
             console.error(err);
