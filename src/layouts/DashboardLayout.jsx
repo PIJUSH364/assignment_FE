@@ -10,7 +10,7 @@ const DashboardLayout = ({ children, breadCrumbsTitle }) => {
             <Sidebar />
 
             {/* Main Content */}
-            <div className="flex-1 p-6 bg-gray-100">
+            <div className="flex-1 p-4 sm:p-6 bg-gray-100 w-full">
                 <Breadcrumbs title={breadCrumbsTitle} />
                 <div className="bg-white p-6 rounded-lg shadow-md">{children}</div>
             </div>

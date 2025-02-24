@@ -60,17 +60,17 @@ const TableHeaderAction = ({ title = "All User", setIsRest, setLocalPageSize }) 
 
             {/* Responsive Container */}
             <div className="flex flex-col sm:flex-row md:flex-row gap-4 justify-between items-start sm:items-center md:items-center pb-4">
-                <h2 className="text-lg font-bold font-nunito whitespace-nowrap">{`${title} (${totalUserCount})`}</h2>
+                <h2 className="text-base sm:text-lg font-bold font-nunito whitespace-nowrap">{`${title} (${totalUserCount})`}</h2>
 
                 {/* Controls */}
                 <div className="flex flex-col sm:flex-row md:flex-row items-start sm:items-center md:items-center gap-3">
                     {/* Search Input */}
-                    <div className="relative flex items-center">
+                    <div className="relative flex items-center  w-full sm:w-auto">
                         <FaSearch className="absolute left-3 text-gray-400" />
                         <input
                             type="text"
                             placeholder="Search"
-                            className="font-nunito border border-gray-300 outline-none rounded-md px-10 py-2 h-8"
+                            className="font-nunito border border-gray-300 outline-none rounded-md px-10 py-2 h-8 w-full sm:w-auto"
                             value={searchValue}
                             onChange={(e) => {
                                 dispatch(setSearchValue(e.target.value.trim()));

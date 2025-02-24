@@ -81,8 +81,8 @@ const UserRow = ({
                     className="w-10 h-10 rounded-full hidden sm:inline-block "
                 />
                 <div>
-                    <p className="font-medium text-gray-900">{user.name}</p>
-                    <p className="text-sm text-gray-500">{user.email}</p>
+                    <p className="font-medium text-[0.8rem] sm:text-base text-gray-900">{user.name}</p>
+                    <p className="text-[0.8rem] sm:text-sm text-gray-500">{user.email}</p>
                 </div>
             </td>
 
