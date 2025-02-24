@@ -73,7 +73,7 @@ export default function FilterUserModel({ setShouldShow }) {
                                 setIsOpen1(!isOpen1);
                                 setIsOpen2(false);
                             }}
-                            className="w-full font-nunito bg-white border border-gray-300 rounded-md p-2 text-left flex justify-between items-center shadow-sm"
+                            className="whitespace-nowrap w-full font-nunito bg-white border border-gray-300 rounded-md p-2 text-left flex justify-between items-center shadow-sm"
                         >
                             {role ? role : "Filter by Role"}
                             <span className="ml-auto text-gray-400">&#9662;</span>
@@ -109,7 +109,7 @@ export default function FilterUserModel({ setShouldShow }) {
                                 setIsOpen2(!isOpen2);
                                 setIsOpen1(false);
                             }}
-                            className="w-full font-nunito bg-white border border-gray-300 rounded-md p-2 text-left flex justify-between items-center shadow-sm"
+                            className=" whitespace-nowrap w-full font-nunito bg-white border border-gray-300 rounded-md p-2 text-left flex justify-between items-center shadow-sm"
                         >
                             {status ? status : "Filter by Status"}
                             <span className="ml-auto text-gray-400">&#9662;</span>
