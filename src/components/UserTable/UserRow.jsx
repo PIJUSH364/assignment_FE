@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { requestCounter } from "../../utils/method/helper";
-import ToggleSwitch from "../common/ToggleSwitch";
+import ToggleSwitch from "../common/Input/ToggleSwitch";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useFetchUsers } from "../custom/Hook/useFetchUsers";
-import SelectDropDown from "../common/SelectDropDown";
+import SelectDropDown from "../common/Input/SelectDropDown";
 import API_URLS from "../../utils/constant/UrlConstant";
 import TableCell from "./TableCell";
 import DropDown from "./DropDown";

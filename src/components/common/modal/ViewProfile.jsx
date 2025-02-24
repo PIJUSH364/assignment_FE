@@ -4,7 +4,7 @@ import {
     capitalizeFirstLetter,
     dateFormatter,
 } from "../../../utils/method/helper";
-import CloseModel from "../CloseModel";
+import CloseModel from "./CloseModel";
 
 export default function ViewProfile({ setShouldShow }) {
     const user = useSelector((state) => state.user.userDetails);
@@ -47,8 +47,8 @@ export default function ViewProfile({ setShouldShow }) {
                         <span className="ml-auto">
                             <span
                                 className={`rounded-full ${status == "active"
-                                        ? "bg-green-200 text-green-700"
-                                        : "bg-slate-200 text-slate-700"
+                                    ? "bg-green-200 text-green-700"
+                                    : "bg-slate-200 text-slate-700"
                                     }  py-1 px-2 text-xs font-medium`}
                             >
                                 {capitalizeFirstLetter(status)}

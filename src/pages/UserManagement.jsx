@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import Filters from "../components/Filters/Filters";
 import UserTable from "../components/UserTable/UserTable";
 import Pagination from "../components/Pagination/Pagination";
 import DashboardLayout from "../layouts/DashboardLayout";
+import TableHeaderAction from "../components/TableHeaderAction";
 
 const UserManagement = () => {
     const [selectedUsers, setSelectedUsers] = useState([]);
@@ -17,7 +17,7 @@ const UserManagement = () => {
                     Manage your team members and their account permissions here.
                 </p>
             </div>
-            <Filters setIsRest={setIsRest} setLocalPageSize={setLocalPageSize} />
+            <TableHeaderAction setIsRest={setIsRest} setLocalPageSize={setLocalPageSize} />
             <UserTable
                 selectedUsers={selectedUsers}
                 setSelectedUsers={setSelectedUsers}

@@ -2,19 +2,19 @@ import React, { useState } from "react";
 import { FiPlus } from "react-icons/fi";
 import { MdFilterList } from "react-icons/md";
 import { FaSearch } from "react-icons/fa";
-import Modal from "../common/Modal";
-import UserModel from "../common/modal/UserModel";
+import Modal from "./common/modal/Modal";
+import UserModel from "./common/modal/UserModel";
 import toast from "react-hot-toast";
 import {
     resetFilterValue,
     ResetPaginationMetaData,
     setSearchValue,
-} from "../../features/users/userSlice";
+} from "../features/users/userSlice";
 import { useDispatch, useSelector } from "react-redux";
-import FilterUserModel from "../common/modal/FilterUserModel";
+import FilterUserModel from "./common/modal/FilterUserModel";
 import ResetButton from "./ResetButton";
 
-const Filters = ({ title = "All User", setIsRest, setLocalPageSize }) => {
+const TableHeaderAction = ({ title = "All User", setIsRest, setLocalPageSize }) => {
     const dispatch = useDispatch();
     const totalUserCount = useSelector((state) => state.user.totalUserCount);
     const searchValue = useSelector((state) => state.user.searchValue);
@@ -103,4 +103,8 @@ const Filters = ({ title = "All User", setIsRest, setLocalPageSize }) => {
     );
 };
 
-export default Filters;
+
+
+
+
+export default TableHeaderAction;

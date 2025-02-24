@@ -1,5 +1,5 @@
 import React from 'react'
-import { Role } from '../../utils/method/helper';
+import { Role } from '../../../utils/method/helper';
 
 export default function SelectDropDown({ role, handleDropDownChange }) {
     return (

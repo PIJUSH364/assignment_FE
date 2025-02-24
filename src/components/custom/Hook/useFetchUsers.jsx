@@ -13,7 +13,7 @@ import API_URLS from "../../../utils/constant/UrlConstant";
 export const useFetchUsers = () => {
     const dispatch = useDispatch();
     const searchValue = useSelector((state) => state.user.searchValue);
-    const { role, status, search } = useSelector(
+    const { role, status } = useSelector(
         (state) => state.user.filterData
     );
 

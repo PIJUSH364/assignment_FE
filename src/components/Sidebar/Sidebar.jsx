@@ -15,7 +15,8 @@ import {
     FaBook,
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import SidebarItem from "../common/SidebarItem";
+import SidebarItem from "../common/childComponent/SidebarItem";
+
 
 const Sidebar = () => {
     const navigate = useNavigate();

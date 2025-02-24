@@ -9,16 +9,16 @@ import {
     setModalStatus,
 } from "../../features/users/userSlice";
 import ViewProfile from "../common/modal/ViewProfile";
-import Modal from "../common/Modal";
+import Modal from "../common/modal/Modal";
 import UpdateUserModel from "../common/modal/UpdateUserModel";
 import { useFetchUsers } from "../custom/Hook/useFetchUsers";
-import { CustomSkelton } from "../../utils/Helper";
 import { useDebouncedEffect } from "../custom/Hook/useDebouncedEffect";
 import DeleteModel from "../common/modal/DeleteModel";
 import { allModalStatus } from "../../utils/enum";
 import toast from "react-hot-toast";
 import axios from "axios";
 import API_URLS from "../../utils/constant/UrlConstant";
+import { CustomSkelton } from "../CustomSkelton";
 
 const UserTable = ({ selectedUsers, setSelectedUsers, isRest }) => {
     const [sortByDesc, setSortByDesc] = useState(true);

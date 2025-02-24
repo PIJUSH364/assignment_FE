@@ -1,5 +1,3 @@
-import axios from "axios";
-
 export const dateFormatter = (date = new Date()) => {
   return new Date(date)
     .toLocaleString("en-US", {
@@ -17,6 +15,7 @@ export const Role = ["Member", "Admin"];
 export const Status = ["Active", "InActive"];
 
 export const requestCounter = { count: 0, isThrottled: false };
+
 export const capitalizeFirstLetter = (str) => {
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 };

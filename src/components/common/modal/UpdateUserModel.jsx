@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { AiOutlineClose } from "react-icons/ai";
-import InputField from "../InputField";
+import InputField from "../Input/InputField";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useFetchUsers } from "../../custom/Hook/useFetchUsers";
 import { useDispatch, useSelector } from "react-redux";
 import { Role, Status } from "../../../utils/method/helper";
-import SelectInputField from "../SelectInputField";
+import SelectInputField from "../Input/SelectInputField";
 import API_URLS from "../../../utils/constant/UrlConstant";
 import {
     resetFilterValue,
