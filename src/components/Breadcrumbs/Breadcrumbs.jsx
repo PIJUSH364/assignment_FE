@@ -5,7 +5,7 @@ const Breadcrumbs = ({ title = "User Management" }) => {
     return (
         <div className="flex justify-between items-center mb-4">
             <div className="flex items-center text-gray-600">
-                <FaHome /> <FaChevronRight className="mx-2" /> <span className="text-sm sm:text-lg">{title}</span>
+                <FaHome className="hidden sm:block" /> <FaChevronRight className="mx-2" /> <span className="text-sm sm:text-lg">{title}</span>
             </div>
             <div className="flex items-center gap-2">
                 <img
