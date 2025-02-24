@@ -60,7 +60,7 @@ const TableHeaderAction = ({ title = "All User", setIsRest, setLocalPageSize }) 
 
             {/* Responsive Container */}
             <div className="flex flex-col sm:flex-row md:flex-row gap-4 justify-between items-start sm:items-center md:items-center pb-4">
-                <h2 className="text-lg font-bold font-nunito">{`${title} (${totalUserCount})`}</h2>
+                <h2 className="text-lg font-bold font-nunito whitespace-nowrap">{`${title} (${totalUserCount})`}</h2>
 
                 {/* Controls */}
                 <div className="flex flex-col sm:flex-row md:flex-row items-start sm:items-center md:items-center gap-3">
