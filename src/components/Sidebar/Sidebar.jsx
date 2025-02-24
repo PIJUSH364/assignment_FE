@@ -24,8 +24,10 @@ const Sidebar = () => {
 
     useEffect(() => {
         const handleResize = () => {
-            if (window.innerWidth > 720) {
+            if (window.innerWidth > 770) {
                 setIsOpen(false);
+            } else if (window.innerWidth < 770 && window.innerWidth > 300) {
+                setIsOpen(true);
             }
         };
 
@@ -51,7 +53,7 @@ const Sidebar = () => {
             )}
             {!isOpen && (
                 <aside
-                    className="w-20 sm:w-64 p-6 sm:p-3 h-screen bg-white shadow-md flex flex-col font-nunito"
+                    className="w-20 md:w-64 p-6 sm:p-3 h-screen bg-white shadow-md flex flex-col font-nunito"
                     aria-label="Sidebar navigation"
                 >
                     <div className="font-semibold mb-4 text-sm sm:text-xl inline sm:hidden">
