@@ -134,7 +134,7 @@ const UserTable = ({ selectedUsers, setSelectedUsers, isRest }) => {
     };
 
     return (
-        <div className="rounded-lg border border-gray-200">
+        <div className="rounded-lg border border-gray-200 overflow-scroll  md:overflow-y-scroll w-full">
             {viewUserModalStatus && (
                 <Modal shouldShow={shouldShow} setShouldShow={setShouldShow}>
                     <ViewProfile
@@ -184,7 +184,7 @@ const UserTable = ({ selectedUsers, setSelectedUsers, isRest }) => {
                 </Modal>
             )}
 
-            <div className="overflow-y-auto max-h-[400px]">
+            <div className=" max-h-[400px]">
                 {userDataLoader ? (
                     <CustomSkelton />
                 ) : (
