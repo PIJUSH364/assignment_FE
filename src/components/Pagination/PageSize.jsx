@@ -1,6 +1,12 @@
 import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 
-export default function PageSize({ localPageSize, setLocalPageSize, handlePageSizeChange }) {
+export default function PageSize({
+    localPageSize,
+    setLocalPageSize,
+    handlePageSizeChange,
+}) {
+    const { pageSize } = useSelector((state) => state.user.paginationMetaData);
 
     useEffect(() => {
         const timeout = setTimeout(() => {
@@ -11,6 +17,16 @@ export default function PageSize({ localPageSize, setLocalPageSize, handlePageSi
 
         return () => clearTimeout(timeout);
     }, [localPageSize]);
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            if (pageSize === 5) {
+                setLocalPageSize(5);
+            }
+        }, 500);
+
+        return () => clearTimeout(timeout);
+    }, [pageSize]);
 
     return (
         <div className="flex items-center gap-3">

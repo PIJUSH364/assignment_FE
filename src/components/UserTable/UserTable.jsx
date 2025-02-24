@@ -2,7 +2,12 @@ import React, { useCallback, useEffect, useState } from "react";
 import UserRow from "./UserRow";
 import { FaArrowDown, FaArrowUp } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { addUser, setModalStatus } from "../../features/users/userSlice";
+import {
+    addUser,
+    resetFilterValue,
+    ResetPaginationMetaData,
+    setModalStatus,
+} from "../../features/users/userSlice";
 import ViewProfile from "../common/modal/ViewProfile";
 import Modal from "../common/Modal";
 import UpdateUserModel from "../common/modal/UpdateUserModel";
@@ -24,6 +29,7 @@ const UserTable = ({ selectedUsers, setSelectedUsers, isRest }) => {
     const dispatch = useDispatch();
     const { fetchUser } = useFetchUsers();
     const users = useSelector((state) => state.user.userList);
+    const userDetails = useSelector((state) => state.user.userDetails);
     const userDataLoader = useSelector((state) => state.user.userDataLoader);
     const searchValue = useSelector((state) => state.user.searchValue);
     const { currentPage, pageSize } = useSelector(
@@ -34,6 +40,7 @@ const UserTable = ({ selectedUsers, setSelectedUsers, isRest }) => {
         permissionUserModalStatus,
         viewUserModalStatus,
         bulkDeleteUserModalStatus,
+        deleteUserModalStatus,
     } = useSelector((state) => state.user.allModalStatus);
 
     const handleSort = () => {
@@ -86,30 +93,43 @@ const UserTable = ({ selectedUsers, setSelectedUsers, isRest }) => {
         2000
     );
 
-    const handleDelete = useCallback(async (ids) => {
-        try {
-            setIsLoading(true);
-            const response = await axios.delete(API_URLS.USER.DELETE, {
-                data: { ids: [...ids] },
-            });
-
-            toast.success(response.data.message, { position: "bottom-right" });
-            setShouldShow(false);
-            dispatch(ResetPaginationMetaData());
-            dispatch(resetFilterValue());
-            await fetchUser();
-        } catch (error) {
-            const message = error?.response?.data?.message || "Something went wrong";
-            toast.error(message);
-        } finally {
-            setIsLoading(false);
-        }
-    }, [setShouldShow, dispatch, fetchUser]);
+    const handleDelete = useCallback(
+        async (ids) => {
+            try {
+                setIsLoading(true);
+                const response = await axios.delete(API_URLS.USER.DELETE, {
+                    data: { ids: [...ids] },
+                });
+                toast.success(response.data.message, { position: "bottom-right" });
+                dispatch(resetFilterValue());
+                if (currentPage === 1 && pageSize === 5) {
+                    await fetchUser();
+                } else {
+                    dispatch(ResetPaginationMetaData());
+                }
+            } catch (error) {
+                console.log(error);
+                const message =
+                    error?.response?.data?.message || "Something went wrong";
+                toast.error(message);
+            } finally {
+                setIsLoading(false);
+                setShouldShow(false);
+            }
+        },
+        [setShouldShow, dispatch, fetchUser]
+    );
 
     const handleCancel = () => {
+        setSelectedUsers([]);
         dispatch(
             setModalStatus({ key: allModalStatus.BULK_DELETE_USER, value: false })
         );
+        setShouldShow(false);
+    };
+
+    const handleSingleCancel = () => {
+        dispatch(setModalStatus({ key: allModalStatus.DELETE_USER, value: false }));
         setShouldShow(false);
     };
 
@@ -143,13 +163,22 @@ const UserTable = ({ selectedUsers, setSelectedUsers, isRest }) => {
                     />
                 </Modal>
             )}
-
             {bulkDeleteUserModalStatus && (
                 <Modal shouldShow={shouldShow} setShouldShow={setShouldShow}>
                     <DeleteModel
                         setShouldShow={setShouldShow}
                         handleCancel={handleCancel}
                         handleDelete={() => handleDelete(selectedUsers)}
+                        isLoading={isLoading}
+                    />
+                </Modal>
+            )}
+            {deleteUserModalStatus && (
+                <Modal shouldShow={shouldShow} setShouldShow={setShouldShow}>
+                    <DeleteModel
+                        setShouldShow={setShouldShow}
+                        handleCancel={handleSingleCancel}
+                        handleDelete={() => handleDelete([userDetails?.id])}
                         isLoading={isLoading}
                     />
                 </Modal>
@@ -192,8 +221,12 @@ const UserTable = ({ selectedUsers, setSelectedUsers, isRest }) => {
                                                 )}
                                             </div>
                                         </th>
-                                        <th className="p-3 font-nunito hidden sm:table-cell  md:table-cell">Date Added</th>
-                                        <th className="p-3 font-nunito rounded-tr-lg hidden sm:table-cell  md:table-cell">Action</th>
+                                        <th className="p-3 font-nunito hidden sm:table-cell  md:table-cell">
+                                            Date Added
+                                        </th>
+                                        <th className="p-3 font-nunito rounded-tr-lg hidden sm:table-cell  md:table-cell">
+                                            Action
+                                        </th>
                                     </tr>
                                 </thead>
 

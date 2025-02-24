@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import MoreActions from "./MoreActions";
-import { dateFormatter, requestCounter } from "../../utils/method/helper";
+import { requestCounter } from "../../utils/method/helper";
 import ToggleSwitch from "../common/ToggleSwitch";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -8,16 +7,14 @@ import { useFetchUsers } from "../custom/Hook/useFetchUsers";
 import SelectDropDown from "../common/SelectDropDown";
 import API_URLS from "../../utils/constant/UrlConstant";
 import TableCell from "./TableCell";
+import DropDown from "./DropDown";
+import { FiMoreVertical } from "react-icons/fi";
 
 const UserRow = ({
     user,
-    index,
-    toggleMenu,
-    menuIndex,
     setShouldShow,
     onSelect,
     isSelected,
-    shouldShow
 }) => {
     const [toggleStatus, setToggleStatus] = useState(
         user.status.toUpperCase() === "ACTIVE"
@@ -30,7 +27,7 @@ const UserRow = ({
             setToggleStatus(!toggleStatus);
             const data = {
                 status: !toggleStatus ? "active" : "inactive",
-                id: String(user.id),
+                id: user.id,
             };
             await updateUser(data);
         });
@@ -38,7 +35,7 @@ const UserRow = ({
 
     const handleRoleChange = async (role) => {
         await throttleRequest(async () => {
-            const data = { role: role.toLowerCase(), id: String(user.id) };
+            const data = { role: role.toLowerCase(), id: user.id };
             await updateUser(data);
         });
     };
@@ -51,7 +48,7 @@ const UserRow = ({
             });
             await fetchUser();
         } catch (err) {
-            console.error(err);
+            // console.error(err);
             toast.error("Error updating user data.");
         }
     }
@@ -109,14 +106,11 @@ const UserRow = ({
             <TableCell date={user.createdAt} />
 
             <td className="p-2 text-center align-middle hidden sm:table-cell  md:table-cell">
-                <MoreActions
-                    index={index}
-                    menuIndex={menuIndex}
-                    toggleMenu={toggleMenu}
-                    user={user}
-                    setShouldShow={setShouldShow}
-                    shouldShow={shouldShow}
-                />
+                <DropDown setShouldShow={setShouldShow} user={user}>
+                    <div className="p-2 rounded-full hover:bg-gray-200">
+                        <FiMoreVertical className="text-gray-600" />
+                    </div>
+                </DropDown>
             </td>
         </tr>
     );

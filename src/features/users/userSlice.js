@@ -2,6 +2,7 @@ import { createSlice, current } from "@reduxjs/toolkit";
 
 const initialState = {
   userList: [],
+  userDetails: null,
   totalPage: 0,
   totalUserCount: 0,
   userActionFlag: false,
@@ -32,6 +33,9 @@ const userSlice = createSlice({
   reducers: {
     addUser: (state, action) => {
       state.userList = action.payload;
+    },
+    setUserDetails: (state, action) => {
+      state.userDetails = action.payload;
     },
     setTotalPage: (state, action) => {
       state.totalPage = action.payload;
@@ -102,5 +106,6 @@ export const {
   resetFilterValue,
   setFilterValue,
   ResetPaginationMetaData,
+  setUserDetails,
 } = userSlice.actions;
 export default userSlice.reducer;

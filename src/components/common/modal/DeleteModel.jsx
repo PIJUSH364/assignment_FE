@@ -1,9 +1,9 @@
 import React from "react";
 
 export default function DeleteModel({
+  setShouldShow,
   handleDelete,
   handleCancel,
-  setShouldShow,
   isLoading,
 }) {
   return (
@@ -11,7 +11,13 @@ export default function DeleteModel({
       <div className="bg-white w-full max-w-sm md:max-w-md p-6 rounded-lg shadow-lg">
         {/* Close Icon */}
         <p className="text-end text-gray-600 cursor-pointer text-lg">
-          <i className="fa-solid fa-x" onClick={() => setShouldShow(false)}></i>
+          <i
+            className="fa-solid fa-x"
+            onClick={() => {
+              if (isLoading) return;
+              setShouldShow(false);
+            }}
+          ></i>
         </p>
 
         {/* Title */}
@@ -23,12 +29,19 @@ export default function DeleteModel({
         <div className="flex justify-evenly mt-6">
           <button
             className="delete-modal-btn bg-red-500 hover:bg-red-600 text-white"
-            onClick={handleDelete}
+            onClick={async () => {
+              await handleDelete();
+              handleCancel();
+            }}
             disabled={isLoading}
           >
             {isLoading ? "Deleting..." : "Yes"}
           </button>
-          <button className="delete-modal-btn" onClick={handleCancel}>
+          <button
+            className="delete-modal-btn"
+            disabled={isLoading}
+            onClick={handleCancel}
+          >
             No
           </button>
         </div>

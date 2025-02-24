@@ -15,20 +15,16 @@ import {
     ResetPaginationMetaData,
 } from "../../../features/users/userSlice";
 
-const UpdateUserModel = ({
-    setShouldShow,
-    menuIndex,
-    permissionModal = false,
-    toggleMenu
-}) => {
+const UpdateUserModel = ({ setShouldShow, permissionModal = false }) => {
     const [isLoading, setIsLoading] = useState(false);
 
-    const user = useSelector((state) => state.user.userList).filter(
-        (user, index) => index === menuIndex
-    )[0];
+    const user = useSelector((state) => state.user.userDetails);
+    const { currentPage, pageSize } = useSelector(
+        (state) => state.user.paginationMetaData
+    );
     const { fetchUser } = useFetchUsers();
     const dispatch = useDispatch();
-    const { name, email, status, role } = user;
+    const { name, email, status, role, id } = user;
 
     const validationSchema = Yup.object().shape({
         name: Yup.string().required("name is required"),
@@ -41,19 +37,22 @@ const UpdateUserModel = ({
         }),
     });
 
-    const handleAddUser = (values, setSubmitting) => {
+    const handleUpdateUser = (values, setSubmitting) => {
         setIsLoading((prev) => !prev);
         axios
-            .put(API_URLS.USER.UPDATE, { ...values, id: String(user.id) })
+            .put(API_URLS.USER.UPDATE, { ...values, id })
             .then(async (res) => {
+                setShouldShow(false);
                 toast.success(res.data.message, {
                     position: "bottom-right",
                 });
-                setShouldShow(false);
-                dispatch(ResetPaginationMetaData());
                 dispatch(resetFilterValue());
-                toggleMenu(-1)
-                await fetchUser(1, 5);
+
+                if (currentPage === 1 && pageSize === 5) {
+                    await fetchUser(1, 5);
+                } else {
+                    dispatch(ResetPaginationMetaData());
+                }
             })
             .catch((err) => {
                 const message = err?.response?.data?.message || "Something went wrong";
@@ -75,7 +74,7 @@ const UpdateUserModel = ({
             }}
             validationSchema={validationSchema}
             onSubmit={(values, { setSubmitting }) => {
-                handleAddUser(values, setSubmitting);
+                handleUpdateUser(values, setSubmitting);
             }}
         >
             {({ isSubmitting }) => (

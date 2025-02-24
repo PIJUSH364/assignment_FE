@@ -1,13 +1,13 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { capitalizeFirstLetter, dateFormatter } from "../../../utils/method/helper";
+import {
+    capitalizeFirstLetter,
+    dateFormatter,
+} from "../../../utils/method/helper";
 import CloseModel from "../CloseModel";
 
-export default function ViewProfile({ setShouldShow, menuIndex }) {
-    const user = useSelector((state) => state.user.userList).filter(
-        (user, index) => index === menuIndex
-    )[0];
-    if (!user) return null;
+export default function ViewProfile({ setShouldShow }) {
+    const user = useSelector((state) => state.user.userDetails);
     const { name, email, status, createdAt, updatedAt, role } = user;
 
     return (
@@ -16,8 +16,6 @@ export default function ViewProfile({ setShouldShow, menuIndex }) {
                 className="max-w-sm w-full rounded-lg border bg-white px-4 pt-8 pb-10 shadow-lg relative 
                             max-h-[90vh] overflow-y-auto"
             >
-                {/* Added max-h-[90vh] and overflow-y-auto */}
-
                 <CloseModel CloseModel={() => setShouldShow(false)} />
 
                 {/* Profile Image */}
@@ -49,11 +47,10 @@ export default function ViewProfile({ setShouldShow, menuIndex }) {
                         <span className="ml-auto">
                             <span
                                 className={`rounded-full ${status == "active"
-                                    ? "bg-green-200 text-green-700"
-                                    : "bg-slate-200 text-slate-700"
+                                        ? "bg-green-200 text-green-700"
+                                        : "bg-slate-200 text-slate-700"
                                     }  py-1 px-2 text-xs font-medium`}
                             >
-
                                 {capitalizeFirstLetter(status)}
                             </span>
                         </span>
