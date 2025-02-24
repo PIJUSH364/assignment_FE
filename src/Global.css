@@ -8,21 +8,21 @@
 }
 
 /* Global styles */
-html,
+/* html,
 body {
   min-width: 1000px;
-}
+} */
 
 body {
   font-family: "Nunito Sans", sans-serif !important;
 }
 
-@media (max-width: 1000px) {
+/* @media (max-width: 1000px) {
   html,
   body {
     overflow-x: hidden;
   }
-}
+} */
 
 @media only screen and (max-width: 768px) {
   .height-ch {
