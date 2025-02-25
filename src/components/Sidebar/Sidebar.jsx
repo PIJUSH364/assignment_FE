@@ -40,7 +40,7 @@ const Sidebar = () => {
         <div>
             {isOpen && (
                 <div
-                    className="bg-transparent bg-none p-1 pt-6 absolute "
+                    className="bg-transparent bg-none p-1 pt-6 absolute cursor-pointer"
                     aria-label="Sidebar navigation"
                 >
                     {" "}
@@ -53,10 +53,10 @@ const Sidebar = () => {
             )}
             {!isOpen && (
                 <aside
-                    className="w-20 md:w-64 p-6 sm:p-3 h-screen bg-white shadow-md flex flex-col font-nunito"
+                    className="w-20 md:w-64 p-6 sm:p-3 h-screen bg-white shadow-md flex flex-col font-nunito "
                     aria-label="Sidebar navigation"
                 >
-                    <div className="font-semibold mb-4 text-sm sm:text-xl inline sm:hidden">
+                    <div className="font-semibold mb-4 text-sm sm:text-xl inline sm:hidden cursor-pointer">
                         <CiMenuFries
                             onClick={() => {
                                 setIsOpen(!isOpen);
