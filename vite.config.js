@@ -13,4 +13,5 @@ export default defineConfig({
       VITE_BASE_BE_URL: "https://contact-management-jw8v.onrender.com",
     }, // Mock process object if needed
   },
+  base: "/assignment_FE",
 });
