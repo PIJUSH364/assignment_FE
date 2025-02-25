@@ -1,8 +1,9 @@
 {
-  "name": "app",
+  "name": "t_app",
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://PIJUSH364.github.io",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
