@@ -12,7 +12,8 @@ A user management dashboard with essential functionalities like filtering, sorti
 - Clear display of user status (Active/Inactive).
 - Basic search functionality.
 - Pagination with configurable page size.
-<!-- - Bulk selection capabilities. -->
+- When no user data is found, a message is displayed.
+- Filtering and sorting functionality is disabled when no user data is available.
 
 ### User Detail View:
 
@@ -32,14 +33,19 @@ A user management dashboard with essential functionalities like filtering, sorti
 
 - Form with validation.
 - Role selection.
-- Success and error states.
+- Success and error states with user-friendly toast messages.
+
+### Additional Features:
+
+- If an invalid URL is entered, the user is redirected to a "Not Found" page.
+- Responsive webpage across all mobile devices and desktops (excluding tablets).
 
 ## API Endpoints
 
 ### Base URL
 
 ```
-http://localhost:8001/api/v1/
+hostUrl/api/v1/
 ```
 
 ### User APIs
@@ -72,7 +78,7 @@ http://localhost:8001/api/v1/
 
 To configure environment variables, follow these steps:
 
-al ready set the base url in UrlConstant.js file if you want to add your base url you can add it in the file
+Already set the base URL in `UrlConstant.js` file. If you want to add your base URL, you can update it in the file.
 
 ## Running the Project
 
@@ -87,6 +93,6 @@ npm run development
 ## Tech Stack
 
 - **Frontend:** React.js, Redux
-- **Backend:** Node.js, Express.js , TypeScript
-- **Database:** PostgreSQL,sequelize(ORM)
+- **Backend:** Node.js, Express.js, TypeScript
+- **Database:** PostgreSQL, Sequelize (ORM)
 - **UI Library:** TailwindCSS CSS Framework
