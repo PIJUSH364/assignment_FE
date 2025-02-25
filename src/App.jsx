@@ -16,11 +16,11 @@ const App = () => {
           {/* Redirect from "/" to "/users" */}
           <Route
             path="/"
-            element={<Navigate to="/assignment_FE/users" replace />}
+            element={<Navigate to="/users" replace />}
           />
 
           {/* User Management Page */}
-          <Route path="/assignment_FE/users" element={<UserManagement />} />
+          <Route path="/users" element={<UserManagement />} />
 
           {/* Catch-all for unknown routes */}
           <Route path="*" element={<Navigate to="/not-found" replace />} />
