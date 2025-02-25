@@ -4,6 +4,10 @@
 
 A user management dashboard with essential functionalities like filtering, sorting, pagination, user detail view, and account actions.
 
+```
+Live URL: https://admin-fe.netlify.app/users
+```
+
 ## Features
 
 ### Dashboard Features:
