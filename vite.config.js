@@ -10,7 +10,7 @@ export default defineConfig({
   ],
   define: {
     "process.env": {
-      VITE_BASE_BE_URL: process.env.VITE_BASE_BE_URL,
+      VITE_BASE_BE_URL: "https://contact-management-jw8v.onrender.com",
     }, // Mock process object if needed
   },
   base: "/",
