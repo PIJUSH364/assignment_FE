@@ -9,8 +9,7 @@
     "build": "vite build",
     "preview1": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist",
-    "install": "npm install"
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@mui/icons-material": "^5.11.0",
