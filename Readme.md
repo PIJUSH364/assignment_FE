@@ -4,9 +4,7 @@
 
 A user management dashboard with essential functionalities like filtering, sorting, pagination, user detail view, and account actions.
 
-```
-Live URL: https://admin-fe.netlify.app/users
-```
+[Live URL](https://admin-fe.netlify.app/)
 
 ## Features
 
@@ -82,7 +80,14 @@ hostUrl/api/v1/
 
 To configure environment variables, follow these steps:
 
-Already set the base URL in `UrlConstant.js` file. If you want to add your base URL, you can update it in the file.
+create a .env file in the root directory and add the following:
+
+### add your base url
+
+```
+VITE_BASE_URL=http://localhost:3000
+
+```
 
 ## Running the Project
 
