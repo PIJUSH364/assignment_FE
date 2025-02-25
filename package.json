@@ -6,7 +6,8 @@
   "scripts": {
     "development": "vite",
     "build": "vite build",
-    "preview1": "vite preview"
+    "preview1": "vite preview",
+    "install": "npm install"
   },
   "dependencies": {
     "@mui/icons-material": "^5.11.0",
