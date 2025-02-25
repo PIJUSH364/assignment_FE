@@ -14,7 +14,11 @@ import { useDispatch, useSelector } from "react-redux";
 import FilterUserModel from "./common/modal/FilterUserModel";
 import ResetButton from "./ResetButton";
 
-const TableHeaderAction = ({ title = "All User", setIsRest, setLocalPageSize }) => {
+const TableHeaderAction = ({
+    title = "All User",
+    setIsRest,
+    setLocalPageSize,
+}) => {
     const dispatch = useDispatch();
     const totalUserCount = useSelector((state) => state.user.totalUserCount);
     const searchValue = useSelector((state) => state.user.searchValue);
@@ -60,11 +64,11 @@ const TableHeaderAction = ({ title = "All User", setIsRest, setLocalPageSize }) 
             )}
 
             {/* Responsive Container */}
-            <div className="flex flex-col sm:flex-row md:flex-row gap-4 justify-between items-start sm:items-center md:items-center pb-4">
-                <h2 className="text-base sm:text-lg font-bold font-nunito whitespace-nowrap">{`${title} (${totalUserCount})`}</h2>
+            <div className="flex flex-col md:flex-row gap-4 justify-between items-start  md:items-center pb-4">
+                <h2 className="text-base md:text-lg font-bold font-nunito whitespace-nowrap">{`${title} (${totalUserCount})`}</h2>
 
                 {/* Controls */}
-                <div className="flex flex-col sm:flex-row md:flex-row items-start sm:items-center md:items-center gap-3">
+                <div className="flex flex-col  md:flex-row items-start  md:items-center gap-3">
                     {/* Search Input */}
                     <div className={`relative flex items-center `}>
                         <FaSearch className="absolute left-3 text-gray-400" />
@@ -75,13 +79,16 @@ const TableHeaderAction = ({ title = "All User", setIsRest, setLocalPageSize }) 
                             value={searchValue}
                             onChange={(e) => {
                                 dispatch(setSearchValue(e.target.value.trim()));
+                                dispatch(ResetPaginationMetaData());
                             }}
                         />
                     </div>
 
                     <div className="flex items-center gap-2">
                         {/* Filter Button */}
-                        <button onClick={handleFilter} className={`primary-bw-btn px-2 md:px-4 ${userList.length === 0 ? "opacity-50" : ""}`}
+                        <button
+                            onClick={handleFilter}
+                            className={`primary-bw-btn px-2 md:px-4 ${userList.length === 0 ? "opacity-50" : ""}`}
                             disabled={userList.length === 0}
                         >
                             <MdFilterList />
@@ -105,9 +112,5 @@ const TableHeaderAction = ({ title = "All User", setIsRest, setLocalPageSize }) 
         </>
     );
 };
-
-
-
-
 
 export default TableHeaderAction;

@@ -94,7 +94,7 @@ const UserTable = ({ selectedUsers, setSelectedUsers, isRest }) => {
     );
 
     const handleDelete = useCallback(
-        async (ids) => {
+        async (ids, isBulkDelete) => {
             try {
                 setIsLoading(true);
                 const response = await axios.delete(API_URLS.USER.DELETE, {
@@ -102,7 +102,7 @@ const UserTable = ({ selectedUsers, setSelectedUsers, isRest }) => {
                 });
                 toast.success(response.data.message, { position: "bottom-right" });
                 dispatch(resetFilterValue());
-                if (currentPage === 1 && pageSize === 5) {
+                if (currentPage === 1 && pageSize === 5 && isBulkDelete) {
                     await fetchUser();
                 } else {
                     dispatch(ResetPaginationMetaData());
@@ -168,7 +168,7 @@ const UserTable = ({ selectedUsers, setSelectedUsers, isRest }) => {
                     <DeleteModel
                         setShouldShow={setShouldShow}
                         handleCancel={handleCancel}
-                        handleDelete={() => handleDelete(selectedUsers)}
+                        handleDelete={() => handleDelete(selectedUsers, true)}
                         isLoading={isLoading}
                     />
                 </Modal>
@@ -178,7 +178,7 @@ const UserTable = ({ selectedUsers, setSelectedUsers, isRest }) => {
                     <DeleteModel
                         setShouldShow={setShouldShow}
                         handleCancel={handleSingleCancel}
-                        handleDelete={() => handleDelete([userDetails?.id])}
+                        handleDelete={() => handleDelete([userDetails?.id], false)}
                         isLoading={isLoading}
                     />
                 </Modal>
@@ -202,7 +202,9 @@ const UserTable = ({ selectedUsers, setSelectedUsers, isRest }) => {
                                                 className="w-4 h-4 cursor-pointer"
                                             />
                                         </th>
-                                        <th className="p-3 font-nunito ">User Name</th>
+                                        <th className="p-3 font-nunito whitespace-nowrap">
+                                            User Name
+                                        </th>
                                         <th className="p-3 font-nunito ">Access</th>
                                         <th className="p-3 font-nunito ">Status</th>
                                         <th
@@ -212,7 +214,7 @@ const UserTable = ({ selectedUsers, setSelectedUsers, isRest }) => {
                                                 setSortByDesc(!sortByDesc);
                                             }}
                                         >
-                                            <div className=" items-center gap-1 hidden sm:inline-flex  md:inline-flex">
+                                            <div className=" items-center gap-1 hidden sm:inline-flex  md:inline-flex whitespace-nowrap">
                                                 Last Active
                                                 {sortByDesc ? (
                                                     <FaArrowDown className="text-gray-600" />
@@ -221,7 +223,7 @@ const UserTable = ({ selectedUsers, setSelectedUsers, isRest }) => {
                                                 )}
                                             </div>
                                         </th>
-                                        <th className="p-3 font-nunito hidden sm:table-cell  md:table-cell">
+                                        <th className="p-3 font-nunito hidden sm:table-cell  md:table-cell whitespace-nowrap">
                                             Date Added
                                         </th>
                                         <th className="p-3 font-nunito rounded-tr-lg hidden sm:table-cell  md:table-cell">

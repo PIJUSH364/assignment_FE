@@ -9,18 +9,19 @@ import API_URLS from "../../utils/constant/UrlConstant";
 import TableCell from "./TableCell";
 import DropDown from "./DropDown";
 import { FiMoreVertical } from "react-icons/fi";
+import { useDispatch } from "react-redux";
+import {
+    resetFilterValue,
+    ResetPaginationMetaData,
+} from "../../features/users/userSlice";
 
-const UserRow = ({
-    user,
-    setShouldShow,
-    onSelect,
-    isSelected,
-}) => {
+const UserRow = ({ user, setShouldShow, onSelect, isSelected }) => {
     const [toggleStatus, setToggleStatus] = useState(
         user.status.toUpperCase() === "ACTIVE"
     );
     const [role, setRole] = useState(user.role.toLowerCase());
     const { fetchUser } = useFetchUsers();
+    const dispatch = useDispatch();
 
     const handleToggle = async () => {
         await throttleRequest(async () => {
@@ -46,7 +47,8 @@ const UserRow = ({
             toast.success(res.data.message, {
                 position: "bottom-right",
             });
-            await fetchUser();
+            dispatch(resetFilterValue());
+            dispatch(ResetPaginationMetaData());
         } catch (err) {
             // console.error(err);
             toast.error("Error updating user data.");
@@ -81,7 +83,9 @@ const UserRow = ({
                     className="w-10 h-10 rounded-full hidden sm:inline-block "
                 />
                 <div>
-                    <p className="font-medium text-[0.8rem] sm:text-base text-gray-900">{user.name}</p>
+                    <p className="font-medium text-[0.8rem] sm:text-base text-gray-900">
+                        {user.name}
+                    </p>
                     <p className="text-[0.8rem] sm:text-sm text-gray-500">{user.email}</p>
                 </div>
             </td>

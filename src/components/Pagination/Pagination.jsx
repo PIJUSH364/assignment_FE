@@ -16,6 +16,8 @@ const Pagination = ({ setSelectedUsers, localPageSize, setLocalPageSize }) => {
         (state) => state.user.paginationMetaData
     );
 
+
+
     const handlePageSizeChange = async (e) => {
         let value = e.target.value;
         // Prevent negative values & invalid input

@@ -49,7 +49,7 @@ export default function DropDown({ children, setShouldShow, user }) {
 
       <DropdownMenu.Portal>
         <DropdownMenu.Content className="bg-white shadow-md rounded-md p-2 border border-gray-200">
-          <DropdownMenu.Item className=" text-gray-800 hover:bg-gray-100 cursor-pointer">
+          <DropdownMenu.Item className=" text-gray-800 hover:bg-gray-100 cursor-pointer outline-none">
             <button
               className="drop_down_button "
               onClick={() => {
@@ -67,7 +67,7 @@ export default function DropDown({ children, setShouldShow, user }) {
             </button>
           </DropdownMenu.Item>
 
-          <DropdownMenu.Item className=" text-gray-800 hover:bg-gray-100 cursor-pointer">
+          <DropdownMenu.Item className=" text-gray-800 hover:bg-gray-100 cursor-pointer outline-none">
             <button
               className="drop_down_button"
               onClick={() => {
@@ -85,7 +85,7 @@ export default function DropDown({ children, setShouldShow, user }) {
             </button>
           </DropdownMenu.Item>
 
-          <DropdownMenu.Item className=" text-gray-800 hover:bg-gray-100 cursor-pointer">
+          <DropdownMenu.Item className=" text-gray-800 hover:bg-gray-100 cursor-pointer outline-none">
             <button
               className="drop_down_button"
               onClick={() => {
@@ -103,13 +103,13 @@ export default function DropDown({ children, setShouldShow, user }) {
             </button>
           </DropdownMenu.Item>
 
-          <DropdownMenu.Item className=" text-gray-800 hover:bg-gray-100 cursor-pointer">
+          <DropdownMenu.Item className=" text-gray-800 hover:bg-gray-100 cursor-pointer outline-none">
             <button className="drop_down_button" onClick={handleExport}>
               <FiDownload className="drop_down_button_icon" /> Export Details
             </button>
           </DropdownMenu.Item>
 
-          <DropdownMenu.Item className=" text-gray-800 hover:bg-gray-100 cursor-pointer">
+          <DropdownMenu.Item className=" text-gray-800 hover:bg-gray-100 cursor-pointer outline-none">
             <button
               onClick={() => {
                 dispatch(setUserDetails(user));
