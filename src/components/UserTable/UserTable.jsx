@@ -194,14 +194,14 @@ const UserTable = ({ selectedUsers, setSelectedUsers, isRest }) => {
                                 {/* Sticky Header */}
                                 <thead className="sticky top-0  z-10 shadow-sm">
                                     <tr className="bg-gray-100 text-left">
-                                        <th className="p-3 rounded-tl-lg ">
+                                        {/* <th className="p-3 rounded-tl-lg ">
                                             <input
                                                 type="checkbox"
                                                 checked={selectedUsers.length === users.length}
                                                 onChange={handleAllSelect}
                                                 className="w-4 h-4 cursor-pointer"
                                             />
-                                        </th>
+                                        </th> */}
                                         <th className="p-3 font-nunito whitespace-nowrap">
                                             User Name
                                         </th>

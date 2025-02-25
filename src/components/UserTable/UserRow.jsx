@@ -64,14 +64,14 @@ const UserRow = ({ user, setShouldShow, onSelect, isSelected }) => {
     return (
         <tr className="border-b hover:bg-gray-50">
             {/* Checkbox */}
-            <td className="p-2 text-center align-middle ">
+            {/* <td className="p-2 text-center align-middle ">
                 <input
                     type="checkbox"
                     checked={isSelected}
                     onChange={() => onSelect(user.id)}
                     className="w-4 h-4 cursor-pointer"
                 />
-            </td>
+            </td> */}
 
             {/* User Details */}
             <td className="p-2 flex items-center gap-2 align-middle">
