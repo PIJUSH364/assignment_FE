@@ -91,7 +91,7 @@ Already set the base URL in `UrlConstant.js` file. If you want to add your base 
 To start the project in development mode with hot-reloading enabled, run the following command:
 
 ```sh
-npm run development
+npm run dev
 ```
 
 ## Tech Stack
