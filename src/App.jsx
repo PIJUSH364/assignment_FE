@@ -14,14 +14,20 @@ const App = () => {
       <div role="application">
         <Routes>
           {/* Redirect from "/" to "/users" */}
-          <Route path="/" element={<Navigate to="/users" replace />} />
+          <Route
+            path="/"
+            element={<Navigate to="/assignment_FE/users" replace />}
+          />
 
           {/* User Management Page */}
-          <Route path="/users" element={<UserManagement />} />
+          <Route path="/assignment_FE/users" element={<UserManagement />} />
 
           {/* Catch-all for unknown routes */}
           <Route path="*" element={<Navigate to="/not-found" replace />} />
-          <Route path="/not-found" element={<NotFound aria-live="assertive" />} />
+          <Route
+            path="/not-found"
+            element={<NotFound aria-live="assertive" />}
+          />
         </Routes>
       </div>
     </Router>
@@ -29,4 +35,3 @@ const App = () => {
 };
 
 export default App;
-
