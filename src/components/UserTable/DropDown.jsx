@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { setModalStatus, setUserDetails } from "../../features/users/userSlice";
 import { allModalStatus } from "../../utils/enum";
 import * as XLSX from "xlsx";
+import { saveAs } from "file-saver";
 
 export default function DropDown({ children, setShouldShow, user }) {
   const dispatch = useDispatch();
